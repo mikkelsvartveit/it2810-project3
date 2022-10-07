@@ -14,12 +14,18 @@ prettier:
     - cd frontend
     - npm ci
     - npm run prettier
+    - cd ../backend
+    - npm ci
+    - npm run prettier
 
 eslint:
   stage: Linting
   retry: 1
   script:
     - cd frontend
+    - npm ci
+    - npm run lint
+    - cd ../backend
     - npm ci
     - npm run lint
 

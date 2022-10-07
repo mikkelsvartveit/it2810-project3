@@ -5,50 +5,59 @@ stages:
   - Linting
   - Testing
   - Building
+  # - Deployment
 
 prettier:
   stage: Formatting
   retry: 1
   script:
-    - echo "nice"
+    - cd frontend
+    - npm ci
+    - npm run prettier
 
 eslint:
   stage: Linting
   retry: 1
   script:
-    - echo "nice"
+    - cd frontend
+    - npm ci
+    - npm run lint
 
 jest:
   stage: Testing
   retry: 1
   script:
-    - echo "nice"
+    - cd frontend
+    - npm ci
+    - npm run test
 
 react-build:
   stage: Building
   retry: 1
   script:
-    - echo "nice"
-
-deploy:
-  stage: Deployment
-  retry: 1
-  before_script:
-    ## Set up SSH keys and stuff
-    ## See https://filip5114.github.io/GitLab-CI-Pipeline-SSH/
-    - "command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )"
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
-    - mkdir -p ~/.ssh
-    - chmod 700 ~/.ssh
-  script:
-    ## Check if SSH works so it can fail before installing and building
-    - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "echo 'Testing SSH Connection...'"
+    - cd frontend
     - npm ci
     - npm run build
-    ## SSH into VM to remove old previous build
-    - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "rm -rf /var/www/html/project2/*"
-    ## Copy build files to VM
-    - scp -r ./build/* $SSH_USER@$VM_IPADDRESS:/var/www/html/project2
-  only:
-    - main
+
+# deploy:
+#   stage: Deployment
+#   retry: 1
+#   before_script:
+#     ## Set up SSH keys and stuff
+#     ## See https://filip5114.github.io/GitLab-CI-Pipeline-SSH/
+#     - "command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )"
+#     - eval $(ssh-agent -s)
+#     - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+#     - mkdir -p ~/.ssh
+#     - chmod 700 ~/.ssh
+#   script:
+#     ## Check if SSH works so it can fail before installing and building
+#     - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "echo 'Testing SSH Connection...'"
+#     - npm ci
+#     - npm run build
+#     ## SSH into VM to remove old previous build
+#     - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "rm -rf /var/www/html/project2/*"
+#     ## Copy build files to VM
+#     - scp -r ./build/* $SSH_USER@$VM_IPADDRESS:/var/www/html/project2
+#   only:
+#     - main

@@ -1,5 +1,4 @@
 import { Routes, Route, HashRouter } from "react-router-dom";
-import { createContext, useState } from "react";
 
 function App() {
   return (

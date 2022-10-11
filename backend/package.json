@@ -6,6 +6,7 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon src/index.ts",
+    "setup": "ts-node src/setup-database.ts",
     "prettier": "prettier --check .",
     "lint": "eslint . --max-warnings=0",
     "format": "prettier --write . && eslint --fix ."
@@ -14,6 +15,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.1",
+    "mongoose": "^6.6.5",
     "ts-node": "^10.9.1"
   },
   "devDependencies": {

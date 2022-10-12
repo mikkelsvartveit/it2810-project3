@@ -1,16 +1,16 @@
 import {
-  Box,
+  Button,
   Card,
-  CardActionArea,
   CardContent,
   CardMedia,
+  IconButton,
   Modal,
-  SxProps,
   Typography,
 } from "@mui/material";
-
-import * as React from "react";
 import { Character } from "../types";
+
+import TvIcon from "@mui/icons-material/Tv";
+import PublicIcon from "@mui/icons-material/Public";
 
 export interface IPreviewCharacterProps extends Character {
   open: boolean;
@@ -46,7 +46,7 @@ export default function PreviewCharacter({
     >
       <Card
         sx={{
-          maxWidth: "50%",
+          width: "50%",
           display: "flex",
           flexDirection: "row",
         }}
@@ -59,15 +59,16 @@ export default function PreviewCharacter({
         />
         <CardContent
           sx={{
-            width: "70%",
+            width: "100%",
             padding: "13px",
             display: "flex",
             flexDirection: "column",
             alignItems: "flex-start",
+            justifyContent: "space-between",
           }}
         >
           <Typography
-            variant="h5"
+            variant="h3"
             component="div"
             sx={{
               textUnderlineOffset: 7,
@@ -77,17 +78,23 @@ export default function PreviewCharacter({
           >
             {name}
           </Typography>
-          <Typography gutterBottom variant="body2" color="text.secondary">
+          <Typography gutterBottom variant="subtitle1" color="text.secondary">
             {status} {species}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Type: {type}
+            Type: {type === "" ? "none" : type}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Last seen: <a href={location.url}>{location.name}</a>
+            Last seen: {location.name}
+            <IconButton aria-label="eye">
+              <PublicIcon />
+            </IconButton>
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            First appeared in: <a href={episode[0]}>Episode {episodeNum}</a>
+            First appeared in: Episode {episodeNum}
+            <IconButton aria-label="tv">
+              <TvIcon />
+            </IconButton>
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Created: {new Date(created).toDateString()}
@@ -95,6 +102,9 @@ export default function PreviewCharacter({
           <Typography variant="body2" color="text.secondary">
             Origin: <a href={origin.url}>{origin.name}</a>
           </Typography>
+          <Button variant="contained" sx={{ marginTop: "10px" }}>
+            Like!
+          </Button>
         </CardContent>
       </Card>
     </Modal>

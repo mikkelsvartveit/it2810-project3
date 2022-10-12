@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import { Routes, Route, HashRouter } from "react-router-dom";
 import SearchResult from "./components/SearchResult";
 import { Character } from "./types";
 
@@ -128,7 +127,7 @@ function App() {
   ];
 
   return (
-    <Box marginLeft={"10%"} marginRight={"10%"} alignContent={"center"}>
+    <Box marginLeft={"5%"} marginRight={"5%"} alignContent={"center"}>
       <Typography variant="h2" gutterBottom textAlign={"center"}>
         Rick and Morty search boy
       </Typography>

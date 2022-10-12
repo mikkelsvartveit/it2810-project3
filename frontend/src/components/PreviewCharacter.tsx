@@ -20,16 +20,21 @@ export interface IPreviewCharacterProps extends Character {
 export default function PreviewCharacter({
   open,
   handleClose,
+  id,
   name,
-  image,
-  species,
   status,
-  location,
-  episode,
+  species,
+  type,
   gender,
+  origin,
+  location,
+  image,
+  episode,
+  url,
+  created,
 }: IPreviewCharacterProps) {
   const underlineColor =
-    gender == "male" ? "#b7e4f9" : gender == "female" ? "#FB6467" : "#fafd7c";
+    gender === "male" ? "#b7e4f9" : gender === "female" ? "#FB6467" : "#fafd7c";
   const episodeNum = episode[0].split("/")[episode[0].split("/").length - 1];
   return (
     <Modal
@@ -76,12 +81,19 @@ export default function PreviewCharacter({
             {status} {species}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Last seen:
-            <a href={location.url}>{location.name}</a>
+            Type: {type}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            First appeared in:
-            <a href={episode[0]}>Episode {episodeNum}</a>
+            Last seen: <a href={location.url}>{location.name}</a>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            First appeared in: <a href={episode[0]}>Episode {episodeNum}</a>
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Created: {new Date(created).toDateString()}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Origin: <a href={origin.url}>{origin.name}</a>
           </Typography>
         </CardContent>
       </Card>

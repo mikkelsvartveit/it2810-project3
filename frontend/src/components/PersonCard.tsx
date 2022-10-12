@@ -1,13 +1,17 @@
 import {
+  Button,
   Card,
   CardActionArea,
   CardContent,
   CardMedia,
+  IconButton,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
 import { Character } from "../types";
 import PreviewCharacter from "./PreviewCharacter";
+import TvIcon from "@mui/icons-material/Tv";
+import PublicIcon from "@mui/icons-material/Public";
 
 export function PersonCard({
   id,
@@ -67,12 +71,16 @@ export function PersonCard({
               {status} {species}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Last seen:
-              <a href={location.url}>{location.name}</a>
+              Last seen: {location.name}
+              <IconButton aria-label="eye">
+                <PublicIcon />
+              </IconButton>
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              First appeared in:
-              <a href={episode[0]}>Episode {episodeNum}</a>
+              First appeared in: Episode {episodeNum}
+              <IconButton aria-label="tv">
+                <TvIcon />
+              </IconButton>
             </Typography>
           </CardContent>
         </CardActionArea>

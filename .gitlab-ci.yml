@@ -63,7 +63,7 @@ deploy:
     - scp -r ./backend/* $SSH_USER@$VM_IPADDRESS:/lhome/mikkesva/backend
     ## Reset and set up the database
     ## Re-setup database and restart Node application
-    - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "cd /lhome/mikkesva/backend && npm ci && pm2 stop all && npm run setup && pm2 restart all"
+    - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "cd /lhome/mikkesva/backend && npm ci && pm2 stop all; npm run setup:production && pm2 start src/index.js || pm2 restart all"
     ## Build React app
     - cd frontend
     - npm ci

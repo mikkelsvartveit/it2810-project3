@@ -6,6 +6,7 @@
   "scripts": {
     "start": "concurrently -k -n Express,React -c green,cyan \"npm run dev\" \"cd ../frontend && npm start\"",
     "dev": "nodemon src/index.ts",
+    "setup:production": "npm ci && ts-node src/setup-database.ts",
     "setup": "npm i && ts-node src/setup-database.ts && cd ../frontend && npm i && cd ../backend",
     "prettier": "prettier --check .",
     "lint": "eslint . --max-warnings=0",

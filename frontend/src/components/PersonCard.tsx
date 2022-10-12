@@ -77,6 +77,22 @@ export function PersonCard({
           </CardContent>
         </CardActionArea>
       </Card>
+      <PreviewCharacter
+        open={inFocus}
+        handleClose={() => setInFocus(false)}
+        id={id}
+        name={name}
+        status={status}
+        species={species}
+        type={type}
+        gender={gender}
+        origin={origin}
+        location={location}
+        image={image}
+        episode={episode}
+        url={url}
+        created={created}
+      />
     </>
   );
 }

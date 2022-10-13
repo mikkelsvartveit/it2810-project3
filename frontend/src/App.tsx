@@ -1,5 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import SearchResult from "./components/SearchResult";
+import TextFieldWithDebounce from "./components/TextFieldWithDebounce";
 import { Character } from "./types";
 
 function App() {
@@ -128,6 +129,7 @@ function App() {
 
   return (
     <Box marginLeft={"5%"} marginRight={"5%"} alignContent={"center"}>
+      <TextFieldWithDebounce></TextFieldWithDebounce>
       <Typography variant="h2" gutterBottom textAlign={"center"}>
         Rick and Morty search boy
       </Typography>

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import SearchResult from "./components/SearchResult";
 import SearchSectionTabs from "./components/SearchSectionTabs";
-import { Character } from "./types";
+import type { Character } from "types";
 
 function App() {
   const dummyCharacters: Character[] = [

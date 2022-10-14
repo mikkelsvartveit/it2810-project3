@@ -45,7 +45,8 @@
     "eslint-config-prettier": "^8.5.0",
     "jest": "^27.5.1",
     "prettier": "^2.7.1",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "types": "file:../types"
   },
   "eslintConfig": {
     "extends": [

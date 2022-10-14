@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 
-interface ICharacter {
-  id: string;
+export interface ICharacter {
+  id: number;
   name: string;
   status: string;
   species: string;
@@ -14,6 +14,7 @@ interface ICharacter {
     name: string;
   };
   image: string;
+  episode: number[];
 }
 
 const CharacterSchema = new Schema<ICharacter>({
@@ -30,6 +31,7 @@ const CharacterSchema = new Schema<ICharacter>({
     name: String,
   },
   image: String,
+  episode: Array,
 });
 
 export const Character = model<Schema>("Character", CharacterSchema);

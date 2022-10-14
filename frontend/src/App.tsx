@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import SearchResult from "./components/SearchResult";
 import SearchSectionTabs from "./components/SearchSectionTabs";
 import type { Character } from "types";
+import { Routes, Route, HashRouter } from "react-router-dom";
 
 function App() {
   const dummyCharacters: Character[] = [

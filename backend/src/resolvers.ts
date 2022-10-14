@@ -1,94 +1,34 @@
-import { Character } from "./models/Character";
-import { Episode } from "./models/Episode";
+import { Character, ICharacter } from "./models/Character";
+import { Episode, IEpisode } from "./models/Episode";
 
 export const resolvers = {
   Query: {
     characters: async () => {
-      const characters = await Character.find();
-
-      // Generate array of all episodes for all characters
-      const episodeIds = characters.reduce((acc, character): number[] => {
-        return [...acc, ...character.episode];
-      }, [] as number[]);
-
-      const episodes = await Episode.find({
-        id: { $in: episodeIds },
-      });
-
-      // Map episodes to characters
-      const charactersWithEpisodes = characters.map((character) => {
-        const episodesForCharacter = episodes.filter((episode) =>
-          character.episode.includes(episode.id)
-        );
-
-        return {
-          ...character._doc,
-          episode: episodesForCharacter,
-        };
-      });
-
-      return charactersWithEpisodes;
+      return await Character.find();
     },
 
     character: async (_: unknown, { id }: { id: number }) => {
-      const character = await Character.findOne({ id });
-
-      if (!character) {
-        return null;
-      }
-
-      const episodes = await Episode.find({
-        id: { $in: character.episode },
-      });
-
-      return {
-        ...character._doc,
-        episodes,
-      };
+      return await Character.findOne({ id });
     },
 
     episodes: async () => {
-      const episodes = await Episode.find();
-
-      // Generate array of all characters for all episodes
-      const characterIds = episodes.reduce((acc, episode): number[] => {
-        return [...acc, ...episode.characters];
-      }, [] as number[]);
-
-      const characters = await Character.find({
-        id: { $in: characterIds },
-      });
-
-      // Map characters to episodes
-      const episodeWithCharacters = episodes.map((episode) => {
-        const characterForEpisode = characters.filter((character) =>
-          episode.characters.includes(character.id)
-        );
-
-        return {
-          ...episode._doc,
-          characters: characterForEpisode,
-        };
-      });
-
-      return episodeWithCharacters;
+      return await Episode.find();
     },
 
     episode: async (_: unknown, { id }: { id: number }) => {
-      const episode = await Episode.findOne({ id });
+      return await Episode.findOne({ id });
+    },
+  },
 
-      if (!episode) {
-        return null;
-      }
+  Character: {
+    episode: async (character: ICharacter) => {
+      return await Episode.find({ characters: character.id });
+    },
+  },
 
-      const characters = await Character.find({
-        id: { $in: episode.characters },
-      });
-
-      return {
-        ...episode._doc,
-        characters,
-      };
+  Episode: {
+    characters: async (episode: IEpisode) => {
+      return await Character.find({ episode: episode.id });
     },
   },
 };

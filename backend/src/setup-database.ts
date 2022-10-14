@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import dataset from "../dataset.json";
+import { characters, episodes } from "../dataset.json";
 
 const MONGODB_URL = "mongodb://localhost:27017/rickandmorty";
 
@@ -11,7 +11,8 @@ const setupDatabase = async () => {
   await mongoose.connection.db.dropDatabase();
   await mongoose.connection.db.createCollection("characters");
 
-  await mongoose.connection.db.collection("characters").insertMany(dataset);
+  await mongoose.connection.db.collection("characters").insertMany(characters);
+  await mongoose.connection.db.collection("episodes").insertMany(episodes);
 
   await mongoose.connection.close();
 

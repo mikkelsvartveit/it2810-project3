@@ -12,6 +12,7 @@ To run the app locally, you need to install:
 Open a terminal and run:
 
 ```
+mkdir ~/mongodb
 mongod --dbpath ~/mongodb
 ```
 

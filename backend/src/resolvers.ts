@@ -1,30 +1,15 @@
 import { Character } from "./models/Character";
 import { Episode } from "./models/Episode";
-import { ICharacter, IEpisode } from "types";
+import {
+  ICharacter,
+  ICharacterFilters,
+  ICharacterSort,
+  IEpisode,
+  IEpisodeFilters,
+  IEpisodeSort,
+} from "types";
 
 const PAGE_SIZE = 20;
-
-interface ICharacterFilters {
-  name?: string;
-  status?: string[];
-  species?: string[];
-  gender?: string[];
-}
-
-interface IEpisodeFilters {
-  name?: string;
-  season?: string;
-  start_date?: string;
-  end_date?: string;
-}
-
-type ICharacterSort = {
-  [key in "name" | "rating"]: "asc" | "desc";
-};
-
-type IEpisodeSort = {
-  [key in "name" | "rating"]: "asc" | "desc";
-};
 
 const mongooseStringContains = (str?: string) => ({
   $regex: str ?? "",

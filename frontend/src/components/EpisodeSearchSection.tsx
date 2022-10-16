@@ -28,7 +28,6 @@ export default function EpisodeSearchSection(
             <MenuItem value={"S03"}>Season 3</MenuItem>
             <MenuItem value={"S04"}>Season 4</MenuItem>
             <MenuItem value={"S05"}>Season 5</MenuItem>
-            <MenuItem value={"S06"}>Season 5</MenuItem>
           </Select>
         </FormControl>
       </Grid>

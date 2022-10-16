@@ -1,10 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import SearchResult from "./components/SearchResult";
 import SearchSectionTabs from "./components/SearchSectionTabs";
-import { Character } from "./types";
+import type { ICharacter } from "types";
 
 function App() {
-  const dummyCharacters: Character[] = [
+  const dummyCharacters: ICharacter[] = [
     {
       id: 1,
       name: "Rick Sanchez",

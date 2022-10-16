@@ -7,12 +7,12 @@ import {
   Modal,
   Typography,
 } from "@mui/material";
-import { Character } from "../types";
+import { ICharacter } from "types";
 
 import TvIcon from "@mui/icons-material/Tv";
 import PublicIcon from "@mui/icons-material/Public";
 
-export interface IPreviewCharacterProps extends Character {
+export interface IPreviewCharacterProps extends ICharacter {
   open: boolean;
   handleClose: () => void;
 }

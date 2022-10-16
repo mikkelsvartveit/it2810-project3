@@ -1,23 +1,28 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ICharacter } from "types";
 import { PersonCard } from "./PersonCard";
+import { useGetCharacters } from "../gql/queries";
 
 export interface ISearchResultProps {
   characters: ICharacter[];
 }
 
-export default function SearchResult(props: ISearchResultProps) {
-  const data = props.characters;
+export default function SearchResult() {
+  const [pageNr] = useState(1);
+  const { data, loading } = useGetCharacters(pageNr);
+
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
 
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = async () => {
+    if (!data || loading) return;
     try {
-      setScrollData(data.slice(0, scrollData.length + 3));
+      // Todo change to append when pagination is implemented
+      setScrollData(data.characters.slice(0, scrollData.length + 10));
     } catch (err) {
       console.log(err);
     }
@@ -25,8 +30,8 @@ export default function SearchResult(props: ISearchResultProps) {
 
   // Helper function for checking if there are more cards to load
   const handleOnRowsScrollEnd = () => {
-    if (scrollData) {
-      if (scrollData.length < data.length) {
+    if (scrollData && data) {
+      if (scrollData.length < data.characters.length) {
         setHasMoreValue(true);
         loadScrollData();
       } else {
@@ -37,7 +42,7 @@ export default function SearchResult(props: ISearchResultProps) {
 
   return (
     <>
-      {scrollData ? (
+      {scrollData && !loading ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}
@@ -50,7 +55,7 @@ export default function SearchResult(props: ISearchResultProps) {
           >
             <Grid container spacing={4}>
               {scrollData.map((character) => (
-                <Grid item>
+                <Grid item key={character.id}>
                   <PersonCard
                     name={character.name}
                     image={character.image}

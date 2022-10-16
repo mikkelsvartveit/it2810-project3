@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import App from "./App";
-import { MockedProvider, mockSingleLink } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing";
 import { GET_CHARACTERS } from "./gql/queries";
 
 const mocks = [

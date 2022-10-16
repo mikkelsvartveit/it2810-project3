@@ -15,11 +15,25 @@ export const typeDefs = gql`
     end_date: String
   }
 
+  input CharacterSort {
+    name: String
+    rating: String
+  }
+
+  input EpisodeSort {
+    name: String
+    rating: String
+  }
+
   type Query {
     """
     Get all characters
     """
-    characters(page: Int, filters: CharacterFilter): [Character!]!
+    characters(
+      page: Int
+      filters: CharacterFilter
+      sort: CharacterSort
+    ): [Character!]!
 
     """
     Get a character from ID
@@ -29,7 +43,7 @@ export const typeDefs = gql`
     """
     Get all episodes
     """
-    episodes(page: Int, filters: EpisodeFilter): [Episode!]!
+    episodes(page: Int, filters: EpisodeFilter, sort: EpisodeSort): [Episode!]!
 
     """
     Get episode by ID

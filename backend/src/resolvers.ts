@@ -18,6 +18,14 @@ interface IEpisodeFilters {
   end_date?: string;
 }
 
+type ICharacterSort = {
+  [key in "name" | "rating"]: "asc" | "desc";
+};
+
+type IEpisodeSort = {
+  [key in "name" | "rating"]: "asc" | "desc";
+};
+
 const mongooseStringContains = (str?: string) => ({
   $regex: str ?? "",
   $options: "i",
@@ -27,12 +35,17 @@ export const resolvers = {
   Query: {
     characters: async (
       _: unknown,
-      { page, filters }: { page: number; filters: ICharacterFilters }
+      {
+        page,
+        filters,
+        sort,
+      }: { page: number; filters: ICharacterFilters; sort: ICharacterSort }
     ) =>
       await Character.find({
         ...filters,
         name: mongooseStringContains(filters?.name),
       })
+        .sort(sort ?? {})
         .skip((page - 1) * PAGE_SIZE)
         .limit(PAGE_SIZE),
 
@@ -41,7 +54,11 @@ export const resolvers = {
 
     episodes: async (
       _: unknown,
-      { page, filters }: { page: number; filters: IEpisodeFilters }
+      {
+        page,
+        filters,
+        sort,
+      }: { page: number; filters: IEpisodeFilters; sort: IEpisodeSort }
     ) => {
       return await Episode.find({
         name: mongooseStringContains(filters?.name),
@@ -52,6 +69,7 @@ export const resolvers = {
           filters?.end_date
         }").getTime()))`,
       })
+        .sort(sort ?? {})
         .skip((page - 1) * PAGE_SIZE)
         .limit(PAGE_SIZE);
     },

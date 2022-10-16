@@ -1,11 +1,25 @@
 import { gql } from "apollo-server-express";
 
 export const typeDefs = gql`
+  input CharacterFilter {
+    name: String
+    status: [String]
+    species: [String]
+    gender: [String]
+  }
+
+  input EpisodeFilter {
+    name: String
+    season: String
+    start_date: String
+    end_date: String
+  }
+
   type Query {
     """
     Get all characters
     """
-    characters: [Character!]!
+    characters(page: Int, filters: CharacterFilter): [Character!]!
 
     """
     Get a character from ID
@@ -15,7 +29,7 @@ export const typeDefs = gql`
     """
     Get all episodes
     """
-    episodes: [Episode!]!
+    episodes(page: Int, filters: EpisodeFilter): [Episode!]!
 
     """
     Get episode by ID

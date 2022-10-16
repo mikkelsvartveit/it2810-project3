@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  Grid,
-  Card,
-  Typography,
-  CardContent,
-  CardMedia,
-  capitalize,
-} from "@mui/material";
+import React, { useState } from "react";
+import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ICharacter } from "types";
@@ -17,7 +10,7 @@ export interface ISearchResultProps {
 }
 
 export default function SearchResult(props: ISearchResultProps) {
-  const data = props.characters
+  const data = props.characters;
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
 

@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { Character } from "../types";
+import { ICharacter } from "types";
 import PreviewCharacter from "./PreviewCharacter";
 import TvIcon from "@mui/icons-material/Tv";
 import PublicIcon from "@mui/icons-material/Public";
@@ -25,7 +25,7 @@ export function PersonCard({
   episode,
   url,
   created,
-}: Character) {
+}: ICharacter) {
   const underlineColor =
     gender === "Male" ? "#b7e4f9" : gender === "Female" ? "#FB6467" : "#fafd7c";
   const episodeNum = episode[0].split("/")[episode[0].split("/").length - 1];

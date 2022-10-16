@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
 import * as React from "react";
-import { Character } from "../types";
+import { ICharacter } from "types";
 import { PersonCard } from "./PersonCard";
 
 export interface ISearchResultProps {
-  characters: Character[];
+  characters: ICharacter[];
 }
 
 export default function SearchResult(props: ISearchResultProps) {

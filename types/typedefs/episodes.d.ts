@@ -1,4 +1,4 @@
-export declare interface Episode {
+export declare interface IEpisode {
   id: number; //	The id of the episode.
   name: string; //	The name of the episode.
   air_date: string; //	The air date of the episode.

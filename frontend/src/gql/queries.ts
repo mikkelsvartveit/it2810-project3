@@ -1,5 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import { Character, Episode } from "types";
+import { ICharacter, IEpisode } from "types";
 
 export const GET_CHARACTERS = gql`
   query GetCharacters($page: Int) {
@@ -21,7 +21,7 @@ export const GET_CHARACTERS = gql`
  * @returns
  */
 export const useGetCharacters = (page: number) => {
-  const { data, loading, error } = useQuery<Character[]>(GET_CHARACTERS, {
+  const { data, loading, error } = useQuery<ICharacter[]>(GET_CHARACTERS, {
     variables: { page },
   });
 
@@ -45,7 +45,7 @@ export const GET_EPISODES = gql`
  * @returns
  */
 export const useGetEpisodes = (page: number) => {
-  const { data, loading, error } = useQuery<Episode[]>(GET_EPISODES, {
+  const { data, loading, error } = useQuery<IEpisode[]>(GET_EPISODES, {
     variables: { page },
   });
 

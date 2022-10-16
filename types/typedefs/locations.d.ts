@@ -1,4 +1,4 @@
-export declare interface Location {
+export declare interface ILocation {
   id: number; //	The id of the location.
   name: string; //	The name of the location.
   type: string; //	The type of the location.

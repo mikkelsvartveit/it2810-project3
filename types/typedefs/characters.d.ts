@@ -1,4 +1,4 @@
-export declare interface Character {
+export declare interface ICharacter {
   id: number;
   name: string;
   status: string;

@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { Character, Episode } from "types";
+import { ICharacter, IEpisode } from "types";
 
 export const RATE_CHARACTER = gql`
   mutation RateCharacter($id: ID!, $rating: Int!) {
@@ -20,7 +20,7 @@ export const RATE_CHARACTER = gql`
  */
 export const useRateCharacter = (idState: number, ratingState: number) => {
   const [rateCharacter, { data, loading, error }] = useMutation<
-    Character,
+    ICharacter,
     { id: number; rating: number }
   >(RATE_CHARACTER, {
     variables: { id: idState, rating: ratingState },
@@ -48,7 +48,7 @@ export const RATE_EPISODE = gql`
  * */
 export const useRateEpisode = (idState: number, ratingState: number) => {
   const [rateEpisode, { data, loading, error }] = useMutation<
-    Episode,
+    IEpisode,
     { id: number; rating: number }
   >(RATE_EPISODE, {
     variables: { id: idState, rating: ratingState },

@@ -1,5 +1,6 @@
-import { Character, ICharacter } from "./models/Character";
-import { Episode, IEpisode } from "./models/Episode";
+import { Character } from "./models/Character";
+import { Episode } from "./models/Episode";
+import { ICharacter, IEpisode } from "types";
 
 export const resolvers = {
   Query: {

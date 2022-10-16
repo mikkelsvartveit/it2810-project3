@@ -63,7 +63,6 @@ export default function SearchResult(props: ISearchResultProps) {
                     id={character.id}
                     origin={character.origin}
                     type={character.type}
-                    url={character.url}
                   />
                 </Grid>
               ))}

@@ -23,13 +23,11 @@ export function PersonCard({
   location,
   image,
   episode,
-  url,
   created,
 }: ICharacter) {
   const underlineColor =
     gender === "Male" ? "#b7e4f9" : gender === "Female" ? "#FB6467" : "#fafd7c";
-  const episodeNum = episode[0].split("/")[episode[0].split("/").length - 1];
-  console.log(episodeNum);
+  const episodeNum = episode[0].id;
   const [inFocus, setInFocus] = useState(false);
   return (
     <>
@@ -96,7 +94,6 @@ export function PersonCard({
         location={location}
         image={image}
         episode={episode}
-        url={url}
         created={created}
       />
     </>

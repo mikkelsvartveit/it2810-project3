@@ -1,9 +1,13 @@
 import { gql, useQuery } from "@apollo/client";
-import { ICharacter, IEpisode } from "types";
+import { ICharacter, ICharacterFilters, ICharacterSort, IEpisode } from "types";
 
 export const GET_CHARACTERS = gql`
-  query GetCharacters {
-    characters {
+  query GetCharacters(
+    $page: Int!
+    $filters: CharacterFilter
+    $sort: CharacterSort
+  ) {
+    characters(page: $page, filters: $filters, sort: $sort) {
       name
       status
       species
@@ -30,12 +34,14 @@ export const GET_CHARACTERS = gql`
  * @param page React state in the page number to be fetched
  * @returns
  */
-export const useGetCharacters = (page: number) => {
-  return useQuery<{ characters: ICharacter[] }>(
-    GET_CHARACTERS /* , {
-    variables: { page },
-  } */
-  );
+export const useGetCharacters = (
+  page: number,
+  filters?: ICharacterFilters,
+  sort?: ICharacterSort
+) => {
+  return useQuery<{ characters: ICharacter[] }>(GET_CHARACTERS, {
+    variables: { page, filters, sort },
+  });
 };
 
 export const GET_EPISODES = gql`

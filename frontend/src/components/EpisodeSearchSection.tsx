@@ -8,7 +8,6 @@ export default function EpisodeSearchSection(
   props: IEpisodeSearchSectionProps
 ) {
   const [seasonValue, setSeasonValue] = useState("");
-  const [episodeValue, setEpisodeValue] = useState("");
   return (
     <Grid container spacing={3}>
       <Grid item xs>
@@ -33,25 +32,6 @@ export default function EpisodeSearchSection(
         </FormControl>
       </Grid>
 
-      <Grid item xs>
-        <FormControl fullWidth>
-          <InputLabel id="episode-label">Episode</InputLabel>
-          <Select
-            labelId="episode-label"
-            id="episode-select"
-            value={episodeValue}
-            label="episode"
-            onChange={(e) => setEpisodeValue(e.target.value)}
-          >
-            <MenuItem value="">None</MenuItem>
-            <MenuItem value={"S01"}>Episode 1</MenuItem>
-            <MenuItem value={"S02"}>Episode 2</MenuItem>
-            <MenuItem value={"S03"}>Episode 3</MenuItem>
-            <MenuItem value={"S04"}>Episode 4</MenuItem>
-            <MenuItem value={"S05"}>Episode 5</MenuItem>
-          </Select>
-        </FormControl>
-      </Grid>
       <Grid item xs>
         <TextFieldWithDebounce />
       </Grid>

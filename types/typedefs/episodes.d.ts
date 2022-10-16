@@ -8,3 +8,13 @@ export declare interface IEpisode {
   characters: ICharacter[]; // (urls)	List of characters who have been seen in the episode.
   created: string; //	Time at which the episode was created in the database
 }
+export declare interface IEpisodeFilters {
+  name?: string;
+  season?: string;
+  start_date?: string;
+  end_date?: string;
+}
+
+export type IEpisodeSort = {
+  [key in "name" | "rating"]: "asc" | "desc";
+};

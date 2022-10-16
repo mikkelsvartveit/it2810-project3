@@ -14,3 +14,13 @@ export declare interface ICharacter {
   episode: IEpisode[];
   created: string;
 }
+export declare interface ICharacterFilters {
+  name?: string;
+  status?: string[];
+  species?: string[];
+  gender?: string[];
+}
+
+export type ICharacterSort = {
+  [key in "name" | "rating"]: "asc" | "desc";
+};

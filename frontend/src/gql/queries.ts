@@ -2,15 +2,25 @@ import { gql, useQuery } from "@apollo/client";
 import { ICharacter, IEpisode } from "types";
 
 export const GET_CHARACTERS = gql`
-  query GetCharacters($page: Int) {
-    Characters(page: $page) {
+  query GetCharacters {
+    characters {
       name
       status
       species
+      origin {
+        name
+      }
       gender
-      origin
-      location
+      episode {
+        air_date
+        name
+        episode
+      }
       image
+      id
+      location {
+        name
+      }
     }
   }
 `;
@@ -21,20 +31,32 @@ export const GET_CHARACTERS = gql`
  * @returns
  */
 export const useGetCharacters = (page: number) => {
-  const { data, loading, error } = useQuery<ICharacter[]>(GET_CHARACTERS, {
+  return useQuery<{ characters: ICharacter[] }>(
+    GET_CHARACTERS /* , {
     variables: { page },
-  });
-
-  return { data, loading, error };
+  } */
+  );
 };
 
 export const GET_EPISODES = gql`
-  query GetEpisodes($page: Int) {
-    Episodes(page: $page) {
-      name
+  query GetEpisodes {
+    episodes {
       air_date
+      created
       episode
-      characters
+      id
+      name
+      characters {
+        gender
+        id
+        name
+        image
+        location {
+          name
+        }
+        species
+        status
+      }
     }
   }
 `;
@@ -45,9 +67,9 @@ export const GET_EPISODES = gql`
  * @returns
  */
 export const useGetEpisodes = (page: number) => {
-  const { data, loading, error } = useQuery<IEpisode[]>(GET_EPISODES, {
+  return useQuery<{ episodes: IEpisode[] }>(
+    GET_EPISODES /* , {
     variables: { page },
-  });
-
-  return { data, loading, error };
+  } */
+  );
 };

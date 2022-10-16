@@ -30,12 +30,11 @@ export default function PreviewCharacter({
   location,
   image,
   episode,
-  url,
   created,
 }: IPreviewCharacterProps) {
   const underlineColor =
     gender === "male" ? "#b7e4f9" : gender === "female" ? "#FB6467" : "#fafd7c";
-  const episodeNum = episode[0].split("/")[episode[0].split("/").length - 1];
+  const episodeNum = episode[0].id;
   return (
     <Modal
       open={open}
@@ -100,7 +99,7 @@ export default function PreviewCharacter({
             Created: {new Date(created).toDateString()}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Origin: <a href={origin.url}>{origin.name}</a>
+            Origin: <a href={origin.name}>{origin.name}</a>
           </Typography>
           <Button variant="contained" sx={{ marginTop: "10px" }}>
             Like!

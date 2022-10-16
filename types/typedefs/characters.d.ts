@@ -1,3 +1,6 @@
+import { IEpisode } from "./episodes";
+import { ILocation } from "./locations";
+
 export declare interface ICharacter {
   id: number;
   name: string;
@@ -5,16 +8,9 @@ export declare interface ICharacter {
   species: string;
   type: string;
   gender: string;
-  origin: {
-    name: string;
-    url: string;
-  };
-  location: {
-    name: string;
-    url: string;
-  };
+  origin: ILocation;
+  location: ILocation;
   image: string;
-  episode: string[];
-  url: string;
+  episode: IEpisode[];
   created: string;
 }

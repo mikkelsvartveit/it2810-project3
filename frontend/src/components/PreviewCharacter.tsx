@@ -1,5 +1,5 @@
 import {
-  Button,
+  Rating,
   Card,
   CardContent,
   CardMedia,
@@ -11,6 +11,7 @@ import { ICharacter } from "types";
 
 import TvIcon from "@mui/icons-material/Tv";
 import PublicIcon from "@mui/icons-material/Public";
+import { useState } from "react";
 
 export interface IPreviewCharacterProps extends ICharacter {
   open: boolean;
@@ -35,6 +36,8 @@ export default function PreviewCharacter({
   const underlineColor =
     gender === "male" ? "#b7e4f9" : gender === "female" ? "#FB6467" : "#fafd7c";
   const episodeNum = episode[0].id;
+  const [rating, setRating] = useState(0);
+
   return (
     <Modal
       open={open}
@@ -101,9 +104,14 @@ export default function PreviewCharacter({
           <Typography variant="body2" color="text.secondary">
             Origin: <a href={origin.name}>{origin.name}</a>
           </Typography>
-          <Button variant="contained" sx={{ marginTop: "10px" }}>
-            Like!
-          </Button>
+          <Typography component="legend">Rating</Typography>
+          <Rating
+            name="character-rating"
+            value={rating}
+            onChange={(event, newValue) => {
+              newValue && setRating(newValue);
+            }}
+          />
         </CardContent>
       </Card>
     </Modal>

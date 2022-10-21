@@ -44,6 +44,34 @@ export const useGetCharacters = (
   });
 };
 
+export const GET_CHARACTER = gql`
+  query GetCharacter($characterId: ID!) {
+    character(id: $characterId) {
+      name
+      status
+      species
+      gender
+      image
+      episode {
+        name
+        episode
+      }
+      origin {
+        name
+      }
+      location {
+        name
+      }
+    }
+  }
+`;
+
+export const useGetCharacter = (characterId: number) => {
+  return useQuery<{ character: ICharacter }>(GET_CHARACTER, {
+    variables: { characterId },
+  });
+};
+
 export const GET_EPISODES = gql`
   query GetEpisodes {
     episodes {

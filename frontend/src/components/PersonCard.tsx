@@ -12,7 +12,7 @@ import PreviewCharacter from "./PreviewCharacter";
 import TvIcon from "@mui/icons-material/Tv";
 import PublicIcon from "@mui/icons-material/Public";
 
-export function PersonCard({
+export default function PersonCard({
   id,
   name,
   status,

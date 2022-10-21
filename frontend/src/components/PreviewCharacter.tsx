@@ -116,7 +116,17 @@ export default function PreviewCharacter({
             </CardContent>
           </>
         ) : (
-          <CircularProgress />
+          <CardContent
+            sx={{
+              width: "100%",
+              margin: "50px auto",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <CircularProgress />
+          </CardContent>
         )}
       </Card>
     </Modal>

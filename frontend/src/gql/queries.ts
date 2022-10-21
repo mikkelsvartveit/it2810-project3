@@ -1,5 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
-import { ICharacter, ICharacterFilters, ICharacterSort, IEpisode } from "types";
+import {
+  ICharacter,
+  ICharacterFilters,
+  ICharacterSort,
+  IEpisode,
+  IEpisodeFilters,
+  IEpisodeSort,
+} from "types";
 
 export const GET_CHARACTERS = gql`
   query GetCharacters(
@@ -73,8 +80,8 @@ export const useGetCharacter = (characterId: number) => {
 };
 
 export const GET_EPISODES = gql`
-  query GetEpisodes {
-    episodes {
+  query GetEpisodes($page: Int!, $filters: EpisodeFilter, $sort: EpisodeSort) {
+    episodes(page: $page, filters: $filters, sort: $sort) {
       air_date
       created
       episode
@@ -100,10 +107,12 @@ export const GET_EPISODES = gql`
  * @param page React state in the page number to be fetched
  * @returns
  */
-export const useGetEpisodes = (page: number) => {
-  return useQuery<{ episodes: IEpisode[] }>(
-    GET_EPISODES /* , {
-    variables: { page },
-  } */
-  );
+export const useGetEpisodes = (
+  page: number,
+  filters?: IEpisodeFilters,
+  sort?: IEpisodeSort
+) => {
+  return useQuery<{ episodes: IEpisode[] }>(GET_EPISODES, {
+    variables: { page, filters, sort },
+  });
 };

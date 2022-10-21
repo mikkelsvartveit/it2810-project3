@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -6,54 +6,49 @@ import { ICharacter } from "types";
 import PersonCard from "./PersonCard";
 import { useGetCharacters } from "../gql/queries";
 
-export interface ISearchResultProps {
-  characters: ICharacter[];
-}
-
-export default function SearchResult() {
-  const [pageNr] = useState(1);
+export default function CharacterSearchResult() {
+  const [pageNr, setPageNr] = useState(1);
   const { data, loading } = useGetCharacters(pageNr);
 
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
 
-  // Function that is triggered when user scrolls towards the end of the list
-  const loadScrollData = async () => {
-    if (!data || loading) return;
-    try {
-      // Todo change to append when pagination is implemented
-      setScrollData(data.characters.slice(0, scrollData.length + 10));
-    } catch (err) {
-      console.log(err);
+  useEffect(() => {
+    if (!data) return;
+    if (pageNr === 1) {
+      setScrollData(data.characters);
+      return;
     }
-  };
+    if (data.characters.length === 0) {
+      setHasMoreValue(false);
+      return;
+    }
+    setScrollData((s) => s.concat(data.characters));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
 
-  // Helper function for checking if there are more cards to load
-  const handleOnRowsScrollEnd = () => {
-    if (scrollData && data) {
-      if (scrollData.length < data.characters.length) {
-        setHasMoreValue(true);
-        loadScrollData();
-      } else {
-        setHasMoreValue(false);
-      }
-    }
+  // Function that is triggered when user scrolls towards the end of the list
+  const loadScrollData = () => {
+    if (!data || loading) return;
+    setPageNr((pageNr) => pageNr + 1);
   };
 
   return (
     <>
-      {scrollData && !loading ? (
+      {scrollData ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}
-            next={handleOnRowsScrollEnd}
+            next={loadScrollData}
             hasMore={hasMoreValue}
-            scrollThreshold={1}
+            scrollThreshold={(scrollData.length - 20) / scrollData.length}
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
-            endMessage={<h1>The end, there are no more results </h1>}
+            endMessage={
+              <h1 style={{ textAlign: "center" }}>No more results </h1>
+            }
           >
-            <Grid container spacing={4}>
+            <Grid container spacing={3} justifyContent={"center"}>
               {scrollData.map((character) => (
                 <Grid item key={character.id}>
                   <PersonCard

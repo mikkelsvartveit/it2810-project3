@@ -1,7 +1,9 @@
 import { Tabs, Tab, Box } from "@mui/material";
 import { useState } from "react";
 import CharacterSearchSection from "./CharacterSearchSection";
+import CharactersSearchResult from "./CharactersSearchResult";
 import EpisodeSearchSection from "./EpisodeSearchSection";
+import EpisodesSearchResult from "./EpisodesSearchResult";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -44,9 +46,11 @@ export default function SearchSectionTabs(props: ISearchSectionTabsProps) {
       </Box>
       <TabPanel value={value} index={0}>
         <CharacterSearchSection />
+        <CharactersSearchResult />
       </TabPanel>
       <TabPanel value={value} index={1}>
         <EpisodeSearchSection />
+        <EpisodesSearchResult />
       </TabPanel>
     </>
   );

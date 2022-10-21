@@ -16,5 +16,5 @@ export declare interface IEpisodeFilters {
 }
 
 export type IEpisodeSort = {
-  [key in "name" | "rating"]: "asc" | "desc";
+  [key in string]: "asc" | "desc";
 };

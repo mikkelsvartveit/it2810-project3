@@ -22,5 +22,5 @@ export declare interface ICharacterFilters {
 }
 
 export type ICharacterSort = {
-  [key in "name" | "rating"]: "asc" | "desc";
+  [key in string]: "asc" | "desc";
 };

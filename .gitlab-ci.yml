@@ -29,12 +29,15 @@ eslint:
     - npm ci
     - npm run lint
 
-jest:
+tests:
+  image: cypress/base:16
   stage: Testing
   retry: 1
   script:
     - cd frontend
     - npm ci
+    - npm run start &
+    - npx cypress run -q
     - npm run test
 
 react-build:

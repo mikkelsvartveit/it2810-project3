@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IEpisode } from "types";
-import { PersonCard } from "./PersonCard";
+import PersonCard from "./PersonCard";
 import { useGetEpisodes } from "../gql/queries";
 
 export default function EpisodesSearchResult() {

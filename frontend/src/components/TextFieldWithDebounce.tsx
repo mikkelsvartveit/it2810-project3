@@ -16,6 +16,7 @@ export default function TextFieldWithDebounce({
   };
   const debouncedResults = useMemo(() => {
     return debounce(handleChange, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

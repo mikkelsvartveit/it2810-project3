@@ -5,32 +5,60 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { IEpisode } from "types";
 import PersonCard from "./PersonCard";
 import { useGetEpisodes } from "../gql/queries";
+import { useReactiveVar } from "@apollo/client";
+import {
+  activeEpisodeFilterVar,
+  activeEpisodeFilterNameVar,
+  activeEpisodeSortVar,
+} from "../gql/cache";
 
 export default function EpisodesSearchResult() {
-  const [pageNr, setPageNr] = useState(1);
-  const { data, loading } = useGetEpisodes(pageNr);
+  const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
+  const filterName = useReactiveVar(activeEpisodeFilterNameVar);
+  const sort = useReactiveVar(activeEpisodeSortVar);
+
+  const filter = filterName
+    ? { ...episodeFilter, name: filterName }
+    : episodeFilter;
+
+  const { pageNr, setPageNr, data, loading } = useGetEpisodes(filter, sort);
 
   const [scrollData, setScrollData] = useState<IEpisode[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
 
+  // Handle new data from gql query
   useEffect(() => {
     if (!data) return;
-    console.log(pageNr);
-    if (pageNr === 1) {
-      setScrollData(data.episodes);
-      return;
-    }
     if (data.episodes.length === 0) {
       setHasMoreValue(false);
+
+      // Edge case: if no results, empty scrollData
+      // TODO: Should not be possible with correct impl of filter and task description
+      if (pageNr === 1) {
+        setScrollData([]);
+      }
       return;
     }
-    setScrollData((s) => s.concat(data.episodes));
+    // if not a full page, set hasMore to false
+    if (data.episodes.length < 20) {
+      setHasMoreValue(false);
+    }
+    if (pageNr > 1) {
+      setScrollData((s) => s.concat([...data.episodes]));
+    } else {
+      setScrollData([...data.episodes]);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
+  // Reset search results when filter or sort changes
+  useEffect(() => {
+    setPageNr(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, filterName, sort]);
+
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
-    console.log("huh");
     if (!data || loading) return;
     setPageNr((pageNr) => pageNr + 1);
   };
@@ -43,11 +71,13 @@ export default function EpisodesSearchResult() {
             dataLength={scrollData.length}
             next={loadScrollData}
             hasMore={hasMoreValue}
-            scrollThreshold={(scrollData.length - 20) / scrollData.length}
+            scrollThreshold={0.9}
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <h1 style={{ textAlign: "center" }}>No more results </h1>
+              <h1 style={{ textAlign: "center" }}>
+                {pageNr === 1 ? "No results" : "No more results"}
+              </h1>
             }
           >
             <Grid container spacing={3} justifyContent={"center"}>

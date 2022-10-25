@@ -5,23 +5,9 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { IEpisode } from "types";
 import PersonCard from "./PersonCard";
 import { useGetEpisodes } from "../gql/queries";
-import { useReactiveVar } from "@apollo/client";
-import {
-  activeEpisodeFilterVar,
-  activeEpisodeFilterNameVar,
-  activeEpisodeSortVar,
-} from "../gql/cache";
 
 export default function EpisodesSearchResult() {
-  const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
-  const filterName = useReactiveVar(activeEpisodeFilterNameVar);
-  const sort = useReactiveVar(activeEpisodeSortVar);
-
-  const filter = filterName
-    ? { ...episodeFilter, name: filterName }
-    : episodeFilter;
-
-  const { pageNr, setPageNr, data, loading } = useGetEpisodes(filter, sort);
+  const { pageNr, setPageNr, data, loading } = useGetEpisodes();
 
   const [scrollData, setScrollData] = useState<IEpisode[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
@@ -51,12 +37,6 @@ export default function EpisodesSearchResult() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  // Reset search results when filter or sort changes
-  useEffect(() => {
-    setPageNr(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, filterName, sort]);
-
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
     if (!data || loading) return;
@@ -76,7 +56,7 @@ export default function EpisodesSearchResult() {
             style={{ overflow: "unset" }}
             endMessage={
               <h1 style={{ textAlign: "center" }}>
-                {pageNr === 1 ? "No results" : "No more results"}
+                {scrollData.length === 0 ? "No results" : "No more results"}
               </h1>
             }
           >

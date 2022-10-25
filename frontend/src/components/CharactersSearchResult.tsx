@@ -5,24 +5,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { ICharacter } from "types";
 import PersonCard from "./PersonCard";
 import { useGetCharacters } from "../gql/queries";
-import { useReactiveVar } from "@apollo/client";
-import {
-  activeCharacterFilterVar,
-  activeCharacterSortVar,
-  activeCharacterFilterNameVar,
-} from "../gql/cache";
 
 export interface ISearchResultProps {
   characters: ICharacter[];
 }
 
 export default function SearchResult() {
-  const filter = useReactiveVar(activeCharacterFilterVar);
-  const name = useReactiveVar(activeCharacterFilterNameVar);
-  const sort = useReactiveVar(activeCharacterSortVar);
-
-  const filters = name ? { ...filter, name } : filter;
-  const { pageNr, setPageNr, data, loading } = useGetCharacters(filters, sort);
+  const { pageNr, setPageNr, data, loading } = useGetCharacters();
 
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
@@ -31,6 +20,7 @@ export default function SearchResult() {
     if (!data) return;
     if (data.characters.length === 0) {
       setHasMoreValue(false);
+
       // Edge case: if no results, empty scrollData
       // TODO: Should not be possible with correct impl of filter and task description
       if (pageNr === 1) {
@@ -49,11 +39,6 @@ export default function SearchResult() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
-
-  useEffect(() => {
-    setPageNr(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter, name, sort]);
 
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
@@ -74,7 +59,7 @@ export default function SearchResult() {
             style={{ overflow: "unset" }}
             endMessage={
               <h1 style={{ textAlign: "center" }}>
-                {pageNr === 1 ? "No results" : "No more results"}
+                {scrollData.length === 0 ? "No results" : "No more results"}
               </h1>
             }
           >

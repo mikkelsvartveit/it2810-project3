@@ -1,13 +1,14 @@
-import { gql, useQuery } from "@apollo/client";
-import { useState } from "react";
+import { gql, useQuery, useReactiveVar } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { ICharacter, IEpisode } from "types";
 import {
-  ICharacter,
-  ICharacterFilters,
-  ICharacterSort,
-  IEpisode,
-  IEpisodeFilters,
-  IEpisodeSort,
-} from "types";
+  activeCharacterFilterNameVar,
+  activeCharacterFilterVar,
+  activeCharacterSortVar,
+  activeEpisodeFilterNameVar,
+  activeEpisodeFilterVar,
+  activeEpisodeSortVar,
+} from "./cache";
 
 export const GET_CHARACTERS = gql`
   query GetCharacters(
@@ -42,14 +43,22 @@ export const GET_CHARACTERS = gql`
  * @param page React state in the page number to be fetched
  * @returns
  */
-export const useGetCharacters = (
-  filters?: ICharacterFilters,
-  sort?: ICharacterSort
-) => {
+export const useGetCharacters = () => {
   const [pageNr, setPageNr] = useState(1);
+  const filter = useReactiveVar(activeCharacterFilterVar);
+  const name = useReactiveVar(activeCharacterFilterNameVar);
+  const sort = useReactiveVar(activeCharacterSortVar);
+
+  const filters = name ? { ...filter, name } : filter;
   const queryResult = useQuery<{ characters: ICharacter[] }>(GET_CHARACTERS, {
     variables: { page: pageNr, filters, sort },
   });
+
+  useEffect(() => {
+    setPageNr(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, name, sort]);
+
   return {
     pageNr,
     setPageNr,
@@ -113,11 +122,22 @@ export const GET_EPISODES = gql`
  * @param page React state in the page number to be fetched
  * @returns
  */
-export const useGetEpisodes = (
-  filters?: IEpisodeFilters,
-  sort?: IEpisodeSort
-) => {
+export const useGetEpisodes = () => {
   const [pageNr, setPageNr] = useState(1);
+  const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
+  const filterName = useReactiveVar(activeEpisodeFilterNameVar);
+  const sort = useReactiveVar(activeEpisodeSortVar);
+
+  const filters = filterName
+    ? { ...episodeFilter, name: filterName }
+    : episodeFilter;
+
+  // Reset search results when filter or sort changes
+  useEffect(() => {
+    setPageNr(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterName, episodeFilter, sort]);
+
   return {
     pageNr,
     setPageNr,

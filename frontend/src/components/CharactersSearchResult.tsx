@@ -6,21 +6,23 @@ import { ICharacter } from "types";
 import PersonCard from "./PersonCard";
 import { useGetCharacters } from "../gql/queries";
 import { useReactiveVar } from "@apollo/client";
-import { activeFilterVar, activeSortVar, activeFilterNameVar } from "..";
+import {
+  activeCharacterFilterVar,
+  activeCharacterSortVar,
+  activeCharacterFilterNameVar,
+} from "../gql/cache";
 
 export interface ISearchResultProps {
   characters: ICharacter[];
 }
 
 export default function SearchResult() {
-  const filter = useReactiveVar(activeFilterVar);
-  const name = useReactiveVar(activeFilterNameVar);
-  const sort = useReactiveVar(activeSortVar);
-  const [pageNr, setPageNr] = useState(1);
-  const [prevPage, setPrevPage] = useState(1);
+  const filter = useReactiveVar(activeCharacterFilterVar);
+  const name = useReactiveVar(activeCharacterFilterNameVar);
+  const sort = useReactiveVar(activeCharacterSortVar);
 
   const filters = name ? { ...filter, name } : filter;
-  const { data, loading } = useGetCharacters(pageNr, filters, sort);
+  const { pageNr, setPageNr, data, loading } = useGetCharacters(filters, sort);
 
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
@@ -29,21 +31,29 @@ export default function SearchResult() {
     if (!data) return;
     if (data.characters.length === 0) {
       setHasMoreValue(false);
+      // Edge case: if no results, empty scrollData
+      // TODO: Should not be possible with correct impl of filter and task description
+      if (pageNr === 1) {
+        setScrollData([]);
+      }
       return;
     }
-    if (pageNr > prevPage) {
-      //console.log("pageNr: ", pageNr, "prevPage: ", prevPage);
-
+    // if not a full page, set hasMore to false
+    if (data.characters.length < 20) {
+      setHasMoreValue(false);
+    }
+    if (pageNr > 1) {
       setScrollData((s) => s.concat(data.characters));
-      setPrevPage(pageNr);
     } else {
-      //if we change the filter, we need to reset the scrollData
-      // currently this does not work properly TODO Stian
       setScrollData(data.characters);
-      console.log("pageNr: ", pageNr, "prevPage: ", prevPage);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
+
+  useEffect(() => {
+    setPageNr(1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter, name, sort]);
 
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
@@ -59,11 +69,13 @@ export default function SearchResult() {
             dataLength={scrollData.length}
             next={loadScrollData}
             hasMore={hasMoreValue}
-            scrollThreshold={(scrollData.length - 20) / scrollData.length}
+            scrollThreshold={0.9}
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <h1 style={{ textAlign: "center" }}>No more results </h1>
+              <h1 style={{ textAlign: "center" }}>
+                {pageNr === 1 ? "No results" : "No more results"}
+              </h1>
             }
           >
             <Grid container spacing={3} justifyContent={"center"}>

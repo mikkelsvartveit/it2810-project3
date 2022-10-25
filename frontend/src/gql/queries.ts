@@ -1,4 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
+import { useState } from "react";
 import {
   ICharacter,
   ICharacterFilters,
@@ -42,13 +43,18 @@ export const GET_CHARACTERS = gql`
  * @returns
  */
 export const useGetCharacters = (
-  page: number,
   filters?: ICharacterFilters,
   sort?: ICharacterSort
 ) => {
-  return useQuery<{ characters: ICharacter[] }>(GET_CHARACTERS, {
-    variables: { page, filters, sort },
+  const [pageNr, setPageNr] = useState(1);
+  const queryResult = useQuery<{ characters: ICharacter[] }>(GET_CHARACTERS, {
+    variables: { page: pageNr, filters, sort },
   });
+  return {
+    pageNr,
+    setPageNr,
+    ...queryResult,
+  };
 };
 
 export const GET_CHARACTER = gql`
@@ -108,11 +114,15 @@ export const GET_EPISODES = gql`
  * @returns
  */
 export const useGetEpisodes = (
-  page: number,
   filters?: IEpisodeFilters,
   sort?: IEpisodeSort
 ) => {
-  return useQuery<{ episodes: IEpisode[] }>(GET_EPISODES, {
-    variables: { page, filters, sort },
-  });
+  const [pageNr, setPageNr] = useState(1);
+  return {
+    pageNr,
+    setPageNr,
+    ...useQuery<{ episodes: IEpisode[] }>(GET_EPISODES, {
+      variables: { page: pageNr, filters, sort },
+    }),
+  };
 };

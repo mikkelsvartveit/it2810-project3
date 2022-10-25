@@ -1,7 +1,11 @@
-import { FormControl, Grid, InputLabel, MenuItem, Select } from "@mui/material";
+import { Grid } from "@mui/material";
 import MultipleSelectChip from "./MultipleSelectChip";
 import TextFieldWithDebounce from "./TextFieldWithDebounce";
-import { activeFilterVar, activeFilterNameVar, activeSortVar } from "..";
+import {
+  activeCharacterFilterVar,
+  activeCharacterFilterNameVar,
+  activeCharacterSortVar,
+} from "../gql/cache";
 import { useReactiveVar } from "@apollo/client";
 import SortSelect from "./SortSelect";
 
@@ -10,7 +14,7 @@ export interface ICharacterSearchSectionProps {}
 export default function CharacterSearchSection(
   props: ICharacterSearchSectionProps
 ) {
-  const currentFilter = useReactiveVar(activeFilterVar);
+  const currentFilter = useReactiveVar(activeCharacterFilterVar);
 
   return (
     <Grid container spacing={3}>
@@ -19,7 +23,7 @@ export default function CharacterSearchSection(
           label={"Status"}
           options={["Alive", "Dead", "unknown"]}
           callback={(status) => {
-            activeFilterVar({ ...currentFilter, status });
+            activeCharacterFilterVar({ ...currentFilter, status });
           }}
         />
       </Grid>
@@ -40,7 +44,7 @@ export default function CharacterSearchSection(
             "unknown",
           ]}
           callback={(species) => {
-            activeFilterVar({ ...currentFilter, species });
+            activeCharacterFilterVar({ ...currentFilter, species });
           }}
         />
       </Grid>
@@ -49,15 +53,18 @@ export default function CharacterSearchSection(
           label="Gender"
           options={["Male", "Female", "unknown"]}
           callback={(gender) => {
-            activeFilterVar({ ...currentFilter, gender });
+            activeCharacterFilterVar({ ...currentFilter, gender });
           }}
         />
       </Grid>
       <Grid item xs>
-        <TextFieldWithDebounce label="Name" callback={activeFilterNameVar} />
+        <TextFieldWithDebounce
+          label="Name"
+          callback={activeCharacterFilterNameVar}
+        />
       </Grid>
       <Grid item xs>
-        <SortSelect callback={activeSortVar} />
+        <SortSelect callback={activeCharacterSortVar} />
       </Grid>
     </Grid>
   );

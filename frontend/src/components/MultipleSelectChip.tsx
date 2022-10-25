@@ -31,11 +31,13 @@ function getStyles(name: string, values: readonly string[], theme: Theme) {
 interface IMultipleSelectChipProps {
   label: string;
   options: string[];
+  callback: (values: string[] | undefined) => void;
 }
 
 export default function MultipleSelectChip({
   label,
   options,
+  callback,
 }: IMultipleSelectChipProps) {
   const theme = useTheme();
   const [values, setValues] = React.useState<string[]>([]);
@@ -48,6 +50,11 @@ export default function MultipleSelectChip({
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    if (value.length > 0) {
+      callback(typeof value === "string" ? value.split(",") : value);
+    } else {
+      callback(undefined);
+    }
   };
 
   return (

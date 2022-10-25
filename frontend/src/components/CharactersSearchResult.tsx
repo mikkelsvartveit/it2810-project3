@@ -1,29 +1,47 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ICharacter } from "types";
 import PersonCard from "./PersonCard";
 import { useGetCharacters } from "../gql/queries";
+import { useReactiveVar } from "@apollo/client";
+import { activeFilterVar, activeSortVar, activeFilterNameVar } from "..";
 
-export default function CharacterSearchResult() {
+export interface ISearchResultProps {
+  characters: ICharacter[];
+}
+
+export default function SearchResult() {
+  const filter = useReactiveVar(activeFilterVar);
+  const name = useReactiveVar(activeFilterNameVar);
+  const sort = useReactiveVar(activeSortVar);
   const [pageNr, setPageNr] = useState(1);
-  const { data, loading } = useGetCharacters(pageNr);
+  const [prevPage, setPrevPage] = useState(1);
+
+  const filters = name ? { ...filter, name } : filter;
+  const { data, loading } = useGetCharacters(pageNr, filters, sort);
 
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
 
   useEffect(() => {
     if (!data) return;
-    if (pageNr === 1) {
-      setScrollData(data.characters);
-      return;
-    }
     if (data.characters.length === 0) {
       setHasMoreValue(false);
       return;
     }
-    setScrollData((s) => s.concat(data.characters));
+    if (pageNr > prevPage) {
+      //console.log("pageNr: ", pageNr, "prevPage: ", prevPage);
+
+      setScrollData((s) => s.concat(data.characters));
+      setPrevPage(pageNr);
+    } else {
+      //if we change the filter, we need to reset the scrollData
+      // currently this does not work properly TODO Stian
+      setScrollData(data.characters);
+      console.log("pageNr: ", pageNr, "prevPage: ", prevPage);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 

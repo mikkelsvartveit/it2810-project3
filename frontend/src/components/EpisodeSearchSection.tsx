@@ -33,7 +33,7 @@ export default function EpisodeSearchSection(
       </Grid>
 
       <Grid item xs>
-        <TextFieldWithDebounce />
+        <TextFieldWithDebounce label="Name" callback={(value) => {}} />
       </Grid>
     </Grid>
   );

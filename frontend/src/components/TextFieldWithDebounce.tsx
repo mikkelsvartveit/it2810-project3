@@ -1,18 +1,22 @@
 import debounce from "lodash.debounce";
 import { TextField } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 
-export interface ITextFieldWithDebounceProps {}
+export interface ITextFieldWithDebounceProps {
+  label: string;
+  callback: (value: string) => void;
+}
 
-export default function TextFieldWithDebounce(
-  props: ITextFieldWithDebounceProps
-) {
-  const [value, setValue] = useState("");
+export default function TextFieldWithDebounce({
+  label,
+  callback,
+}: ITextFieldWithDebounceProps) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value);
+    callback(event.target.value);
   };
   const debouncedResults = useMemo(() => {
     return debounce(handleChange, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -25,11 +29,10 @@ export default function TextFieldWithDebounce(
     <>
       <TextField
         id="outlined-basic"
-        label="Name"
+        label={label}
         variant="outlined"
         onChange={debouncedResults}
       />
-      Debounced value: {value}
     </>
   );
 }

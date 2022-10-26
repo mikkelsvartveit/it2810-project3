@@ -1,13 +1,20 @@
+import { useReactiveVar } from "@apollo/client";
 import { FormControl, Grid, MenuItem, InputLabel, Select } from "@mui/material";
 import { useState } from "react";
 import TextFieldWithDebounce from "./TextFieldWithDebounce";
+import {
+  activeEpisodeFilterNameVar,
+  activeEpisodeFilterVar,
+} from "../gql/cache";
 
 export interface IEpisodeSearchSectionProps {}
 
 export default function EpisodeSearchSection(
   props: IEpisodeSearchSectionProps
 ) {
-  const [seasonValue, setSeasonValue] = useState("");
+  const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
+  const [seasonFilterValue, setseasonFilterValue] = useState("");
+
   return (
     <Grid container spacing={3}>
       <Grid item xs>
@@ -16,11 +23,21 @@ export default function EpisodeSearchSection(
           <Select
             labelId="season-label"
             id="season-select"
-            value={seasonValue}
+            value={seasonFilterValue}
             label="Season"
-            onChange={(e) => setSeasonValue(e.target.value)}
+            onChange={(e) => {
+              setseasonFilterValue(e.target.value);
+              const newFilter = { ...episodeFilter };
+              if (e.target.value !== "none") {
+                newFilter.season = e.target.value;
+                activeEpisodeFilterVar(newFilter);
+              } else {
+                newFilter.season = undefined;
+                activeEpisodeFilterVar(newFilter);
+              }
+            }}
           >
-            <MenuItem value="">
+            <MenuItem value="none">
               <em>None</em>
             </MenuItem>
             <MenuItem value={"S01"}>Season 1</MenuItem>
@@ -33,7 +50,10 @@ export default function EpisodeSearchSection(
       </Grid>
 
       <Grid item xs>
-        <TextFieldWithDebounce />
+        <TextFieldWithDebounce
+          label="Name"
+          callback={activeEpisodeFilterNameVar}
+        />
       </Grid>
     </Grid>
   );

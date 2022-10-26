@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -6,24 +6,37 @@ import { ICharacter } from "types";
 import PersonCard from "./PersonCard";
 import { useGetCharacters } from "../gql/queries";
 
-export default function CharacterSearchResult() {
-  const [pageNr, setPageNr] = useState(1);
-  const { data, loading } = useGetCharacters(pageNr);
+export interface ISearchResultProps {
+  characters: ICharacter[];
+}
+
+export default function SearchResult() {
+  const { pageNr, setPageNr, data, loading } = useGetCharacters();
 
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
 
   useEffect(() => {
     if (!data) return;
-    if (pageNr === 1) {
-      setScrollData(data.characters);
-      return;
-    }
     if (data.characters.length === 0) {
       setHasMoreValue(false);
+
+      // Edge case: if no results, empty scrollData
+      // TODO: Should not be possible with correct impl of filter and task description
+      if (pageNr === 1) {
+        setScrollData([]);
+      }
       return;
     }
-    setScrollData((s) => s.concat(data.characters));
+    // if not a full page, set hasMore to false
+    if (data.characters.length < 20) {
+      setHasMoreValue(false);
+    }
+    if (pageNr > 1) {
+      setScrollData((s) => s.concat(data.characters));
+    } else {
+      setScrollData(data.characters);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
@@ -41,11 +54,13 @@ export default function CharacterSearchResult() {
             dataLength={scrollData.length}
             next={loadScrollData}
             hasMore={hasMoreValue}
-            scrollThreshold={(scrollData.length - 20) / scrollData.length}
+            scrollThreshold={0.9}
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <h1 style={{ textAlign: "center" }}>No more results </h1>
+              <h1 style={{ textAlign: "center" }}>
+                {scrollData.length === 0 ? "No results" : "No more results"}
+              </h1>
             }
           >
             <Grid container spacing={3} justifyContent={"center"}>

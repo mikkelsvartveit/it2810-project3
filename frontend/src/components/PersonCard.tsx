@@ -3,7 +3,7 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  IconButton,
+  Icon,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
@@ -68,15 +68,15 @@ export default function PersonCard({
             </Typography>
             <Typography variant="body2" color="text.secondary">
               {location.name}
-              <IconButton aria-label="eye">
+              <Icon aria-label="eye">
                 <PublicIcon />
-              </IconButton>
+              </Icon>
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Episode {episodeNum}
-              <IconButton aria-label="tv">
+              <Icon aria-label="tv">
                 <TvIcon />
-              </IconButton>
+              </Icon>
             </Typography>
           </CardContent>
         </CardActionArea>

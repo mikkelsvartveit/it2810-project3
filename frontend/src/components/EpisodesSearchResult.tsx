@@ -7,30 +7,38 @@ import PersonCard from "./PersonCard";
 import { useGetEpisodes } from "../gql/queries";
 
 export default function EpisodesSearchResult() {
-  const [pageNr, setPageNr] = useState(1);
-  const { data, loading } = useGetEpisodes(pageNr);
+  const { pageNr, setPageNr, data, loading } = useGetEpisodes();
 
   const [scrollData, setScrollData] = useState<IEpisode[]>([]);
   const [hasMoreValue, setHasMoreValue] = useState(true);
 
+  // Handle new data from gql query
   useEffect(() => {
     if (!data) return;
-    console.log(pageNr);
-    if (pageNr === 1) {
-      setScrollData(data.episodes);
-      return;
-    }
     if (data.episodes.length === 0) {
       setHasMoreValue(false);
+
+      // Edge case: if no results, empty scrollData
+      // TODO: Should not be possible with correct impl of filter and task description
+      if (pageNr === 1) {
+        setScrollData([]);
+      }
       return;
     }
-    setScrollData((s) => s.concat(data.episodes));
+    // if not a full page, set hasMore to false
+    if (data.episodes.length < 20) {
+      setHasMoreValue(false);
+    }
+    if (pageNr > 1) {
+      setScrollData((s) => s.concat([...data.episodes]));
+    } else {
+      setScrollData([...data.episodes]);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
-    console.log("huh");
     if (!data || loading) return;
     setPageNr((pageNr) => pageNr + 1);
   };
@@ -43,11 +51,13 @@ export default function EpisodesSearchResult() {
             dataLength={scrollData.length}
             next={loadScrollData}
             hasMore={hasMoreValue}
-            scrollThreshold={(scrollData.length - 20) / scrollData.length}
+            scrollThreshold={0.9}
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <h1 style={{ textAlign: "center" }}>No more results </h1>
+              <h1 style={{ textAlign: "center" }}>
+                {scrollData.length === 0 ? "No results" : "No more results"}
+              </h1>
             }
           >
             <Grid container spacing={3} justifyContent={"center"}>

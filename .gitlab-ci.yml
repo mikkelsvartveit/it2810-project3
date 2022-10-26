@@ -64,9 +64,9 @@ deploy:
     - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "echo 'Testing SSH Connection...'"
     ## Copy backend code to VM
     - scp -r ./backend/* $SSH_USER@$VM_IPADDRESS:/lhome/mikkesva/backend
-    ## Reset and set up the database
+    - scp -r ./types/* $SSH_USER@$VM_IPADDRESS:/lhome/mikkesva/types
     ## Re-setup database and restart Node application
-    - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "cd /lhome/mikkesva/backend && npm ci && pm2 stop all; npm run setup:production && pm2 start src/index.js || pm2 restart all"
+    - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "cd /lhome/mikkesva/backend && npm ci && pm2 stop all; npm run setup:production && pm2 start src/index.ts || pm2 restart all"
     ## Build React app
     - cd frontend
     - npm ci

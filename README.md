@@ -38,3 +38,20 @@ npm start
 ```
 
 Note: you can re-run `npm run setup` at any time to reset the database back to the defaults.
+
+## Documentation
+
+### Contents and functionality
+
+### Technology
+
+### Testing
+
+### Web accessibility
+
+Minimalistic design. High contrast...
+ARIA-labels etc.
+
+### Suistainable development
+
+Since there was only 4 weeks for this relatively big project we chose to use the Material UI library instead of styling the UI ourselves. This leads to a greater bundle size and more data transfer. In terms of suistainability we want to minimize data and loading since it costs energy to power the servers that run the webpages.

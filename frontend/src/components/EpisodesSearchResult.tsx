@@ -75,6 +75,7 @@ export default function EpisodesSearchResult() {
                     id={episode.id}
                     origin={{ name: "" }}
                     type={""}
+                    rating={episode.rating}
                   />
                 </Grid>
               ))}

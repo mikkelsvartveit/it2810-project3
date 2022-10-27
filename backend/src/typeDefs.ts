@@ -50,7 +50,10 @@ export const typeDefs = gql`
     """
     episode(id: ID!): Episode
   }
-
+  type Mutation {
+    setCharacterRating(id: ID!, rating: Int!): Character
+    setEpisodeRating(id: ID!, rating: Int!): Episode
+  }
   type Character {
     """
     Character ID
@@ -102,6 +105,11 @@ export const typeDefs = gql`
     Episodes the character is in
     """
     episode: [Episode]
+
+    """
+    Rating of character
+    """
+    rating: Int
   }
 
   type Location {
@@ -138,5 +146,9 @@ export const typeDefs = gql`
     Creation time in RickandMortyAPI database.
     """
     created: String!
+    """
+    Rating of episode
+    """
+    rating: Int
   }
 `;

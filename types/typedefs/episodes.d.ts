@@ -7,6 +7,7 @@ export declare interface IEpisode {
   episode: string; //	The code of the episode. S2E4
   characters: ICharacter[]; // (urls)	List of characters who have been seen in the episode.
   created: string; //	Time at which the episode was created in the database
+  rating: number; //	Rating of the episode from webpage
 }
 export declare interface IEpisodeFilters {
   name?: string;

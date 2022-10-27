@@ -44,7 +44,7 @@ export default function SortSelect({ callback }: ISortSelectProps) {
       {sort !== "none" && (
         <FormGroup>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Typography>Ascending</Typography>
+            <Typography>{sort === "name" ? "Ascending" : "Highest"}</Typography>
             <Switch
               checked={swtichChecked}
               onChange={(_, checked) => {
@@ -54,7 +54,7 @@ export default function SortSelect({ callback }: ISortSelectProps) {
                 callback(newSort);
               }}
             />
-            <Typography>Descending</Typography>
+            <Typography>{sort === "name" ? "Descending" : "Lowest"}</Typography>
           </Stack>
         </FormGroup>
       )}

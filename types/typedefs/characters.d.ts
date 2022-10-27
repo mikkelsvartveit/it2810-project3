@@ -13,6 +13,7 @@ export declare interface ICharacter {
   image: string;
   episode: IEpisode[];
   created: string;
+  rating: number;
 }
 export declare interface ICharacterFilters {
   name?: string;

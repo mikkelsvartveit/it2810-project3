@@ -17,13 +17,10 @@ export default function PersonCard({
   name,
   status,
   species,
-  type,
   gender,
-  origin,
   location,
   image,
   episode,
-  created,
 }: ICharacter) {
   const underlineColor =
     gender === "Male" ? "#b7e4f9" : gender === "Female" ? "#FB6467" : "#fafd7c";
@@ -86,16 +83,6 @@ export default function PersonCard({
           open={inFocus}
           handleClose={() => setInFocus(false)}
           id={id}
-          name={name}
-          status={status}
-          species={species}
-          type={type}
-          gender={gender}
-          origin={origin}
-          location={location}
-          image={image}
-          episode={episode}
-          created={created}
         />
       ) : null}
     </>

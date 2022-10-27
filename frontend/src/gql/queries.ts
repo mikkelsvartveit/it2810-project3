@@ -84,6 +84,7 @@ export const GET_CHARACTER = gql`
       location {
         name
       }
+      rating
     }
   }
 `;

@@ -16,6 +16,7 @@ const CharacterSchema = new Schema<ICharacter>({
   },
   image: String,
   episode: Array,
+  rating: Number,
 });
 
 export const Character = model<Schema>("Character", CharacterSchema);

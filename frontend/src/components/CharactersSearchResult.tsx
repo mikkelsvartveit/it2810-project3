@@ -78,6 +78,7 @@ export default function SearchResult() {
                     id={character.id}
                     origin={character.origin}
                     type={character.type}
+                    rating={character.rating}
                   />
                 </Grid>
               ))}

@@ -17,6 +17,32 @@ const mongooseStringContains = (str?: string) => ({
 });
 
 export const resolvers = {
+  Mutation: {
+    setCharacterRating: async (
+      _: any,
+      { id, rating }: { id: number; rating: number }
+    ) => {
+      const character = await Character.findOne({ id });
+      if (!character) {
+        throw new Error("Character not found");
+      }
+      character.rating = rating;
+      await character.save();
+      return character;
+    },
+    setEpisodeRating: async (
+      _: any,
+      { id, rating }: { id: number; rating: number }
+    ) => {
+      const episode = await Episode.findOne({ id });
+      if (!episode) {
+        throw new Error("Episode not found");
+      }
+      episode.rating = rating;
+      await episode.save();
+      return episode;
+    },
+  },
   Query: {
     characters: async (
       _: unknown,

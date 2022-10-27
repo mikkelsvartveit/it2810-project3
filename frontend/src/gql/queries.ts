@@ -1,4 +1,4 @@
-import { gql, useQuery, useReactiveVar } from "@apollo/client";
+import { gql, useMutation, useQuery, useReactiveVar } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { ICharacter, IEpisode } from "types";
 import {
@@ -84,6 +84,7 @@ export const GET_CHARACTER = gql`
       location {
         name
       }
+      rating
     }
   }
 `;
@@ -145,4 +146,36 @@ export const useGetEpisodes = () => {
       variables: { page: pageNr, filters, sort },
     }),
   };
+};
+
+export const SET_CHARACTER_RATING = gql`
+  mutation SetCharacterRating($characterId: ID!, $rating: Int!) {
+    setCharacterRating(id: $characterId, rating: $rating) {
+      id
+      name
+      rating
+    }
+  }
+`;
+
+export const useSetCharacterRating = (characterId: number) => {
+  return useMutation<{ setCharacterRating: ICharacter }>(SET_CHARACTER_RATING, {
+    variables: { characterId },
+  });
+};
+
+export const SET_EPISODE_RATING = gql`
+  mutation SetEpisodeRating($episodeId: ID!, $rating: Int!) {
+    setEpisodeRating(id: $episodeId, rating: $rating) {
+      id
+      name
+      rating
+    }
+  }
+`;
+
+export const useSetEpisodeRating = (episodeId: number, rating: number) => {
+  return useMutation<{ setEpisodeRating: IEpisode }>(SET_EPISODE_RATING, {
+    variables: { episodeId, rating },
+  });
 };

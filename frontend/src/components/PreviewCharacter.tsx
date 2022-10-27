@@ -8,14 +8,13 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
-import { ICharacter } from "types";
-
 import TvIcon from "@mui/icons-material/Tv";
 import PublicIcon from "@mui/icons-material/Public";
-import { useGetCharacter } from "../gql/queries";
+import { useGetCharacter, useSetCharacterRating } from "../gql/queries";
 import { useState } from "react";
 
-export interface IPreviewCharacterProps extends ICharacter {
+export interface IPreviewCharacterProps {
+  id: number;
   open: boolean;
   handleClose: () => void;
 }
@@ -25,7 +24,9 @@ export default function PreviewCharacter({
   handleClose,
   id,
 }: IPreviewCharacterProps) {
+  const [rating, setRating] = useState<number | null>(null);
   const { data } = useGetCharacter(id);
+  const [setCharacterRating] = useSetCharacterRating(id);
 
   const underlineColor =
     data?.character.gender === "male"
@@ -34,7 +35,6 @@ export default function PreviewCharacter({
       ? "#FB6467"
       : "#fafd7c";
   const episodeNum = data?.character.episode[0].id;
-  const [rating, setRating] = useState(0);
 
   return (
     <Modal
@@ -51,7 +51,7 @@ export default function PreviewCharacter({
           flexDirection: "row",
         }}
       >
-        {data?.character ? (
+        {data ? (
           <>
             <CardMedia
               component="img"
@@ -108,9 +108,12 @@ export default function PreviewCharacter({
               <Typography component="legend">Rating</Typography>
               <Rating
                 name="character-rating"
-                value={rating}
+                value={rating ? rating : data.character.rating}
                 onChange={(event, newValue) => {
-                  newValue && setRating(newValue);
+                  if (newValue) {
+                    setRating(newValue);
+                    setCharacterRating({ variables: { rating: newValue } });
+                  }
                 }}
               />
             </CardContent>

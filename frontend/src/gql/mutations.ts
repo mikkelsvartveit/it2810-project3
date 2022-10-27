@@ -1,58 +1,35 @@
 import { gql, useMutation } from "@apollo/client";
 import { ICharacter, IEpisode } from "types";
 
-export const RATE_CHARACTER = gql`
-  mutation RateCharacter($id: ID!, $rating: Int!) {
-    RateCharacter(id: $id, rating: $rating) {
+export const SET_CHARACTER_RATING = gql`
+  mutation SetCharacterRating($characterId: ID!, $rating: Int!) {
+    setCharacterRating(id: $characterId, rating: $rating) {
       id
       name
-      status
-      species
       rating
     }
   }
 `;
 
-/**
- * @param idState React state in the id of the character to be rate
- * @param ratingState React state in the rating of the character to be rate
- * @returns
- */
-export const useRateCharacter = (idState: number, ratingState: number) => {
-  const [rateCharacter, { data, loading, error }] = useMutation<
-    ICharacter,
-    { id: number; rating: number }
-  >(RATE_CHARACTER, {
-    variables: { id: idState, rating: ratingState },
+export const useSetCharacterRating = (characterId: number) => {
+  return useMutation<{ setCharacterRating: ICharacter }>(SET_CHARACTER_RATING, {
+    variables: { characterId },
+    refetchQueries: ["GetCharacter"],
   });
-
-  return { rateCharacter, data, loading, error };
 };
 
-export const RATE_EPISODE = gql`
-  mutation RateEpisode($id: ID!, $rating: Int!) {
-    RateEpisode(id: $id, rating: $rating) {
+export const SET_EPISODE_RATING = gql`
+  mutation SetEpisodeRating($episodeId: ID!, $rating: Int!) {
+    setEpisodeRating(id: $episodeId, rating: $rating) {
       id
       name
-      air_date
-      episode
       rating
     }
   }
 `;
 
-/**
- * @param idState React state in the id of the episode to be rate
- *  @param ratingState React state in the rating of the episode to be rate
- * @returns
- * */
-export const useRateEpisode = (idState: number, ratingState: number) => {
-  const [rateEpisode, { data, loading, error }] = useMutation<
-    IEpisode,
-    { id: number; rating: number }
-  >(RATE_EPISODE, {
-    variables: { id: idState, rating: ratingState },
+export const useSetEpisodeRating = (episodeId: number, rating: number) => {
+  return useMutation<{ setEpisodeRating: IEpisode }>(SET_EPISODE_RATING, {
+    variables: { episodeId, rating },
   });
-
-  return { rateEpisode, data, loading, error };
 };

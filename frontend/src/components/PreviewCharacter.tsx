@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import TvIcon from "@mui/icons-material/Tv";
 import PublicIcon from "@mui/icons-material/Public";
-import { useGetCharacter, useSetCharacterRating } from "../gql/queries";
-import { useState } from "react";
+import { useGetCharacter } from "../gql/queries";
+import { useSetCharacterRating } from "../gql/mutations";
 
 export interface IPreviewCharacterProps {
   id: number;
@@ -24,7 +24,6 @@ export default function PreviewCharacter({
   handleClose,
   id,
 }: IPreviewCharacterProps) {
-  const [rating, setRating] = useState<number | null>(null);
   const { data } = useGetCharacter(id);
   const [setCharacterRating] = useSetCharacterRating(id);
 
@@ -108,11 +107,10 @@ export default function PreviewCharacter({
               <Typography component="legend">Rating</Typography>
               <Rating
                 name="character-rating"
-                value={rating ? rating : data.character.rating}
-                onChange={(event, newValue) => {
-                  if (newValue) {
-                    setRating(newValue);
-                    setCharacterRating({ variables: { rating: newValue } });
+                value={data.character.rating}
+                onChange={(event, rating) => {
+                  if (rating) {
+                    setCharacterRating({ variables: { rating } });
                   }
                 }}
               />

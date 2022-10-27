@@ -1,6 +1,7 @@
 import debounce from "lodash.debounce";
-import { TextField } from "@mui/material";
+import { FormControl, InputAdornment, TextField } from "@mui/material";
 import { useEffect, useMemo } from "react";
+import { Search } from "@mui/icons-material";
 
 export interface ITextFieldWithDebounceProps {
   label: string;
@@ -26,13 +27,21 @@ export default function TextFieldWithDebounce({
   }, [debouncedResults]);
 
   return (
-    <>
+    <FormControl fullWidth>
       <TextField
         id="outlined-basic"
         label={label}
+        placeholder="Search"
         variant="outlined"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <Search />
+            </InputAdornment>
+          ),
+        }}
         onChange={debouncedResults}
       />
-    </>
+    </FormControl>
   );
 }

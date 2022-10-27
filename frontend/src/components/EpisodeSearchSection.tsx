@@ -5,7 +5,9 @@ import TextFieldWithDebounce from "./TextFieldWithDebounce";
 import {
   activeEpisodeFilterNameVar,
   activeEpisodeFilterVar,
+  activeEpisodeSortVar,
 } from "../gql/cache";
+import SortSelect from "./SortSelect";
 
 export interface IEpisodeSearchSectionProps {}
 
@@ -15,9 +17,26 @@ export default function EpisodeSearchSection(
   const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
   const [seasonFilterValue, setseasonFilterValue] = useState("");
 
+  const sortOptions = [
+    { value: "default", label: "Default order" },
+    { value: "name_asc", label: "Name (A to Z)" },
+    { value: "name_desc", label: "Name (Z to A)" },
+    { value: "rating_desc", label: "Rating (High to Low)" },
+    { value: "rating_asc", label: "Rating (Low to High)" },
+  ];
+
+  const defaultSort = "default";
+
   return (
-    <Grid container spacing={3}>
-      <Grid item xs>
+    <Grid container spacing={3} sx={{ marginTop: 1, marginBottom: 4 }}>
+      <Grid item xs={12}>
+        <TextFieldWithDebounce
+          label="Episode name"
+          callback={activeEpisodeFilterNameVar}
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6}>
         <FormControl fullWidth>
           <InputLabel id="season-label">Season</InputLabel>
           <Select
@@ -37,9 +56,7 @@ export default function EpisodeSearchSection(
               }
             }}
           >
-            <MenuItem value="none">
-              <em>None</em>
-            </MenuItem>
+            <MenuItem value="none">Any season</MenuItem>
             <MenuItem value={"S01"}>Season 1</MenuItem>
             <MenuItem value={"S02"}>Season 2</MenuItem>
             <MenuItem value={"S03"}>Season 3</MenuItem>
@@ -49,10 +66,11 @@ export default function EpisodeSearchSection(
         </FormControl>
       </Grid>
 
-      <Grid item xs>
-        <TextFieldWithDebounce
-          label="Name"
-          callback={activeEpisodeFilterNameVar}
+      <Grid item xs={12} sm={6}>
+        <SortSelect
+          options={sortOptions}
+          defaultOption={defaultSort}
+          callback={activeEpisodeSortVar}
         />
       </Grid>
     </Grid>

@@ -59,7 +59,7 @@ export default function MultipleSelectChip({
 
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 300 }}>
+      <FormControl fullWidth>
         <InputLabel id="multiple-chip-label">{label}</InputLabel>
         <Select
           labelId="multiple-chip-label"
@@ -71,7 +71,7 @@ export default function MultipleSelectChip({
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip key={value} label={value} sx={{ height: 23 }} />
               ))}
             </Box>
           )}

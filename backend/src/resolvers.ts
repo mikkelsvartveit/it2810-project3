@@ -19,7 +19,7 @@ const mongooseStringContains = (str?: string) => ({
 export const resolvers = {
   Mutation: {
     setCharacterRating: async (
-      _: any,
+      _: unknown,
       { id, rating }: { id: number; rating: number }
     ) => {
       const character = await Character.findOne({ id });
@@ -31,7 +31,7 @@ export const resolvers = {
       return character;
     },
     setEpisodeRating: async (
-      _: any,
+      _: unknown,
       { id, rating }: { id: number; rating: number }
     ) => {
       const episode = await Episode.findOne({ id });

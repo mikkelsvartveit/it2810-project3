@@ -28,7 +28,6 @@ export default function SortSelect({
         <InputLabel id="demo-simple-select-label">Sort results by</InputLabel>
         <Select
           labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={sort}
           label="Sort results by"
           onChange={(e) => {

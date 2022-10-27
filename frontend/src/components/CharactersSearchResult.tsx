@@ -6,10 +6,6 @@ import { ICharacter } from "types";
 import PersonCard from "./PersonCard";
 import { useGetCharacters } from "../gql/queries";
 
-export interface ISearchResultProps {
-  characters: ICharacter[];
-}
-
 export default function SearchResult() {
   const { pageNr, setPageNr, data, loading } = useGetCharacters();
 

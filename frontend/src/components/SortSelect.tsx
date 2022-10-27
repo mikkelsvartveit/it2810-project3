@@ -1,63 +1,62 @@
 import {
   FormControl,
-  FormGroup,
   InputLabel,
   MenuItem,
   Select,
-  Stack,
-  Switch,
-  Typography,
+  SvgIcon,
 } from "@mui/material";
+import { ImportExport } from "@mui/icons-material";
+import { Box } from "@mui/system";
 import { useState } from "react";
 import { ICharacterSort } from "types";
 
 export interface ISortSelectProps {
+  options: { label: string; value: string }[];
+  defaultOption: string;
   callback: (sort: ICharacterSort) => void;
 }
 
-export default function SortSelect({ callback }: ISortSelectProps) {
-  const [sort, setSort] = useState("none");
-  const [swtichChecked, setSwitchChecked] = useState(true);
+export default function SortSelect({
+  options,
+  defaultOption,
+  callback,
+}: ISortSelectProps) {
+  const [sort, setSort] = useState(defaultOption);
   return (
     <>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="demo-simple-select-label">Sort results by</InputLabel>
         <Select
           labelId="demo-simple-select-label"
-          id="demo-simple-select"
           value={sort}
-          label="Age"
+          label="Sort results by"
           onChange={(e) => {
             setSort(e.target.value);
             if (e.target.value !== "none") {
               const newSort: ICharacterSort = {};
-              newSort[e.target.value] = swtichChecked ? "asc" : "desc";
+              const [key, order] = e.target.value.split("_");
+              newSort[key] = order as "asc" | "desc";
               callback(newSort);
             }
           }}
+          renderValue={(value) => {
+            return (
+              <Box sx={{ display: "flex", gap: 1 }}>
+                <SvgIcon sx={{ color: "gray" }}>
+                  <ImportExport />
+                </SvgIcon>
+                {options.find((option) => option.value === value)?.label}
+              </Box>
+            );
+          }}
         >
-          <MenuItem value={"none"}>None</MenuItem>
-          <MenuItem value={"name"}>Name</MenuItem>
-          <MenuItem value={"rating"}>Rating</MenuItem>
+          {options.map((option) => (
+            <MenuItem value={option.value} key={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
-      {sort !== "none" && (
-        <FormGroup>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Typography>{sort === "name" ? "Ascending" : "Highest"}</Typography>
-            <Switch
-              checked={swtichChecked}
-              onChange={(_, checked) => {
-                setSwitchChecked(checked);
-                const newSort: ICharacterSort = {};
-                newSort[sort] = checked ? "asc" : "desc";
-                callback(newSort);
-              }}
-            />
-            <Typography>{sort === "name" ? "Descending" : "Lowest"}</Typography>
-          </Stack>
-        </FormGroup>
-      )}
     </>
   );
 }

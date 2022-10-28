@@ -30,13 +30,9 @@ export const GET_CHARACTERS = gql`
   }
 `;
 
-/**
- *
- * @param page React state in the page number to be fetched
- * @returns
- */
 export const useGetCharacters = () => {
   const [pageNr, setPageNr] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(true);
   const filter = useReactiveVar(activeCharacterFilterVar);
   const name = useReactiveVar(activeCharacterFilterNameVar);
   const sort = useReactiveVar(activeCharacterSortVar);
@@ -48,12 +44,14 @@ export const useGetCharacters = () => {
 
   useEffect(() => {
     setPageNr(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setIsLastPage(false);
   }, [filter, name, sort]);
 
   return {
     pageNr,
     setPageNr,
+    isLastPage,
+    setIsLastPage,
     ...queryResult,
   };
 };
@@ -99,13 +97,9 @@ export const GET_EPISODES = gql`
   }
 `;
 
-/**
- *
- * @param page React state in the page number to be fetched
- * @returns
- */
 export const useGetEpisodes = () => {
   const [pageNr, setPageNr] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
   const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
   const filterName = useReactiveVar(activeEpisodeFilterNameVar);
   const sort = useReactiveVar(activeEpisodeSortVar);
@@ -117,12 +111,14 @@ export const useGetEpisodes = () => {
   // Reset search results when filter or sort changes
   useEffect(() => {
     setPageNr(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setIsLastPage(false);
   }, [filterName, episodeFilter, sort]);
 
   return {
     pageNr,
     setPageNr,
+    isLastPage,
+    setIsLastPage,
     ...useQuery<{ episodes: IEpisode[] }>(GET_EPISODES, {
       variables: { page: pageNr, filters, sort },
     }),

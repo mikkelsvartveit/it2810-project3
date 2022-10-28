@@ -7,15 +7,15 @@ import { CharacterCard } from "../cards/";
 import { useGetCharacters } from "../../gql/queries";
 
 export function CharactersSearchResult() {
-  const { pageNr, setPageNr, data, loading } = useGetCharacters();
+  const { pageNr, setPageNr, isLastPage, setIsLastPage, data, loading } =
+    useGetCharacters();
 
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
-  const [hasMoreValue, setHasMoreValue] = useState(true);
 
   useEffect(() => {
     if (!data) return;
     if (data.characters.length === 0) {
-      setHasMoreValue(false);
+      setIsLastPage(true);
 
       // Edge case: if no results, empty scrollData
       // TODO: Should not be possible with correct impl of filter and task description
@@ -24,10 +24,12 @@ export function CharactersSearchResult() {
       }
       return;
     }
-    // if not a full page, set hasMore to false
+
+    // if not a full page, set isLastPage to true
     if (data.characters.length < 18) {
-      setHasMoreValue(false);
+      setIsLastPage(true);
     }
+
     if (pageNr > 1) {
       setScrollData((s) => s.concat(data.characters));
     } else {
@@ -49,7 +51,7 @@ export function CharactersSearchResult() {
           <InfiniteScroll
             dataLength={scrollData.length}
             next={loadScrollData}
-            hasMore={hasMoreValue}
+            hasMore={!isLastPage}
             scrollThreshold={0.9}
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}

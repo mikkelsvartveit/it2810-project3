@@ -61,7 +61,7 @@ export default function SearchResult() {
           >
             <Grid container spacing={3} justifyContent={"center"}>
               {scrollData.map((character) => (
-                <Grid item key={character.id}>
+                <Grid item xs={12} md={6} lg={4} key={character.id}>
                   <PersonCard
                     name={character.name}
                     image={character.image}

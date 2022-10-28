@@ -11,6 +11,7 @@ import { ICharacter } from "types";
 import PreviewCharacter from "./PreviewCharacter";
 import TvIcon from "@mui/icons-material/Tv";
 import PublicIcon from "@mui/icons-material/Public";
+import { Female, Male, AdjustOutlined } from "@mui/icons-material";
 
 export default function PersonCard({
   id,
@@ -22,15 +23,24 @@ export default function PersonCard({
   image,
   episode,
 }: ICharacter) {
-  const underlineColor =
-    gender === "Male" ? "#b7e4f9" : gender === "Female" ? "#FB6467" : "#fafd7c";
+  const GenderIcon =
+    gender === "Male" ? Male : gender === "Female" ? Female : AdjustOutlined;
+
+  const genderColor =
+    gender === "Male" ? "#71B8D9" : gender === "Female" ? "#FB6467" : "#E7DB25";
+
   const episodeNum = episode[0].id;
   const [inFocus, setInFocus] = useState(false);
+
   return (
     <>
-      <Card sx={{ maxWidth: 406, margin: 0 }}>
+      <Card sx={{ margin: 0 }}>
         <CardActionArea
-          sx={{ maxWidth: 406, display: "flex", flexDirection: "row" }}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-start",
+          }}
           onClick={() => setInFocus(true)}
         >
           <CardMedia
@@ -41,24 +51,32 @@ export default function PersonCard({
           />
           <CardContent
             sx={{
-              width: 250,
               height: 134,
               padding: "13px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
+              overflow: "hidden",
             }}
           >
             <Typography
               variant="h5"
               component="div"
               sx={{
-                textUnderlineOffset: 7,
-                textDecoration: "underline",
-                textDecorationColor: underlineColor,
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+                height: 40,
+                whiteSpace: "nowrap",
               }}
             >
-              {name}
+              <GenderIcon style={{ color: genderColor }} />
+              <span
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  marginLeft: "6px",
+                }}
+              >
+                {name}
+              </span>
             </Typography>
             <Typography variant="subtitle2" color="text.secondary">
               {status} {species}

@@ -56,9 +56,9 @@ export function CharactersSearchResult() {
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <h1 style={{ textAlign: "center" }}>
+              <h3 style={{ textAlign: "center" }}>
                 {scrollData.length === 0 ? "No results" : "No more results"}
-              </h1>
+              </h3>
             }
           >
             <Grid container spacing={3} justifyContent={"center"}>

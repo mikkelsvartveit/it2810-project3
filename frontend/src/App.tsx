@@ -3,12 +3,12 @@ import { SearchSectionTabs } from "./components/searchSection/";
 
 function App() {
   return (
-    <Box marginLeft={"5%"} marginRight={"5%"} alignContent={"center"}>
-      <SearchSectionTabs />
-
+    <Box margin={"5%"} alignContent={"center"}>
       <Typography variant="h2" gutterBottom textAlign={"center"}>
-        Rick and Morty search boy
+        Rick and Morty Explorer
       </Typography>
+
+      <SearchSectionTabs />
     </Box>
   );
 }

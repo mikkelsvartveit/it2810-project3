@@ -42,7 +42,7 @@ export function CharacterCard({
   const genderColor =
     gender === "Male" ? "#71B8D9" : gender === "Female" ? "#FB6467" : "#E7DB25";
 
-  const episodeNum = episode[0].id;
+  // const episodeNum = episode[0].id;
 
   return (
     <>

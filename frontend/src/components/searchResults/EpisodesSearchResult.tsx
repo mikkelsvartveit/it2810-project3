@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IEpisode } from "types";
@@ -57,9 +57,9 @@ export function EpisodesSearchResult() {
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <h1 style={{ textAlign: "center" }}>
+              <Typography variant="h4" style={{ textAlign: "center" }}>
                 {scrollData.length === 0 ? "No results" : "No more results"}
-              </h1>
+              </Typography>
             }
           >
             <Grid container spacing={3} justifyContent={"center"}>

@@ -48,7 +48,7 @@ export function CharactersSearchResult() {
 
   return (
     <>
-      {scrollData ? (
+      {scrollData.length > 0 ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}
@@ -84,7 +84,11 @@ export function CharactersSearchResult() {
           </InfiniteScroll>
         </>
       ) : (
-        <CircularProgress color={"success"} size={200} />
+        <CircularProgress
+          data-testid="CSearchLoader"
+          color={"success"}
+          size={200}
+        />
       )}
     </>
   );

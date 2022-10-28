@@ -1,7 +1,11 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { CustomMockedProvider } from "./MockGQLData";
-import CharactersSearchResult from "../components/CharactersSearchResult";
+import { CharactersSearchResult } from "../components/searchResults";
 import { mockCharactersQuery } from "./MockGQLData";
 
 const mockCharacters = mockCharactersQuery.result.data.characters;
@@ -13,13 +17,7 @@ test("Renders characters from gql query", async () => {
     </CustomMockedProvider>
   );
 
-  expect(
-    await screen.findByText(
-      mockCharacters[0].name,
-      { exact: false },
-      { timeout: 10000 }
-    )
-  ).toBeInTheDocument();
+  await waitForElementToBeRemoved(() => screen.getByTestId("CSearchLoader"));
 
   mockCharacters.forEach(async (character) => {
     expect(

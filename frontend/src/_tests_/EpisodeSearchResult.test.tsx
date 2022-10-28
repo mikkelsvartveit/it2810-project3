@@ -1,7 +1,11 @@
 import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from "@testing-library/react";
 import { CustomMockedProvider } from "./MockGQLData";
-import EpisodesSearchResult from "../components/EpisodesSearchResult";
+import { EpisodesSearchResult } from "../components/searchResults";
 import { mockEpisodesQuery } from "./MockGQLData";
 
 const mockEpisodes = mockEpisodesQuery.result.data.episodes;
@@ -13,13 +17,7 @@ test("Renders episodes from gql query", async () => {
     </CustomMockedProvider>
   );
 
-  expect(
-    await screen.findByText(
-      mockEpisodes[0].name,
-      { exact: false },
-      { timeout: 10000 }
-    )
-  ).toBeInTheDocument();
+  await waitForElementToBeRemoved(() => screen.getByTestId("ESearchLoader"));
 
   mockEpisodes.forEach(async (episode) => {
     expect(

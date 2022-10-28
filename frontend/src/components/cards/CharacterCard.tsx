@@ -3,28 +3,33 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Icon,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { ICharacter } from "types";
-import PreviewCharacter from "./PreviewCharacter";
-import TvIcon from "@mui/icons-material/Tv";
-import PublicIcon from "@mui/icons-material/Public";
+import { PreviewCharacter } from "./";
 
-export default function PersonCard({
+interface ICharacterCardProps {
+  id: number;
+  name: string;
+  image: string;
+  status: string;
+  species: string;
+  gender: string;
+  origin: {
+    name: string;
+  };
+}
+export function CharacterCard({
   id,
   name,
   status,
   species,
   gender,
-  location,
   image,
-  episode,
-}: ICharacter) {
+  origin,
+}: ICharacterCardProps) {
   const underlineColor =
     gender === "Male" ? "#b7e4f9" : gender === "Female" ? "#FB6467" : "#fafd7c";
-  const episodeNum = episode[0].id;
   const [inFocus, setInFocus] = useState(false);
   return (
     <>
@@ -64,16 +69,8 @@ export default function PersonCard({
               {status} {species}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {location.name}
-              <Icon aria-label="eye">
-                <PublicIcon />
-              </Icon>
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Episode {episodeNum}
-              <Icon aria-label="tv">
-                <TvIcon />
-              </Icon>
+              From {origin.name}
+              {origin.name === "unknown" && " planet"}
             </Typography>
           </CardContent>
         </CardActionArea>

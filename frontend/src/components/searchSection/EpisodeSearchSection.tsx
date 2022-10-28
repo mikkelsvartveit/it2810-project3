@@ -1,19 +1,16 @@
 import { useReactiveVar } from "@apollo/client";
 import { FormControl, Grid, MenuItem, InputLabel, Select } from "@mui/material";
 import { useState } from "react";
-import TextFieldWithDebounce from "./TextFieldWithDebounce";
 import {
   activeEpisodeFilterNameVar,
   activeEpisodeFilterVar,
   activeEpisodeSortVar,
-} from "../gql/cache";
-import SortSelect from "./SortSelect";
+} from "../../gql/cache";
+import { SortSelect, TextFieldWithDebounce } from "../formFields";
 
 export interface IEpisodeSearchSectionProps {}
 
-export default function EpisodeSearchSection(
-  props: IEpisodeSearchSectionProps
-) {
+export function EpisodeSearchSection(props: IEpisodeSearchSectionProps) {
   const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
   const [seasonFilterValue, setseasonFilterValue] = useState("");
 

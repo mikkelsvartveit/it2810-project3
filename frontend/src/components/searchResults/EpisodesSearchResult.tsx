@@ -3,10 +3,10 @@ import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IEpisode } from "types";
-import PersonCard from "./PersonCard";
-import { useGetEpisodes } from "../gql/queries";
+import { useGetEpisodes } from "../../gql/queries";
+import { EpisodeCard } from "../cards/";
 
-export default function EpisodesSearchResult() {
+export function EpisodesSearchResult() {
   const { pageNr, setPageNr, data, loading } = useGetEpisodes();
 
   const [scrollData, setScrollData] = useState<IEpisode[]>([]);
@@ -63,18 +63,11 @@ export default function EpisodesSearchResult() {
             <Grid container spacing={3} justifyContent={"center"}>
               {scrollData.map((episode) => (
                 <Grid item key={episode.id}>
-                  <PersonCard
-                    name={episode.name}
-                    image={""}
-                    species={""}
-                    status={""}
-                    location={{ name: "" }}
-                    created={episode.created}
-                    episode={[episode]}
-                    gender={""}
+                  <EpisodeCard
                     id={episode.id}
-                    origin={{ name: "" }}
-                    type={""}
+                    name={episode.name}
+                    air_date={episode.air_date}
+                    episode={episode.episode}
                     rating={episode.rating}
                   />
                 </Grid>

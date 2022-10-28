@@ -1,19 +1,19 @@
 import { Grid } from "@mui/material";
-import MultipleSelectChip from "./MultipleSelectChip";
-import TextFieldWithDebounce from "./TextFieldWithDebounce";
 import {
   activeCharacterFilterVar,
   activeCharacterFilterNameVar,
   activeCharacterSortVar,
-} from "../gql/cache";
+} from "../../gql/cache";
 import { useReactiveVar } from "@apollo/client";
-import SortSelect from "./SortSelect";
+import {
+  MultipleSelectChip,
+  SortSelect,
+  TextFieldWithDebounce,
+} from "../formFields";
 
 export interface ICharacterSearchSectionProps {}
 
-export default function CharacterSearchSection(
-  props: ICharacterSearchSectionProps
-) {
+export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
   const currentFilter = useReactiveVar(activeCharacterFilterVar);
 
   const sortOptions = [

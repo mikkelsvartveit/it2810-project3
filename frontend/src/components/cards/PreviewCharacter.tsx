@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import TvIcon from "@mui/icons-material/Tv";
 import PublicIcon from "@mui/icons-material/Public";
-import { useGetCharacter } from "../gql/queries";
-import { useSetCharacterRating } from "../gql/mutations";
+import { useGetCharacter } from "../../gql/queries";
+import { useSetCharacterRating } from "../../gql/mutations";
 
 export interface IPreviewCharacterProps {
   id: number;
@@ -19,7 +19,7 @@ export interface IPreviewCharacterProps {
   handleClose: () => void;
 }
 
-export default function PreviewCharacter({
+export function PreviewCharacter({
   open,
   handleClose,
   id,

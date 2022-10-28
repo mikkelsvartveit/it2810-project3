@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import SearchSectionTabs from "./components/SearchSectionTabs";
+import { SearchSectionTabs } from "./components/searchSection/";
 
 function App() {
   return (

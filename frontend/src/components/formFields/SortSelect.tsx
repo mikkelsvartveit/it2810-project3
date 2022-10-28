@@ -16,7 +16,7 @@ export interface ISortSelectProps {
   callback: (sort: ICharacterSort) => void;
 }
 
-export default function SortSelect({
+export function SortSelect({
   options,
   defaultOption,
   callback,

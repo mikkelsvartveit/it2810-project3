@@ -24,16 +24,8 @@ export const GET_CHARACTERS = gql`
         name
       }
       gender
-      episode {
-        air_date
-        name
-        episode
-      }
       image
       id
-      location {
-        name
-      }
     }
   }
 `;
@@ -99,21 +91,10 @@ export const GET_EPISODES = gql`
   query GetEpisodes($page: Int!, $filters: EpisodeFilter, $sort: EpisodeSort) {
     episodes(page: $page, filters: $filters, sort: $sort) {
       air_date
-      created
       episode
       id
       name
-      characters {
-        gender
-        id
-        name
-        image
-        location {
-          name
-        }
-        species
-        status
-      }
+      rating
     }
   }
 `;
@@ -146,4 +127,28 @@ export const useGetEpisodes = () => {
       variables: { page: pageNr, filters, sort },
     }),
   };
+};
+
+export const GET_EPISODE = gql`
+  query GetCharacter($episodeId: ID!) {
+    episode(id: $episodeId) {
+      air_date
+      created
+      episode
+      id
+      namee
+      characters {
+        id
+        name
+        image
+      }
+      rating
+    }
+  }
+`;
+
+export const useGetEpisode = (episodeId: number) => {
+  return useQuery<{ episode: IEpisode }>(GET_EPISODE, {
+    variables: { episodeId },
+  });
 };

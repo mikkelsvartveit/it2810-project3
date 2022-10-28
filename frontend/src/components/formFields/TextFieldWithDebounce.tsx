@@ -8,7 +8,7 @@ export interface ITextFieldWithDebounceProps {
   callback: (value: string) => void;
 }
 
-export default function TextFieldWithDebounce({
+export function TextFieldWithDebounce({
   label,
   callback,
 }: ITextFieldWithDebounceProps) {

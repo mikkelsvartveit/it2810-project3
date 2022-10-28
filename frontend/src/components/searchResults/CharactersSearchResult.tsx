@@ -3,10 +3,10 @@ import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ICharacter } from "types";
-import PersonCard from "./PersonCard";
-import { useGetCharacters } from "../gql/queries";
+import { CharacterCard } from "../cards/";
+import { useGetCharacters } from "../../gql/queries";
 
-export default function SearchResult() {
+export function CharactersSearchResult() {
   const { pageNr, setPageNr, data, loading } = useGetCharacters();
 
   const [scrollData, setScrollData] = useState<ICharacter[]>([]);
@@ -62,19 +62,15 @@ export default function SearchResult() {
             <Grid container spacing={3} justifyContent={"center"}>
               {scrollData.map((character) => (
                 <Grid item xs={12} md={6} lg={4} key={character.id}>
-                  <PersonCard
+                  <CharacterCard
+                    id={character.id}
                     name={character.name}
                     image={character.image}
-                    species={character.species}
                     status={character.status}
-                    location={character.location}
-                    created={character.created}
+                    species={character.species}
                     episode={character.episode}
                     gender={character.gender}
-                    id={character.id}
                     origin={character.origin}
-                    type={character.type}
-                    rating={character.rating}
                   />
                 </Grid>
               ))}

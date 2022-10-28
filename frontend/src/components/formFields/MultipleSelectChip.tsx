@@ -34,7 +34,7 @@ interface IMultipleSelectChipProps {
   callback: (values: string[] | undefined) => void;
 }
 
-export default function MultipleSelectChip({
+export function MultipleSelectChip({
   label,
   options,
   callback,

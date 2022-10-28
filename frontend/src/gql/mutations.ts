@@ -28,8 +28,9 @@ export const SET_EPISODE_RATING = gql`
   }
 `;
 
-export const useSetEpisodeRating = (episodeId: number, rating: number) => {
+export const useSetEpisodeRating = (episodeId: number) => {
   return useMutation<{ setEpisodeRating: IEpisode }>(SET_EPISODE_RATING, {
-    variables: { episodeId, rating },
+    variables: { episodeId },
+    refetchQueries: ["GetEpisode"],
   });
 };

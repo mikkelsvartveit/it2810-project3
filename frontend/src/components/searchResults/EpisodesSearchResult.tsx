@@ -57,14 +57,14 @@ export function EpisodesSearchResult() {
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <Typography variant="h4" style={{ textAlign: "center" }}>
+              <h3 style={{ textAlign: "center", marginTop: 40 }}>
                 {scrollData.length === 0 ? "No results" : "No more results"}
-              </Typography>
+              </h3>
             }
           >
-            <Grid container spacing={3} justifyContent={"center"}>
+            <Grid container spacing={3}>
               {scrollData.map((episode) => (
-                <Grid item key={episode.id}>
+                <Grid item xs={12} md={6} lg={4} key={episode.id}>
                   <EpisodeCard
                     id={episode.id}
                     name={episode.name}

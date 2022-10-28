@@ -12,7 +12,6 @@ import Male from "@mui/icons-material/Male";
 import AdjustOutlined from "@mui/icons-material/AdjustOutlined";
 import { PreviewCharacter } from "./";
 import { Star } from "@mui/icons-material";
-import { fontSize } from "@mui/system";
 
 interface ICharacterCardProps {
   id: number;
@@ -37,7 +36,6 @@ export function CharacterCard({
   gender,
   origin,
   image,
-  episode,
   rating,
 }: ICharacterCardProps) {
   const [inFocus, setInFocus] = useState(false);
@@ -46,8 +44,6 @@ export function CharacterCard({
 
   const genderColor =
     gender === "Male" ? "#71B8D9" : gender === "Female" ? "#FB6467" : "#E7DB25";
-
-  // const episodeNum = episode[0].id;
 
   return (
     <>
@@ -64,17 +60,18 @@ export function CharacterCard({
             component="img"
             image={image}
             alt={name}
-            sx={{ width: 140, height: 160 }}
+            sx={{ width: 135, height: 150 }}
           />
           <CardContent
             sx={{
-              height: 134,
-              padding: "13px",
+              height: 150,
+              width: "100%",
+              boxSizing: "border-box",
+              padding: "10px 12px",
               overflow: "hidden",
               display: "flex",
               flexDirection: "column",
               justifyContent: "space-between",
-              width: "100%",
             }}
           >
             <Box>
@@ -100,10 +97,12 @@ export function CharacterCard({
                   {name}
                 </span>
               </Typography>
+
               <Typography variant="subtitle2" color="text.secondary">
                 {species} ({status}
                 {status === "unknown" && " status"})
               </Typography>
+
               <Typography
                 variant="subtitle2"
                 color="text.secondary"

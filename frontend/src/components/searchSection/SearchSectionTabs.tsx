@@ -38,8 +38,8 @@ export function SearchSectionTabs(props: ISearchSectionTabsProps) {
           onChange={(e, value) => setValue(value)}
           aria-label="basic tabs example"
         >
-          <Tab label="Characters" />
-          <Tab label="Episodes" />
+          <Tab label="Characters" sx={{ fontWeight: 600 }} />
+          <Tab label="Episodes" sx={{ fontWeight: 600 }} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

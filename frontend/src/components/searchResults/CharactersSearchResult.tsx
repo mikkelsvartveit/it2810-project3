@@ -56,12 +56,12 @@ export function CharactersSearchResult() {
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <h3 style={{ textAlign: "center" }}>
+              <h3 style={{ textAlign: "center", marginTop: 40 }}>
                 {scrollData.length === 0 ? "No results" : "No more results"}
               </h3>
             }
           >
-            <Grid container spacing={3} justifyContent={"center"}>
+            <Grid container spacing={3}>
               {scrollData.map((character) => (
                 <Grid item xs={12} md={6} lg={4} key={character.id}>
                   <CharacterCard

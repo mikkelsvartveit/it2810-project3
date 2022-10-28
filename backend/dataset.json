@@ -138,7 +138,8 @@
       "image": "https://rickandmortyapi.com/api/character/avatar/6.jpeg",
       "episode": [27],
       "url": "https://rickandmortyapi.com/api/character/6",
-      "created": "2017-11-04T19:50:28.250Z"
+      "created": "2017-11-04T19:50:28.250Z",
+      "rating": 1
     },
     {
       "id": 7,
@@ -158,7 +159,8 @@
       "image": "https://rickandmortyapi.com/api/character/avatar/7.jpeg",
       "episode": [10, 11],
       "url": "https://rickandmortyapi.com/api/character/7",
-      "created": "2017-11-04T19:59:20.523Z"
+      "created": "2017-11-04T19:59:20.523Z",
+      "rating": 3
     },
     {
       "id": 8,
@@ -278,7 +280,8 @@
       "image": "https://rickandmortyapi.com/api/character/avatar/13.jpeg",
       "episode": [31],
       "url": "https://rickandmortyapi.com/api/character/13",
-      "created": "2017-11-04T20:33:30.779Z"
+      "created": "2017-11-04T20:33:30.779Z",
+      "rating": 2
     },
     {
       "id": 14,
@@ -618,7 +621,8 @@
       "image": "https://rickandmortyapi.com/api/character/avatar/30.jpeg",
       "episode": [31],
       "url": "https://rickandmortyapi.com/api/character/30",
-      "created": "2017-11-05T09:13:16.483Z"
+      "created": "2017-11-05T09:13:16.483Z",
+      "rating": 5
     },
     {
       "id": 31,
@@ -838,7 +842,8 @@
       "image": "https://rickandmortyapi.com/api/character/avatar/41.jpeg",
       "episode": [5],
       "url": "https://rickandmortyapi.com/api/character/41",
-      "created": "2017-11-05T10:13:45.960Z"
+      "created": "2017-11-05T10:13:45.960Z",
+      "rating": 2
     },
     {
       "id": 42,
@@ -3258,7 +3263,8 @@
       "image": "https://rickandmortyapi.com/api/character/avatar/162.jpeg",
       "episode": [16],
       "url": "https://rickandmortyapi.com/api/character/162",
-      "created": "2017-12-29T16:42:59.207Z"
+      "created": "2017-12-29T16:42:59.207Z",
+      "rating": 4
     },
     {
       "id": 163,
@@ -3958,7 +3964,8 @@
       "image": "https://rickandmortyapi.com/api/character/avatar/197.jpeg",
       "episode": [17],
       "url": "https://rickandmortyapi.com/api/character/197",
-      "created": "2017-12-30T12:39:09.025Z"
+      "created": "2017-12-30T12:39:09.025Z",
+      "rating": 4
     },
     {
       "id": 198,
@@ -5318,7 +5325,8 @@
       "image": "https://rickandmortyapi.com/api/character/avatar/265.jpeg",
       "episode": [24],
       "url": "https://rickandmortyapi.com/api/character/265",
-      "created": "2017-12-31T13:47:10.617Z"
+      "created": "2017-12-31T13:47:10.617Z",
+      "rating": 5
     },
     {
       "id": 266,
@@ -16712,7 +16720,8 @@
         259, 262, 280, 324, 329, 352, 391
       ],
       "url": "https://rickandmortyapi.com/api/episode/15",
-      "created": "2017-11-10T12:56:35.261Z"
+      "created": "2017-11-10T12:56:35.261Z",
+      "rating": 5
     },
     {
       "id": 16,
@@ -16736,7 +16745,8 @@
         364, 388, 753
       ],
       "url": "https://rickandmortyapi.com/api/episode/17",
-      "created": "2017-11-10T12:56:35.467Z"
+      "created": "2017-11-10T12:56:35.467Z",
+      "rating": 5
     },
     {
       "id": 18,
@@ -16818,7 +16828,8 @@
         1, 2, 3, 4, 9, 70, 107, 167, 171, 189, 240, 265, 272, 276, 329
       ],
       "url": "https://rickandmortyapi.com/api/episode/24",
-      "created": "2017-11-10T12:56:36.206Z"
+      "created": "2017-11-10T12:56:36.206Z",
+      "rating": 4
     },
     {
       "id": 25,
@@ -16869,7 +16880,8 @@
         486, 487, 488, 489
       ],
       "url": "https://rickandmortyapi.com/api/episode/28",
-      "created": "2017-11-10T12:56:36.618Z"
+      "created": "2017-11-10T12:56:36.618Z",
+      "rating": 2
     },
     {
       "id": 29,

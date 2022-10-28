@@ -9,7 +9,7 @@ import {
   IEpisodeSort,
 } from "types";
 
-const PAGE_SIZE = 20;
+const PAGE_SIZE = 18;
 
 const mongooseStringContains = (str?: string) => ({
   $regex: str ?? "",

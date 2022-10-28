@@ -1,4 +1,6 @@
+import { Star } from "@mui/icons-material";
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
+import { Box } from "@mui/system";
 import { useState } from "react";
 import { PreviewEpisode } from "./";
 
@@ -20,34 +22,71 @@ export function EpisodeCard({
   const [inFocus, setInFocus] = useState(false);
   return (
     <>
-      <Card sx={{ maxWidth: 406, margin: 0 }}>
-        <CardActionArea
-          sx={{ maxWidth: 406, display: "flex", flexDirection: "row" }}
-          onClick={() => setInFocus(true)}
-        >
+      <Card sx={{ margin: 0 }}>
+        <CardActionArea onClick={() => setInFocus(true)}>
           <CardContent
             sx={{
-              width: 406,
-              height: 110,
+              height: 150,
+              width: "100%",
+              boxSizing: "border-box",
+              padding: "12px 15px",
+              overflow: "hidden",
               display: "flex",
               flexDirection: "column",
-              alignItems: "flex-start",
               justifyContent: "space-between",
             }}
           >
-            <Typography variant="h5">{name}</Typography>
+            <Box>
+              <Typography variant="h5">{name}</Typography>
 
-            <Typography variant="body2" color="text.secondary">
-              {episode}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {air_date}
-            </Typography>
-            {rating ? (
-              <Typography variant="body2" color="text.secondary">
-                Rating: {rating}
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{ marginTop: "5px" }}
+              >
+                <strong>
+                  {episode
+                    .replace("S", "Season ")
+                    .replace("E", ", Episode ")
+                    .replaceAll(" 0", " ")}
+                </strong>
               </Typography>
-            ) : null}
+            </Box>
+
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="subtitle2" color="text.secondary">
+                {air_date}
+              </Typography>
+              {rating && (
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Star style={{ color: "#faaf00" }} />
+                  <span
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 600,
+                      marginLeft: 4,
+                      marginTop: 4,
+                    }}
+                  >
+                    {rating} / 5
+                  </span>
+                </Typography>
+              )}
+            </Box>
           </CardContent>
         </CardActionArea>
       </Card>

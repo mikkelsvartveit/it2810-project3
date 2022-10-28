@@ -7,16 +7,16 @@ import { useGetEpisodes } from "../../gql/queries";
 import { EpisodeCard } from "../cards/";
 
 export function EpisodesSearchResult() {
-  const { pageNr, setPageNr, data, loading } = useGetEpisodes();
+  const { pageNr, setPageNr, isLastPage, setIsLastPage, data, loading } =
+    useGetEpisodes();
 
   const [scrollData, setScrollData] = useState<IEpisode[]>([]);
-  const [hasMoreValue, setHasMoreValue] = useState(true);
 
   // Handle new data from gql query
   useEffect(() => {
     if (!data) return;
     if (data.episodes.length === 0) {
-      setHasMoreValue(false);
+      setIsLastPage(true);
 
       // Edge case: if no results, empty scrollData
       // TODO: Should not be possible with correct impl of filter and task description
@@ -25,10 +25,12 @@ export function EpisodesSearchResult() {
       }
       return;
     }
-    // if not a full page, set hasMore to false
-    if (data.episodes.length < 20) {
-      setHasMoreValue(false);
+
+    // if not a full page, set isLastPage to false
+    if (data.episodes.length < 18) {
+      setIsLastPage(true);
     }
+
     if (pageNr > 1) {
       setScrollData((s) => s.concat([...data.episodes]));
     } else {
@@ -50,19 +52,19 @@ export function EpisodesSearchResult() {
           <InfiniteScroll
             dataLength={scrollData.length}
             next={loadScrollData}
-            hasMore={hasMoreValue}
+            hasMore={!isLastPage}
             scrollThreshold={0.9}
             loader={<LinearProgress />}
             style={{ overflow: "unset" }}
             endMessage={
-              <h1 style={{ textAlign: "center" }}>
+              <h3 style={{ textAlign: "center", marginTop: 40 }}>
                 {scrollData.length === 0 ? "No results" : "No more results"}
-              </h1>
+              </h3>
             }
           >
-            <Grid container spacing={3} justifyContent={"center"}>
+            <Grid container spacing={3}>
               {scrollData.map((episode) => (
-                <Grid item key={episode.id}>
+                <Grid item xs={12} md={6} lg={4} key={episode.id}>
                   <EpisodeCard
                     id={episode.id}
                     name={episode.name}

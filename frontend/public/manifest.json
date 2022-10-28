@@ -1,6 +1,6 @@
 {
-  "short_name": "GitLab Analyzer",
-  "name": "GitLab Repository Analyzer",
+  "short_name": "R&M Explorer",
+  "name": "Rick and Morty Explorer",
   "icons": [
     {
       "src": "favicon.ico",

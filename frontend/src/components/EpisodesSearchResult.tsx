@@ -26,7 +26,7 @@ export default function EpisodesSearchResult() {
       return;
     }
     // if not a full page, set hasMore to false
-    if (data.episodes.length < 20) {
+    if (data.episodes.length < 18) {
       setHasMoreValue(false);
     }
     if (pageNr > 1) {

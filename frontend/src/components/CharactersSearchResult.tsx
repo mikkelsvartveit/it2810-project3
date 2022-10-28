@@ -25,7 +25,7 @@ export default function SearchResult() {
       return;
     }
     // if not a full page, set hasMore to false
-    if (data.characters.length < 20) {
+    if (data.characters.length < 18) {
       setHasMoreValue(false);
     }
     if (pageNr > 1) {

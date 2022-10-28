@@ -107,6 +107,11 @@ export const typeDefs = gql`
     episode: [Episode]
 
     """
+    How many episodes the character is in
+    """
+    episode_count: Int!
+
+    """
     Rating of character
     """
     rating: Int
@@ -141,6 +146,11 @@ export const typeDefs = gql`
     List of characters in episode.
     """
     characters: [Character]
+
+    """
+    Number of characters in episode
+    """
+    character_count: Int!
 
     """
     Creation time in RickandMortyAPI database.

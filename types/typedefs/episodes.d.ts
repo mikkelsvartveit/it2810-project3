@@ -6,6 +6,7 @@ export declare interface IEpisode {
   air_date: string; //	The air date of the episode.
   episode: string; //	The code of the episode. S2E4
   characters: ICharacter[]; // (urls)	List of characters who have been seen in the episode.
+  character_count: number;
   created: string; //	Time at which the episode was created in the database
   rating: number; //	Rating of the episode from webpage
 }

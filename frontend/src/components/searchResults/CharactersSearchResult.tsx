@@ -73,6 +73,7 @@ export function CharactersSearchResult() {
                     episode={character.episode}
                     gender={character.gender}
                     origin={character.origin}
+                    rating={character.rating}
                   />
                 </Grid>
               ))}

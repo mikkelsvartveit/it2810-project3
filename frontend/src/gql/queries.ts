@@ -26,6 +26,7 @@ export const GET_CHARACTERS = gql`
       gender
       image
       id
+      rating
     }
   }
 `;

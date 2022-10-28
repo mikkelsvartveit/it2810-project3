@@ -1,4 +1,5 @@
 import {
+  Box,
   Card,
   CardActionArea,
   CardContent,
@@ -10,6 +11,8 @@ import Female from "@mui/icons-material/Female";
 import Male from "@mui/icons-material/Male";
 import AdjustOutlined from "@mui/icons-material/AdjustOutlined";
 import { PreviewCharacter } from "./";
+import { Star } from "@mui/icons-material";
+import { fontSize } from "@mui/system";
 
 interface ICharacterCardProps {
   id: number;
@@ -24,6 +27,7 @@ interface ICharacterCardProps {
   episode: {
     id: number;
   }[];
+  rating: number;
 }
 export function CharacterCard({
   id,
@@ -34,6 +38,7 @@ export function CharacterCard({
   origin,
   image,
   episode,
+  rating,
 }: ICharacterCardProps) {
   const [inFocus, setInFocus] = useState(false);
   const GenderIcon =
@@ -66,37 +71,84 @@ export function CharacterCard({
               height: 134,
               padding: "13px",
               overflow: "hidden",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              width: "100%",
             }}
           >
-            <Typography
-              variant="h5"
-              component="div"
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                width: "100%",
-                height: 40,
-                whiteSpace: "nowrap",
-              }}
-            >
-              <GenderIcon style={{ color: genderColor }} />
-              <span
-                style={{
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  marginLeft: "6px",
+            <Box>
+              <Typography
+                variant="h5"
+                component="div"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  width: "100%",
+                  height: 40,
+                  whiteSpace: "nowrap",
                 }}
               >
-                {name}
-              </span>
-            </Typography>
-            <Typography variant="subtitle2" color="text.secondary">
-              {status} {species}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              From {origin.name}
-              {origin.name === "unknown" && " planet"}
-            </Typography>
+                <GenderIcon style={{ color: genderColor }} />
+                <span
+                  style={{
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    marginLeft: "6px",
+                  }}
+                >
+                  {name}
+                </span>
+              </Typography>
+              <Typography variant="subtitle2" color="text.secondary">
+                {species} ({status}
+                {status === "unknown" && " status"})
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                color="text.secondary"
+                sx={{
+                  width: "100%",
+                  marginTop: "4px",
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                From{" "}
+                <strong>
+                  {origin.name}
+                  {origin.name === "unknown" && " planet"}
+                </strong>
+              </Typography>
+            </Box>
+
+            <Box>
+              {rating && (
+                <Typography
+                  variant="subtitle2"
+                  color="text.secondary"
+                  sx={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "flex-end",
+                    alignItems: "center",
+                  }}
+                >
+                  <Star style={{ color: "#faaf00" }} />
+                  <span
+                    style={{
+                      fontSize: 16,
+                      fontWeight: 600,
+                      marginLeft: 4,
+                      marginTop: 4,
+                    }}
+                  >
+                    {rating} / 5
+                  </span>
+                </Typography>
+              )}
+            </Box>
           </CardContent>
         </CardActionArea>
       </Card>

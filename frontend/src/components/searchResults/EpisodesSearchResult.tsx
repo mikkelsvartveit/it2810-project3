@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { IEpisode } from "types";

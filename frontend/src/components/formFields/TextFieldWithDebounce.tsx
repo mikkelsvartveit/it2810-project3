@@ -1,18 +1,24 @@
 import debounce from "lodash.debounce";
 import { FormControl, InputAdornment, TextField } from "@mui/material";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Search } from "@mui/icons-material";
 
 export interface ITextFieldWithDebounceProps {
   label: string;
   callback: (value: string) => void;
+  initalValue: string | null;
 }
 
 export function TextFieldWithDebounce({
+  initalValue,
   label,
   callback,
 }: ITextFieldWithDebounceProps) {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const [currValue, setCurrValue] = useState(initalValue ?? "");
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     callback(event.target.value);
   };
   const debouncedResults = useMemo(() => {
@@ -29,6 +35,7 @@ export function TextFieldWithDebounce({
   return (
     <FormControl fullWidth>
       <TextField
+        value={currValue}
         id="outlined-basic"
         data-testid="SearchField"
         label={label}
@@ -41,7 +48,10 @@ export function TextFieldWithDebounce({
             </InputAdornment>
           ),
         }}
-        onChange={debouncedResults}
+        onChange={(e) => {
+          debouncedResults(e);
+          setCurrValue(e.target.value);
+        }}
       />
     </FormControl>
   );

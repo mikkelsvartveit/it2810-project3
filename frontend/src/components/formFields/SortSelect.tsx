@@ -11,17 +11,19 @@ import { useState } from "react";
 import { ICharacterSort } from "types";
 
 export interface ISortSelectProps {
+  initalValue: string | null;
   options: { label: string; value: string }[];
   defaultOption: string;
   callback: (sort: ICharacterSort) => void;
 }
 
 export function SortSelect({
+  initalValue,
   options,
   defaultOption,
   callback,
 }: ISortSelectProps) {
-  const [sort, setSort] = useState(defaultOption);
+  const [sort, setSort] = useState(initalValue ? initalValue : defaultOption);
   return (
     <>
       <FormControl fullWidth>

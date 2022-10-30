@@ -10,11 +10,20 @@ import {
   SortSelect,
   TextFieldWithDebounce,
 } from "../formFields";
+import { ICharacterSort } from "types";
 
 export interface ICharacterSearchSectionProps {}
 
+const initsort = (filters: ICharacterSort) => {
+  let entries = Object.entries({ ...filters });
+  if (entries.length > 0) return entries[0][0] + "_" + entries[0][1];
+  return null;
+};
+
 export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
   const currentFilter = useReactiveVar(activeCharacterFilterVar);
+  const currFilterName = useReactiveVar(activeCharacterFilterNameVar);
+  const currentSort = useReactiveVar(activeCharacterSortVar);
 
   const sortOptions = [
     { value: "default", label: "Default order" },
@@ -34,6 +43,7 @@ export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
         <TextFieldWithDebounce
           label="Character name"
           callback={activeCharacterFilterNameVar}
+          initalValue={currFilterName}
         />
       </Grid>
 
@@ -41,6 +51,7 @@ export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
         <MultipleSelectChip
           label={"Status"}
           options={["Alive", "Dead", "unknown"]}
+          initialValues={currentFilter?.status ? [...currentFilter.status] : []}
           callback={(status) => {
             activeCharacterFilterVar({ ...currentFilter, status });
           }}
@@ -62,6 +73,9 @@ export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
             "Cronenberg",
             "unknown",
           ]}
+          initialValues={
+            currentFilter.species ? [...currentFilter.species] : []
+          }
           callback={(species) => {
             activeCharacterFilterVar({ ...currentFilter, species });
           }}
@@ -70,6 +84,7 @@ export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
 
       <Grid item xs={12} sm={6} lg={3}>
         <MultipleSelectChip
+          initialValues={currentFilter.gender ? [...currentFilter.gender] : []}
           label="Gender"
           options={["Male", "Female", "unknown"]}
           callback={(gender) => {
@@ -80,6 +95,7 @@ export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
 
       <Grid item xs={12} sm={6} lg={3}>
         <SortSelect
+          initalValue={initsort(currentSort)}
           options={sortOptions}
           defaultOption={defaultSort}
           callback={activeCharacterSortVar}

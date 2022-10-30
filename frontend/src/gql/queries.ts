@@ -127,13 +127,13 @@ export const useGetEpisodes = () => {
 };
 
 export const GET_EPISODE = gql`
-  query GetCharacter($episodeId: ID!) {
+  query GetEpisode($episodeId: ID!) {
     episode(id: $episodeId) {
       air_date
       created
       episode
       id
-      namee
+      name
       characters {
         id
         name

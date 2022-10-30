@@ -28,6 +28,8 @@ export function CharactersSearchResult() {
     // if not a full page, set isLastPage to true
     if (data.characters.length < 18) {
       setIsLastPage(true);
+    } else {
+      setIsLastPage(false);
     }
 
     if (pageNr > 1) {

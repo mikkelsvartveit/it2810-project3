@@ -28,9 +28,11 @@ export function PreviewCharacter({
   const [setCharacterRating] = useSetCharacterRating(id);
 
   function getEpisodeFormated(episode: string) {
-    const episodeNum = episode.split("E")[1];
-    return `Episode ${Number.parseInt(episodeNum)}`;
+    const seasonNum = Number.parseInt(episode.split("E")[0].replace("S0", ""));
+    const episodeNum = Number.parseInt(episode.split("E")[1]);
+    return `Season ${seasonNum}, Episode ${episodeNum}`;
   }
+
   return (
     <Modal
       open={open}
@@ -48,79 +50,94 @@ export function PreviewCharacter({
               alt={data.character.name}
               className="card-image"
             />
-            <CardContent
-              sx={{
-                width: "100%",
-                padding: "13px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "space-between",
-              }}
-            >
+
+            <CardContent className="card-content">
               <Typography
                 variant="h3"
                 component="div"
                 sx={{
-                  textUnderlineOffset: 7,
+                  marginBottom: "20px",
+                  textUnderlineOffset: 10,
                   textDecoration: "underline",
                   textDecorationColor:
-                    data.character.gender === "male"
-                      ? "#b7e4f9"
-                      : data.character.gender === "female"
+                    data.character.gender === "Male"
+                      ? "#71B8D9"
+                      : data.character.gender === "Female"
                       ? "#FB6467"
-                      : "#fafd7c",
+                      : "#E7DB25",
                 }}
               >
                 {data.character.name}
               </Typography>
+
               <Typography
                 gutterBottom
-                variant="subtitle1"
+                variant="body1"
                 color="text.secondary"
+                sx={{ marginBottom: "10px" }}
               >
-                {data.character.status} {data.character.species} from{" "}
-                {data.character.origin.name}
-                <br></br>
-                Gender - {data.character.gender}
+                <strong>
+                  {data.character.status} {data.character.species}
+                </strong>{" "}
+                from <strong>{data.character.origin.name}</strong>
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Last seen: {data.character.location.name}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                First appeared in:{" "}
-                {getEpisodeFormated(data.character.episode[0].episode)}
-                <IconButton aria-label="tv">
-                  <TvIcon />
-                </IconButton>
-              </Typography>
-              <Box width={"100%"}>
-                <Typography variant="h5" color="text.secondary">
-                  Episodes
-                </Typography>
-                <Box
-                  sx={{ overflowY: "scroll" }}
-                  maxHeight={100}
-                  width={"100%"}
-                >
-                  {data.character.episode.map((episode) => (
-                    <Typography variant="body2" color="text.secondary">
-                      {episode.name}
-                    </Typography>
-                  ))}
-                </Box>
-              </Box>
 
-              <Typography component="legend">Rating</Typography>
+              <Typography variant="body1" color="text.secondary">
+                Gender: <strong>{data.character.gender}</strong>
+              </Typography>
+
+              <Typography variant="body1" color="text.secondary">
+                Last seen: <strong>{data.character.location.name}</strong>
+              </Typography>
+
+              <Typography variant="body1" color="text.secondary">
+                First appeared in:{" "}
+                <strong>
+                  {getEpisodeFormated(data.character.episode[0].episode)}
+                </strong>
+              </Typography>
+
+              <Typography
+                variant="h6"
+                color="text.secondary"
+                sx={{ margin: "15px 0 5px 0" }}
+              >
+                Rating:
+              </Typography>
+
               <Rating
                 name="character-rating"
                 value={data.character.rating}
+                size="large"
                 onChange={(event, rating) => {
                   if (rating) {
                     setCharacterRating({ variables: { rating } });
                   }
                 }}
               />
+
+              <Box width={"100%"}>
+                <Typography
+                  variant="h6"
+                  color="text.secondary"
+                  sx={{ margin: "15px 0 5px 0" }}
+                >
+                  Featured in {data.character.episode.length}{" "}
+                  {data.character.episode.length === 1 ? "episode" : "episodes"}
+                  :
+                </Typography>
+                <Box width={"100%"}>
+                  {data.character.episode.map((episode) => (
+                    <Typography
+                      key={episode.episode}
+                      variant="body2"
+                      color="text.secondary"
+                    >
+                      <strong>{episode.episode}:</strong> {episode.name}
+                    </Typography>
+                  ))}
+                </Box>
+              </Box>
             </CardContent>
           </>
         ) : (

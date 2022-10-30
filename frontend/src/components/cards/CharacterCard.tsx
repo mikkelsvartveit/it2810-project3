@@ -27,6 +27,7 @@ interface ICharacterCardProps {
     id: number;
   }[];
   rating: number;
+  episodeCount: number;
 }
 export function CharacterCard({
   id,
@@ -37,6 +38,7 @@ export function CharacterCard({
   origin,
   image,
   rating,
+  episodeCount,
 }: ICharacterCardProps) {
   const [inFocus, setInFocus] = useState(false);
   const GenderIcon =
@@ -122,14 +124,24 @@ export function CharacterCard({
               </Typography>
             </Box>
 
-            <Box>
+            <Box
+              sx={{
+                display: "flex",
+                width: "100%",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Typography variant="subtitle2" color="text.secondary">
+                In <strong>{episodeCount}</strong>
+                {episodeCount === 1 ? " episode" : " episodes"}
+              </Typography>
               {rating && (
                 <Typography
                   variant="subtitle2"
                   color="text.secondary"
                   sx={{
                     display: "flex",
-                    width: "100%",
                     justifyContent: "flex-end",
                     alignItems: "center",
                   }}

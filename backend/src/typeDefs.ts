@@ -18,11 +18,13 @@ export const typeDefs = gql`
   input CharacterSort {
     name: String
     rating: String
+    episodeCount: String
   }
 
   input EpisodeSort {
     name: String
     rating: String
+    characterCount: String
   }
 
   type Query {
@@ -107,6 +109,11 @@ export const typeDefs = gql`
     episode: [Episode]
 
     """
+    How many episodes the character is in
+    """
+    episodeCount: Int!
+
+    """
     Rating of character
     """
     rating: Int
@@ -141,6 +148,11 @@ export const typeDefs = gql`
     List of characters in episode.
     """
     characters: [Character]
+
+    """
+    Number of characters in episode
+    """
+    characterCount: Int!
 
     """
     Creation time in RickandMortyAPI database.

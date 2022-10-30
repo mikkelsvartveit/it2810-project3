@@ -56,7 +56,7 @@ export const resolvers = {
         ...filters,
         name: mongooseStringContains(filters?.name),
       })
-        .sort(sort ?? {})
+        .sort({ ...sort, _id: 1 } ?? { _id: 1 })
         .skip((page - 1) * PAGE_SIZE)
         .limit(PAGE_SIZE),
 
@@ -80,7 +80,7 @@ export const resolvers = {
           filters?.end_date
         }").getTime()))`,
       })
-        .sort(sort ?? {})
+        .sort({ ...sort, _id: 1 } ?? { _id: 1 })
         .skip((page - 1) * PAGE_SIZE)
         .limit(PAGE_SIZE);
     },

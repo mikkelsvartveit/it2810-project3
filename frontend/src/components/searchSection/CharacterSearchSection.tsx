@@ -22,6 +22,8 @@ export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
     { value: "name_desc", label: "Name (Z to A)" },
     { value: "rating_desc", label: "Rating (High to Low)" },
     { value: "rating_asc", label: "Rating (Low to High)" },
+    { value: "episodeCount_desc", label: "Featured episodes (Many to Few)" },
+    { value: "episodeCount_asc", label: "Featured episodes (Few to Many)" },
   ];
 
   const defaultSort = "default";

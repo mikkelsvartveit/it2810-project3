@@ -27,6 +27,7 @@ export const GET_CHARACTERS = gql`
       image
       id
       rating
+      episodeCount
     }
   }
 `;
@@ -94,6 +95,7 @@ export const GET_EPISODES = gql`
       id
       name
       rating
+      characterCount
     }
   }
 `;

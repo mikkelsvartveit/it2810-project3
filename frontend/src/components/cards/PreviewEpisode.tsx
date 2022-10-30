@@ -41,13 +41,7 @@ export function PreviewEpisode({
       aria-describedby="modal-modal-description"
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
-      <Card
-        sx={{
-          width: "50%",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
+      <Card className="preview-card" sx={{ flexDirection: "column" }}>
         {data ? (
           <>
             <CardContent
@@ -84,15 +78,17 @@ export function PreviewEpisode({
                   gap: "2%",
                   width: "100%",
                   justifyContent: "flex-start",
+                  overflowY: "scroll",
+                  maxHeight: "40vh",
                 }}
               >
                 {data.episode.characters.map((character) => (
-                  //circle image of all the characters in the episode
                   <CardMedia
+                    key={character.id}
                     component="img"
                     image={character.image}
                     alt={character.name}
-                    sx={{ width: "15%", borderRadius: "50%" }}
+                    sx={{ width: "14%", borderRadius: "50%" }}
                   />
                 ))}
               </Box>

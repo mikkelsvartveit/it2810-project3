@@ -7,9 +7,9 @@ import {
   Modal,
   Typography,
   CircularProgress,
+  Box,
 } from "@mui/material";
 import TvIcon from "@mui/icons-material/Tv";
-import PublicIcon from "@mui/icons-material/Public";
 import { useGetCharacter } from "../../gql/queries";
 import { useSetCharacterRating } from "../../gql/mutations";
 
@@ -27,14 +27,10 @@ export function PreviewCharacter({
   const { data } = useGetCharacter(id);
   const [setCharacterRating] = useSetCharacterRating(id);
 
-  const underlineColor =
-    data?.character.gender === "male"
-      ? "#b7e4f9"
-      : data?.character.gender === "female"
-      ? "#FB6467"
-      : "#fafd7c";
-  const episodeNum = data?.character.episode[0].id;
-
+  function getEpisodeFormated(episode: string) {
+    const episodeNum = episode.split("E")[1];
+    return `Episode ${Number.parseInt(episodeNum)}`;
+  }
   return (
     <Modal
       open={open}
@@ -43,20 +39,14 @@ export function PreviewCharacter({
       aria-describedby="modal-modal-description"
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
-      <Card
-        sx={{
-          width: "50%",
-          display: "flex",
-          flexDirection: "row",
-        }}
-      >
+      <Card className="preview-card">
         {data ? (
           <>
             <CardMedia
               component="img"
               image={data.character.image}
               alt={data.character.name}
-              sx={{ width: "100%" }}
+              className="card-image"
             />
             <CardContent
               sx={{
@@ -74,7 +64,12 @@ export function PreviewCharacter({
                 sx={{
                   textUnderlineOffset: 7,
                   textDecoration: "underline",
-                  textDecorationColor: underlineColor,
+                  textDecorationColor:
+                    data.character.gender === "male"
+                      ? "#b7e4f9"
+                      : data.character.gender === "female"
+                      ? "#FB6467"
+                      : "#fafd7c",
                 }}
               >
                 {data.character.name}
@@ -84,26 +79,38 @@ export function PreviewCharacter({
                 variant="subtitle1"
                 color="text.secondary"
               >
-                {data.character.status} {data.character.species}
+                {data.character.status} {data.character.species} from{" "}
+                {data.character.origin.name}
+                <br></br>
+                Gender - {data.character.gender}
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 Last seen: {data.character.location.name}
-                <IconButton aria-label="eye">
-                  <PublicIcon />
-                </IconButton>
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                First appeared in: Episode {episodeNum}
+                First appeared in:{" "}
+                {getEpisodeFormated(data.character.episode[0].episode)}
                 <IconButton aria-label="tv">
                   <TvIcon />
                 </IconButton>
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Origin:{" "}
-                <a href={data.character.origin.name}>
-                  {data.character.origin.name}
-                </a>
-              </Typography>
+              <Box width={"100%"}>
+                <Typography variant="h5" color="text.secondary">
+                  Episodes
+                </Typography>
+                <Box
+                  sx={{ overflowY: "scroll" }}
+                  maxHeight={100}
+                  width={"100%"}
+                >
+                  {data.character.episode.map((episode) => (
+                    <Typography variant="body2" color="text.secondary">
+                      {episode.name}
+                    </Typography>
+                  ))}
+                </Box>
+              </Box>
+
               <Typography component="legend">Rating</Typography>
               <Rating
                 name="character-rating"

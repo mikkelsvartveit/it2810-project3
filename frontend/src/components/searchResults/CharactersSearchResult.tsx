@@ -1,16 +1,15 @@
 import { useState, useEffect } from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { ICharacter } from "types";
-import { CharacterCard } from "../cards/";
+import { CharacterCard, ICharacterCardProps } from "../cards/";
 import { useGetCharacters } from "../../gql/queries";
 
 export function CharactersSearchResult() {
   const { pageNr, setPageNr, isLastPage, setIsLastPage, data, loading } =
     useGetCharacters();
 
-  const [scrollData, setScrollData] = useState<ICharacter[]>([]);
+  const [scrollData, setScrollData] = useState<ICharacterCardProps[]>([]);
 
   useEffect(() => {
     if (!data) return;
@@ -48,7 +47,7 @@ export function CharactersSearchResult() {
 
   return (
     <>
-      {scrollData.length > 0 || !loading ? (
+      {(pageNr > 1 && scrollData) || (!loading && scrollData) ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}
@@ -84,11 +83,18 @@ export function CharactersSearchResult() {
           </InfiniteScroll>
         </>
       ) : (
-        <CircularProgress
-          data-testid="CSearchLoader"
-          color={"success"}
-          size={200}
-        />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress
+            data-testid="CSearchLoader"
+            color={"primary"}
+            size={75}
+          />
+        </Box>
       )}
     </>
   );

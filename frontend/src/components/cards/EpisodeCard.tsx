@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 import { useState } from "react";
 import { PreviewEpisode } from "./";
 
-interface IEpisodeCardProps {
+export interface IEpisodeCardProps {
   id: number;
   name: string;
   air_date: string;

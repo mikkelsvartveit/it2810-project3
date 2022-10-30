@@ -5,7 +5,6 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
-import { act } from "react-test-renderer";
 import App from "../App";
 import {
   CustomMockedProvider,
@@ -16,7 +15,7 @@ import {
 const mockEpisodes = mockEpisodesQuery.result.data.episodes;
 const mockCharacters = mockCharactersQuery.result.data.characters;
 
-describe("Basic full app tests", () => {
+describe("Full app functionality", () => {
   test("Renders application without errors", () => {
     render(
       <CustomMockedProvider>
@@ -33,12 +32,16 @@ describe("Basic full app tests", () => {
       </CustomMockedProvider>
     );
 
-    await waitForElementToBeRemoved(() => screen.getByTestId("CSearchLoader"));
+    await waitForElementToBeRemoved(() =>
+      screen.queryByTestId("CSearchLoader")
+    );
     expect(await screen.findByText(mockCharacters[0].name)).toBeInTheDocument();
     expect(screen.queryByText(mockEpisodes[0].name)).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByTestId("EpisodesTab"));
-    await waitForElementToBeRemoved(() => screen.getByTestId("ESearchLoader"));
+    await waitForElementToBeRemoved(() =>
+      screen.queryByTestId("ESearchLoader")
+    );
     expect(await screen.findByText(mockEpisodes[0].name)).toBeInTheDocument();
     expect(screen.queryByText(mockCharacters[0].name)).not.toBeInTheDocument();
 
@@ -53,21 +56,22 @@ describe("Basic full app tests", () => {
         <App />
       </CustomMockedProvider>
     );
+
+    // eslint-disable-next-line
     const inputField = (await screen.findByTestId("SearchField")).querySelector(
       "input"
     ) as HTMLInputElement;
-    act(() => {
-      fireEvent.change(inputField, {
-        target: { value: "campaign" },
-      });
+
+    fireEvent.change(inputField, {
+      target: { value: "campaign" },
     });
 
     expect(
-      await screen.findByText("Campaign1 Manager Morty", { exact: false })
+      await screen.findByText("Chartest1", { exact: false })
     ).toBeInTheDocument();
     expect(screen.queryByText(mockCharacters[0].name)).not.toBeInTheDocument();
     expect(
-      await screen.findByText("Campaign2 Thom", { exact: false })
+      await screen.findByText("Chartest2", { exact: false })
     ).toBeInTheDocument();
   });
 
@@ -78,15 +82,17 @@ describe("Basic full app tests", () => {
       </CustomMockedProvider>
     );
     fireEvent.click(screen.getByTestId("EpisodesTab"));
-    await waitForElementToBeRemoved(() => screen.getByTestId("ESearchLoader"));
+    await waitForElementToBeRemoved(() =>
+      screen.queryByTestId("ESearchLoader")
+    );
 
+    // eslint-disable-next-line
     const inputField = (await screen.findByTestId("SearchField")).querySelector(
       "input"
     ) as HTMLInputElement;
-    act(() => {
-      fireEvent.change(inputField, {
-        target: { value: "testepisode" },
-      });
+
+    fireEvent.change(inputField, {
+      target: { value: "testepisode" },
     });
 
     expect(

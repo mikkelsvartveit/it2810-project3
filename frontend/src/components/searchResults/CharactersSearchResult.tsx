@@ -48,7 +48,7 @@ export function CharactersSearchResult() {
 
   return (
     <>
-      {scrollData.length > 0 ? (
+      {scrollData.length > 0 || !loading ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}

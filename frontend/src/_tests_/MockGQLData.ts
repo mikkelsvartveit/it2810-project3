@@ -1,4 +1,9 @@
-import { GET_CHARACTERS, GET_EPISODES } from "../gql/queries";
+import {
+  GET_CHARACTER,
+  GET_CHARACTERS,
+  GET_EPISODE,
+  GET_EPISODES,
+} from "../gql/queries";
 import { MockedProvider } from "@apollo/client/testing";
 
 export const mockedFilteredCharacterQuery = {
@@ -14,46 +19,28 @@ export const mockedFilteredCharacterQuery = {
     data: {
       characters: [
         {
-          name: "Campaign1 Manager Morty",
+          name: "Chartest1",
           status: "Dead",
-          species: "Human",
+          species: "Alien",
           origin: {
             name: "unknown",
           },
           gender: "Male",
-          episode: [
-            {
-              air_date: "September 10, 2017",
-              name: "The Ricklantis Mixup",
-              episode: "S03E07",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/61.jpeg",
-          id: "61",
-          location: {
-            name: "Citadel of Ricks",
-          },
+          image: "https://rickandmortyapi.com/api/character/avatar/109.jpeg",
+          id: "109",
+          rating: null,
         },
         {
-          name: "Campaign2 Thom",
-          status: "Dead",
+          name: "Chartest2",
+          status: "Alive",
           species: "Human",
           origin: {
-            name: "Gromflom Prime",
+            name: "Post-Apocalyptic Earth",
           },
           gender: "Male",
-          episode: [
-            {
-              air_date: "December 2, 2013",
-              name: "Pilot",
-              episode: "S01E01",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/62.jpeg",
-          id: "62",
-          location: {
-            name: "unknown",
-          },
+          image: "https://rickandmortyapi.com/api/character/avatar/110.jpeg",
+          id: "110",
+          rating: null,
         },
       ],
     },
@@ -73,55 +60,25 @@ export const mockedFilteredEpisodeQuery = {
     data: {
       episodes: [
         {
-          air_date: "December 2, 2013",
-          created: "2017-11-10T12:56:33.798Z",
-          episode: "S01E01",
-          id: "1",
+          air_date: "September 27, 2015",
+          episode: "S02E09",
+          id: "20",
           name: "Test1",
-          characters: [
-            {
-              gender: "Male",
-              id: "1",
-              name: "Rick Sanchez",
-              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-          ],
+          rating: null,
         },
         {
-          air_date: "December 9, 2013",
-          created: "2017-11-10T12:56:33.916Z",
-          episode: "S01E02",
-          id: "2",
+          air_date: "October 4, 2015",
+          episode: "S02E10",
+          id: "21",
+          name: "The Wedding Squanchers",
+          rating: null,
+        },
+        {
+          air_date: "April 1, 2017",
+          episode: "S03E01",
+          id: "22",
           name: "Test2",
-          characters: [
-            {
-              gender: "Male",
-              id: "1",
-              name: "Rick Sanchez",
-              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "2",
-              name: "Morty Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-          ],
+          rating: null,
         },
       ],
     },
@@ -141,429 +98,220 @@ export const mockCharactersQuery = {
     data: {
       characters: [
         {
-          name: "Campaign Manager Morty",
-          status: "Dead",
-          species: "Human",
-          origin: {
-            name: "unknown",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "September 10, 2017",
-              name: "The Ricklantis Mixup",
-              episode: "S03E07",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/61.jpeg",
-          id: "61",
-          location: {
-            name: "Citadel of Ricks",
-          },
-        },
-        {
-          name: "Canklanker Thom",
-          status: "Dead",
-          species: "Alien",
-          origin: {
-            name: "Gromflom Prime",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "December 2, 2013",
-              name: "Pilot",
-              episode: "S01E01",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/62.jpeg",
-          id: "62",
-          location: {
-            name: "unknown",
-          },
-        },
-        {
-          name: "Centaur",
-          status: "Alive",
-          species: "Mythological Creature",
-          origin: {
-            name: "unknown",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "December 9, 2013",
-              name: "Lawnmower Dog",
-              episode: "S01E02",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/63.jpeg",
-          id: "63",
-          location: {
-            name: "Mr. Goldenfold's dream",
-          },
-        },
-        {
-          name: "Chris",
+          name: "Duck With Muscles",
           status: "Dead",
           species: "Alien",
           origin: {
             name: "unknown",
           },
-          gender: "unknown",
-          episode: [
-            {
-              air_date: "July 26, 2015",
-              name: "A Rickle in Time",
-              episode: "S02E01",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/64.jpeg",
-          id: "64",
-          location: {
-            name: "Earth (Replacement Dimension)",
-          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/109.jpeg",
+          id: "109",
+          rating: null,
         },
         {
-          name: "Chris",
+          name: "Eli",
           status: "Alive",
-          species: "Humanoid",
-          origin: {
-            name: "Rick's Battery Microverse",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "August 30, 2015",
-              name: "The Ricks Must Be Crazy",
-              episode: "S02E06",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/65.jpeg",
-          id: "65",
-          location: {
-            name: "Rick's Battery Microverse",
-          },
-        },
-        {
-          name: "Coach Feratu (Balik Alistane)",
-          status: "Dead",
-          species: "Mythological Creature",
-          origin: {
-            name: "Earth (Replacement Dimension)",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "September 13, 2015",
-              name: "Big Trouble in Little Sanchez",
-              episode: "S02E07",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/66.jpeg",
-          id: "66",
-          location: {
-            name: "Earth (Replacement Dimension)",
-          },
-        },
-        {
-          name: "Collector",
-          status: "Alive",
-          species: "Alien",
-          origin: {
-            name: "The Menagerie",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "September 17, 2017",
-              name: "Morty's Mind Blowers",
-              episode: "S03E08",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/67.jpeg",
-          id: "67",
-          location: {
-            name: "The Menagerie",
-          },
-        },
-        {
-          name: "Colossus",
-          status: "Dead",
           species: "Human",
           origin: {
             name: "Post-Apocalyptic Earth",
           },
           gender: "Male",
-          episode: [
-            {
-              air_date: "July 30, 2017",
-              name: "Rickmancing the Stone",
-              episode: "S03E02",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/68.jpeg",
-          id: "68",
-          location: {
-            name: "Post-Apocalyptic Earth",
-          },
+          image: "https://rickandmortyapi.com/api/character/avatar/110.jpeg",
+          id: "110",
+          rating: null,
         },
         {
-          name: "Commander Rick",
-          status: "Dead",
+          name: "Eli's Girlfriend",
+          status: "Alive",
           species: "Human",
           origin: {
-            name: "unknown",
+            name: "Post-Apocalyptic Earth",
           },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "April 1, 2017",
-              name: "The Rickshank Rickdemption",
-              episode: "S03E01",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/69.jpeg",
-          id: "69",
-          location: {
-            name: "Citadel of Ricks",
-          },
+          gender: "Female",
+          image: "https://rickandmortyapi.com/api/character/avatar/111.jpeg",
+          id: "111",
+          rating: null,
         },
         {
-          name: "Concerto",
-          status: "Dead",
-          species: "Humanoid",
+          name: "Eric McMan",
+          status: "Alive",
+          species: "Human",
           origin: {
-            name: "unknown",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "August 6, 2017",
-              name: "Pickle Rick",
-              episode: "S03E03",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/70.jpeg",
-          id: "70",
-          location: {
-            name: "unknown",
-          },
-        },
-        {
-          name: "Conroy",
-          status: "Dead",
-          species: "Robot",
-          origin: {
-            name: "Earth (Replacement Dimension)",
-          },
-          gender: "unknown",
-          episode: [
-            {
-              air_date: "April 1, 2017",
-              name: "The Rickshank Rickdemption",
-              episode: "S03E01",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/71.jpeg",
-          id: "71",
-          location: {
             name: "Earth (C-137)",
           },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/112.jpeg",
+          id: "112",
+          rating: null,
         },
         {
-          name: "Cool Rick",
+          name: "Eric Stoltz Mask Morty",
+          status: "unknown",
+          species: "Human",
+          origin: {
+            name: "Eric Stoltz Mask Earth",
+          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/113.jpeg",
+          id: "113",
+          rating: null,
+        },
+        {
+          name: "Ethan",
+          status: "unknown",
+          species: "Human",
+          origin: {
+            name: "Earth (C-137)",
+          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/114.jpeg",
+          id: "114",
+          rating: null,
+        },
+        {
+          name: "Ethan",
           status: "Alive",
           species: "Human",
           origin: {
-            name: "Earth (K-83)",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "September 10, 2017",
-              name: "The Ricklantis Mixup",
-              episode: "S03E07",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/72.jpeg",
-          id: "72",
-          location: {
-            name: "Citadel of Ricks",
-          },
-        },
-        {
-          name: "Cop Morty",
-          status: "Dead",
-          species: "Human",
-          origin: {
-            name: "unknown",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "September 10, 2017",
-              name: "The Ricklantis Mixup",
-              episode: "S03E07",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/73.jpeg",
-          id: "73",
-          location: {
-            name: "Citadel of Ricks",
-          },
-        },
-        {
-          name: "Cop Rick",
-          status: "Alive",
-          species: "Human",
-          origin: {
-            name: "unknown",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "September 10, 2017",
-              name: "The Ricklantis Mixup",
-              episode: "S03E07",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/74.jpeg",
-          id: "74",
-          location: {
-            name: "Citadel of Ricks",
-          },
-        },
-        {
-          name: "Courier Flap",
-          status: "Alive",
-          species: "Alien",
-          origin: {
-            name: "unknown",
-          },
-          gender: "unknown",
-          episode: [
-            {
-              air_date: "October 4, 2015",
-              name: "The Wedding Squanchers",
-              episode: "S02E10",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/75.jpeg",
-          id: "75",
-          location: {
-            name: "Planet Squanch",
-          },
-        },
-        {
-          name: "Cousin Nicky",
-          status: "Dead",
-          species: "Alien",
-          origin: {
-            name: "unknown",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "August 16, 2015",
-              name: "Total Rickall",
-              episode: "S02E04",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/76.jpeg",
-          id: "76",
-          location: {
             name: "Earth (Replacement Dimension)",
           },
-        },
-        {
-          name: "Cowboy Morty",
-          status: "Alive",
-          species: "Human",
-          origin: {
-            name: "unknown",
-          },
           gender: "Male",
-          episode: [
-            {
-              air_date: "April 7, 2014",
-              name: "Close Rick-counters of the Rick Kind",
-              episode: "S01E10",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/77.jpeg",
-          id: "77",
-          location: {
-            name: "Citadel of Ricks",
-          },
+          image: "https://rickandmortyapi.com/api/character/avatar/115.jpeg",
+          id: "115",
+          rating: null,
         },
         {
-          name: "Cowboy Rick",
-          status: "Alive",
-          species: "Human",
-          origin: {
-            name: "unknown",
-          },
-          gender: "Male",
-          episode: [
-            {
-              air_date: "April 7, 2014",
-              name: "Close Rick-counters of the Rick Kind",
-              episode: "S01E10",
-            },
-            {
-              air_date: "September 10, 2017",
-              name: "The Ricklantis Mixup",
-              episode: "S03E07",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/78.jpeg",
-          id: "78",
-          location: {
-            name: "Citadel of Ricks",
-          },
-        },
-        {
-          name: "Crab Spider",
-          status: "Alive",
-          species: "Alien",
-          origin: {
-            name: "Hideout Planet",
-          },
-          gender: "unknown",
-          episode: [
-            {
-              air_date: "April 7, 2014",
-              name: "Close Rick-counters of the Rick Kind",
-              episode: "S01E10",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/79.jpeg",
-          id: "79",
-          location: {
-            name: "Hideout Planet",
-          },
-        },
-        {
-          name: "Creepy Little Girl",
-          status: "Alive",
+          name: "Evil Beth Clone",
+          status: "Dead",
           species: "Human",
           origin: {
             name: "unknown",
           },
           gender: "Female",
-          episode: [
-            {
-              air_date: "December 9, 2013",
-              name: "Lawnmower Dog",
-              episode: "S01E02",
-            },
-          ],
-          image: "https://rickandmortyapi.com/api/character/avatar/80.jpeg",
-          id: "80",
-          location: {
-            name: "Mr. Goldenfold's dream",
+          image: "https://rickandmortyapi.com/api/character/avatar/116.jpeg",
+          id: "116",
+          rating: null,
+        },
+        {
+          name: "Evil Jerry Clone",
+          status: "Dead",
+          species: "Human",
+          origin: {
+            name: "unknown",
           },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/117.jpeg",
+          id: "117",
+          rating: null,
+        },
+        {
+          name: "Evil Morty",
+          status: "Alive",
+          species: "Human",
+          origin: {
+            name: "unknown",
+          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/118.jpeg",
+          id: "118",
+          rating: null,
+        },
+        {
+          name: "Evil Rick",
+          status: "Dead",
+          species: "Humanoid",
+          origin: {
+            name: "unknown",
+          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/119.jpeg",
+          id: "119",
+          rating: null,
+        },
+        {
+          name: "Evil Summer Clone",
+          status: "Dead",
+          species: "Human",
+          origin: {
+            name: "unknown",
+          },
+          gender: "Female",
+          image: "https://rickandmortyapi.com/api/character/avatar/120.jpeg",
+          id: "120",
+          rating: null,
+        },
+        {
+          name: "Eyehole Man",
+          status: "Alive",
+          species: "Alien",
+          origin: {
+            name: "unknown",
+          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/121.jpeg",
+          id: "121",
+          rating: null,
+        },
+        {
+          name: "Fart",
+          status: "Dead",
+          species: "Alien",
+          origin: {
+            name: "unknown",
+          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/122.jpeg",
+          id: "122",
+          rating: null,
+        },
+        {
+          name: "Fat Morty",
+          status: "Alive",
+          species: "Human",
+          origin: {
+            name: "unknown",
+          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/123.jpeg",
+          id: "123",
+          rating: null,
+        },
+        {
+          name: "Father Bob",
+          status: "Alive",
+          species: "Human",
+          origin: {
+            name: "Earth (Replacement Dimension)",
+          },
+          gender: "Male",
+          image: "https://rickandmortyapi.com/api/character/avatar/124.jpeg",
+          id: "124",
+          rating: null,
+        },
+        {
+          name: "Flansian",
+          status: "Alive",
+          species: "Alien",
+          origin: {
+            name: "unknown",
+          },
+          gender: "unknown",
+          image: "https://rickandmortyapi.com/api/character/avatar/125.jpeg",
+          id: "125",
+          rating: null,
+        },
+        {
+          name: "Fleeb",
+          status: "unknown",
+          species: "Alien",
+          origin: {
+            name: "unknown",
+          },
+          gender: "unknown",
+          image: "https://rickandmortyapi.com/api/character/avatar/126.jpeg",
+          id: "126",
+          rating: null,
         },
       ],
     },
@@ -583,539 +331,240 @@ export const mockEpisodesQuery = {
     data: {
       episodes: [
         {
-          air_date: "December 2, 2013",
-          created: "2017-11-10T12:56:33.798Z",
-          episode: "S01E01",
-          id: "1",
-          name: "Pilot",
-          characters: [
-            {
-              gender: "Male",
-              id: "1",
-              name: "Rick Sanchez",
-              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "239",
-              name: "Mr. Goldenfold",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/239.jpeg",
-              location: {
-                name: "Earth (C-137)",
-              },
-              species: "Cronenberg",
-              status: "Alive",
-            },
-            {
-              gender: "Female",
-              id: "249",
-              name: "Mrs. Sanchez",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/249.jpeg",
-              location: {
-                name: "unknown",
-              },
-              species: "Human",
-              status: "unknown",
-            },
-            {
-              gender: "Male",
-              id: "271",
-              name: "Principal Vagina",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/271.jpeg",
-              location: {
-                name: "Earth (C-137)",
-              },
-              species: "Cronenberg",
-              status: "Alive",
-            },
-            {
-              gender: "Female",
-              id: "338",
-              name: "Summer Smith",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/338.jpeg",
-              location: {
-                name: "Earth (C-137)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-          ],
+          air_date: "September 20, 2015",
+          episode: "S02E08",
+          id: "19",
+          name: "Interdimensional Cable 2: Tempting Fate",
+          rating: null,
         },
         {
-          air_date: "December 9, 2013",
-          created: "2017-11-10T12:56:33.916Z",
-          episode: "S01E02",
-          id: "2",
-          name: "Lawnmower Dog",
-          characters: [
-            {
-              gender: "Male",
-              id: "1",
-              name: "Rick Sanchez",
-              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "2",
-              name: "Morty Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-          ],
+          air_date: "September 27, 2015",
+          episode: "S02E09",
+          id: "20",
+          name: "Look Who's Purging Now",
+          rating: null,
         },
         {
-          air_date: "January 13, 2014",
-          created: "2017-11-10T12:56:34.129Z",
-          episode: "S01E04",
-          id: "4",
-          name: "M. Night Shaym-Aliens!",
-          characters: [
-            {
-              gender: "Female",
-              id: "338",
-              name: "Summer Smith",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/338.jpeg",
-              location: {
-                name: "Earth (C-137)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-          ],
+          air_date: "October 4, 2015",
+          episode: "S02E10",
+          id: "21",
+          name: "The Wedding Squanchers",
+          rating: null,
         },
         {
-          air_date: "January 20, 2014",
-          created: "2017-11-10T12:56:34.236Z",
-          episode: "S01E05",
-          id: "5",
-          name: "Meeseeks and Destroy",
-          characters: [
-            {
-              gender: "Male",
-              id: "1",
-              name: "Rick Sanchez",
-              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "2",
-              name: "Morty Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-
-            {
-              gender: "Male",
-              id: "242",
-              name: "Mr. Meeseeks",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/242.jpeg",
-              location: {
-                name: "Earth (Fascist Dimension)",
-              },
-              species: "Humanoid",
-              status: "unknown",
-            },
-            {
-              gender: "Male",
-              id: "271",
-              name: "Principal Vagina",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/271.jpeg",
-              location: {
-                name: "Earth (C-137)",
-              },
-              species: "Cronenberg",
-              status: "Alive",
-            },
-          ],
+          air_date: "April 1, 2017",
+          episode: "S03E01",
+          id: "22",
+          name: "The Rickshank Rickdemption",
+          rating: null,
         },
         {
-          air_date: "January 27, 2014",
-          created: "2017-11-10T12:56:34.339Z",
-          episode: "S01E06",
-          id: "6",
-          name: "Rick Potion #9",
-          characters: [
-            {
-              gender: "Male",
-              id: "92",
-              name: "Davin",
-              image: "https://rickandmortyapi.com/api/character/avatar/92.jpeg",
-              location: {
-                name: "Earth (C-137)",
-              },
-              species: "Human",
-              status: "Dead",
-            },
-            {
-              gender: "Male",
-              id: "155",
-              name: "Harold",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/155.jpeg",
-              location: {
-                name: "Earth (C-137)",
-              },
-              species: "Cronenberg",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "175",
-              name: "Jerry Smith",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/175.jpeg",
-              location: {
-                name: "Earth (C-137)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-          ],
+          air_date: "July 30, 2017",
+          episode: "S03E02",
+          id: "23",
+          name: "Rickmancing the Stone",
+          rating: null,
         },
         {
-          air_date: "March 10, 2014",
-          created: "2017-11-10T12:56:34.441Z",
-          episode: "S01E07",
-          id: "7",
-          name: "Raising Gazorpazorp",
-          characters: [
-            {
-              gender: "Male",
-              id: "258",
-              name: "Pawnshop Clerk",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/258.jpeg",
-              location: {
-                name: "Pawn Shop Planet",
-              },
-              species: "Alien",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "329",
-              name: "Snuffles (Snowball)",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/329.jpeg",
-              location: {
-                name: "unknown",
-              },
-              species: "Animal",
-              status: "Alive",
-            },
-            {
-              gender: "Female",
-              id: "376",
-              name: "Veronica Ann Bennet",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/376.jpeg",
-              location: {
-                name: "Gazorpazorp",
-              },
-              species: "Alien",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "401",
-              name: "Morty Jr's interviewer",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/401.jpeg",
-              location: {
-                name: "Earth (Replacement Dimension)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-          ],
+          air_date: "August 6, 2017",
+          episode: "S03E03",
+          id: "24",
+          name: "Pickle Rick",
+          rating: null,
         },
         {
-          air_date: "March 17, 2014",
-          created: "2017-11-10T12:56:34.543Z",
-          episode: "S01E08",
-          id: "8",
-          name: "Rixty Minutes",
-          characters: [
-            {
-              gender: "Male",
-              id: "1",
-              name: "Rick Sanchez",
-              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "207",
-              name: "Loggins",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/207.jpeg",
-              location: {
-                name: "Interdimensional Cable",
-              },
-              species: "Alien",
-              status: "Alive",
-            },
-          ],
+          air_date: "August 13, 2017",
+          episode: "S03E04",
+          id: "25",
+          name: "Vindicators 3: The Return of Worldender",
+          rating: null,
         },
         {
-          air_date: "March 24, 2014",
-          created: "2017-11-10T12:56:34.645Z",
-          episode: "S01E09",
-          id: "9",
-          name: "Something Ricked This Way Comes",
-          characters: [
-            {
-              gender: "Male",
-              id: "1",
-              name: "Rick Sanchez",
-              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "2",
-              name: "Morty Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Female",
-              id: "3",
-              name: "Summer Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
-              location: {
-                name: "Earth (Replacement Dimension)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Female",
-              id: "4",
-              name: "Beth Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
-              location: {
-                name: "Earth (Replacement Dimension)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-          ],
+          air_date: "August 20, 2017",
+          episode: "S03E05",
+          id: "26",
+          name: "The Whirly Dirly Conspiracy",
+          rating: null,
         },
         {
-          air_date: "April 7, 2014",
-          created: "2017-11-10T12:56:34.747Z",
-          episode: "S01E10",
-          id: "10",
-          name: "Close Rick-counters of the Rick Kind",
-          characters: [
-            {
-              gender: "Male",
-              id: "1",
-              name: "Rick Sanchez",
-              image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "2",
-              name: "Morty Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Female",
-              id: "3",
-              name: "Summer Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
-              location: {
-                name: "Earth (Replacement Dimension)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Female",
-              id: "4",
-              name: "Beth Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
-              location: {
-                name: "Earth (Replacement Dimension)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "5",
-              name: "Jerry Smith",
-              image: "https://rickandmortyapi.com/api/character/avatar/5.jpeg",
-              location: {
-                name: "Earth (Replacement Dimension)",
-              },
-              species: "Human",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "7",
-              name: "Abradolf Lincler",
-              image: "https://rickandmortyapi.com/api/character/avatar/7.jpeg",
-              location: {
-                name: "Testicle Monster Dimension",
-              },
-              species: "Human",
-              status: "unknown",
-            },
-            {
-              gender: "Male",
-              id: "14",
-              name: "Alien Morty",
-              image: "https://rickandmortyapi.com/api/character/avatar/14.jpeg",
-              location: {
-                name: "Citadel of Ricks",
-              },
-              species: "Alien",
-              status: "unknown",
-            },
-
-            {
-              gender: "Male",
-              id: "428",
-              name: "Phone-person",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/428.jpeg",
-              location: {
-                name: "Earth (Phone Dimension)",
-              },
-              species: "Humanoid",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "429",
-              name: "Chair-person",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/429.jpeg",
-              location: {
-                name: "Earth (Chair Dimension)",
-              },
-              species: "Humanoid",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "430",
-              name: "Chair-person",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/430.jpeg",
-              location: {
-                name: "Earth (Chair Dimension)",
-              },
-              species: "Humanoid",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "431",
-              name: "Chair-homeless",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/431.jpeg",
-              location: {
-                name: "Earth (Chair Dimension)",
-              },
-              species: "Humanoid",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "432",
-              name: "Chair-waiter",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/432.jpeg",
-              location: {
-                name: "Earth (Chair Dimension)",
-              },
-              species: "Humanoid",
-              status: "Alive",
-            },
-            {
-              gender: "unknown",
-              id: "433",
-              name: "Doopidoo",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/433.jpeg",
-              location: {
-                name: "unknown",
-              },
-              species: "Animal",
-              status: "Alive",
-            },
-            {
-              gender: "Male",
-              id: "434",
-              name: "Super Weird Rick",
-              image:
-                "https://rickandmortyapi.com/api/character/avatar/434.jpeg",
-              location: {
-                name: "unknown",
-              },
-              species: "Human",
-              status: "unknown",
-            },
-          ],
+          air_date: "August 27, 2017",
+          episode: "S03E06",
+          id: "27",
+          name: "Rest and Ricklaxation",
+          rating: null,
+        },
+        {
+          air_date: "September 10, 2017",
+          episode: "S03E07",
+          id: "28",
+          name: "The Ricklantis Mixup",
+          rating: null,
+        },
+        {
+          air_date: "September 17, 2017",
+          episode: "S03E08",
+          id: "29",
+          name: "Morty's Mind Blowers",
+          rating: null,
+        },
+        {
+          air_date: "September 24, 2017",
+          episode: "S03E09",
+          id: "30",
+          name: "The ABC's of Beth",
+          rating: null,
+        },
+        {
+          air_date: "October 1, 2017",
+          episode: "S03E10",
+          id: "31",
+          name: "The Rickchurian Mortydate",
+          rating: null,
+        },
+        {
+          air_date: "November 10, 2019",
+          episode: "S04E01",
+          id: "32",
+          name: "Edge of Tomorty: Rick, Die, Rickpeat",
+          rating: null,
+        },
+        {
+          air_date: "November 17, 2019",
+          episode: "S04E02",
+          id: "33",
+          name: "The Old Man and the Seat",
+          rating: null,
+        },
+        {
+          air_date: "November 24, 2019",
+          episode: "S04E03",
+          id: "34",
+          name: "One Crew Over the Crewcoo's Morty",
+          rating: null,
+        },
+        {
+          air_date: "December 8, 2019",
+          episode: "S04E04",
+          id: "35",
+          name: "Claw and Hoarder: Special Ricktim's Morty",
+          rating: null,
         },
       ],
+    },
+  },
+};
+
+export const mockSingleCharacterQuery = {
+  request: {
+    query: GET_CHARACTER,
+    variables: {
+      id: "7",
+    },
+  },
+  result: {
+    data: {
+      character: {
+        name: "Abradolf Lincler",
+        status: "unknown",
+        species: "Human",
+        gender: "Male",
+        image: "https://rickandmortyapi.com/api/character/avatar/7.jpeg",
+        episode: [
+          {
+            name: "Close Rick-counters of the Rick Kind",
+            episode: "S01E10",
+          },
+          {
+            name: "Ricksy Business",
+            episode: "S01E11",
+          },
+        ],
+        origin: {
+          name: "Earth (Replacement Dimension)",
+        },
+        location: {
+          name: "Testicle Monster Dimension",
+        },
+        rating: null,
+      },
+    },
+  },
+};
+
+export const mockSingleEpisodeQuery = {
+  request: {
+    query: GET_EPISODE,
+    variables: {
+      id: "31",
+    },
+  },
+  result: {
+    data: {
+      episode: {
+        air_date: "October 1, 2017",
+        created: "2017-11-10T12:56:36.929Z",
+        episode: "S03E10",
+        id: "31",
+        name: "The Rickchurian Mortydate",
+        characters: [
+          {
+            id: "1",
+            name: "Rick Sanchez",
+            image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
+          },
+          {
+            id: "2",
+            name: "Morty Smith",
+            image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
+          },
+          {
+            id: "3",
+            name: "Summer Smith",
+            image: "https://rickandmortyapi.com/api/character/avatar/3.jpeg",
+          },
+          {
+            id: "4",
+            name: "Beth Smith",
+            image: "https://rickandmortyapi.com/api/character/avatar/4.jpeg",
+          },
+          {
+            id: "5",
+            name: "Jerry Smith",
+            image: "https://rickandmortyapi.com/api/character/avatar/5.jpeg",
+          },
+          {
+            id: "244",
+            name: "Mr. Poopybutthole",
+            image: "https://rickandmortyapi.com/api/character/avatar/244.jpeg",
+          },
+          {
+            id: "247",
+            name: "Amy Poopybutthole",
+            image: "https://rickandmortyapi.com/api/character/avatar/247.jpeg",
+          },
+          {
+            id: "269",
+            name: "Presidentress of The Mega Gargantuans",
+            image: "https://rickandmortyapi.com/api/character/avatar/269.jpeg",
+          },
+          {
+            id: "335",
+            name: "Steve",
+            image: "https://rickandmortyapi.com/api/character/avatar/335.jpeg",
+          },
+          {
+            id: "347",
+            name: "President Curtis",
+            image: "https://rickandmortyapi.com/api/character/avatar/347.jpeg",
+          },
+          {
+            id: "493",
+            name: "Secretary of the Interior",
+            image: "https://rickandmortyapi.com/api/character/avatar/493.jpeg",
+          },
+        ],
+        rating: null,
+      },
     },
   },
 };
@@ -1125,6 +574,8 @@ export const mockGQLData = [
   mockCharactersQuery,
   mockedFilteredCharacterQuery,
   mockedFilteredEpisodeQuery,
+  mockSingleCharacterQuery,
+  mockSingleEpisodeQuery,
 ];
 
 export class CustomMockedProvider extends MockedProvider {

@@ -17,11 +17,14 @@ test("Renders episodes from gql query", async () => {
     </CustomMockedProvider>
   );
 
-  await waitForElementToBeRemoved(() => screen.getByTestId("ESearchLoader"));
+  await waitForElementToBeRemoved(() => screen.queryByTestId("ESearchLoader"));
 
   mockEpisodes.forEach(async (episode) => {
     expect(
       await screen.findByText(episode.name, { exact: false })
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText(episode.air_date, { exact: false })
     ).toBeInTheDocument();
   });
   expect(await screen.findByText("No more results")).toBeInTheDocument();

@@ -17,7 +17,7 @@ test("Renders characters from gql query", async () => {
     </CustomMockedProvider>
   );
 
-  await waitForElementToBeRemoved(() => screen.getByTestId("CSearchLoader"));
+  await waitForElementToBeRemoved(() => screen.queryByTestId("CSearchLoader"));
 
   mockCharacters.forEach(async (character) => {
     expect(

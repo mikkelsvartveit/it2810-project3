@@ -3,13 +3,11 @@ import {
   Card,
   CardContent,
   CardMedia,
-  IconButton,
   Modal,
   Typography,
   CircularProgress,
   Box,
 } from "@mui/material";
-import TvIcon from "@mui/icons-material/Tv";
 import { useGetCharacter } from "../../gql/queries";
 import { useSetCharacterRating } from "../../gql/mutations";
 

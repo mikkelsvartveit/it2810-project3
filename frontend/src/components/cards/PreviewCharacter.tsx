@@ -27,10 +27,12 @@ export function PreviewCharacter({
   const { data } = useGetCharacter(id);
   const [setCharacterRating] = useSetCharacterRating(id);
 
-  function getEpisodeFormated(episode: string) {
-    const seasonNum = Number.parseInt(episode.split("E")[0].replace("S0", ""));
-    const episodeNum = Number.parseInt(episode.split("E")[1]);
-    return `Season ${seasonNum}, Episode ${episodeNum}`;
+  function formatEpisodeAndSeason(episode: string) {
+    const episodeNum = episode.split("E")[1];
+    const seasonNum = episode.split("E")[0].split("S")[1];
+    return `Season ${Number.parseInt(seasonNum)}, Episode ${Number.parseInt(
+      episodeNum
+    )}`;
   }
 
   return (
@@ -54,7 +56,6 @@ export function PreviewCharacter({
             <CardContent className="card-content">
               <Typography
                 variant="h3"
-                component="div"
                 sx={{
                   marginBottom: "20px",
                   textUnderlineOffset: 10,
@@ -70,20 +71,20 @@ export function PreviewCharacter({
                 {data.character.name}
               </Typography>
 
-              <Typography
-                gutterBottom
-                variant="body1"
-                color="text.secondary"
-                sx={{ marginBottom: "10px" }}
-              >
-                <strong>
-                  {data.character.status} {data.character.species}
-                </strong>{" "}
-                from <strong>{data.character.origin.name}</strong>
+              <Typography variant="body1" color="text.secondary">
+                Species: <strong>{data.character.species}</strong>
+              </Typography>
+
+              <Typography variant="body1" color="text.secondary">
+                Status: <strong>{data.character.status}</strong>
               </Typography>
 
               <Typography variant="body1" color="text.secondary">
                 Gender: <strong>{data.character.gender}</strong>
+              </Typography>
+
+              <Typography variant="body1" color="text.secondary">
+                Origin: <strong>{data.character.origin.name}</strong>
               </Typography>
 
               <Typography variant="body1" color="text.secondary">
@@ -93,7 +94,7 @@ export function PreviewCharacter({
               <Typography variant="body1" color="text.secondary">
                 First appeared in:{" "}
                 <strong>
-                  {getEpisodeFormated(data.character.episode[0].episode)}
+                  {formatEpisodeAndSeason(data.character.episode[0].episode)}
                 </strong>
               </Typography>
 

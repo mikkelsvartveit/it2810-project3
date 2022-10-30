@@ -17,12 +17,23 @@ import { SortSelect, TextFieldWithDebounce } from "../formFields";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { IEpisodeSort } from "types";
+
+const initsort = (filters: IEpisodeSort) => {
+  let entries = Object.entries({ ...filters });
+  if (entries.length > 0) return entries[0][0] + "_" + entries[0][1];
+  return null;
+};
 
 export interface IEpisodeSearchSectionProps {}
 
 export function EpisodeSearchSection(props: IEpisodeSearchSectionProps) {
   const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
-  const [seasonFilterValue, setseasonFilterValue] = useState("");
+  const episodeFilterName = useReactiveVar(activeEpisodeFilterNameVar);
+  const currSort = useReactiveVar(activeEpisodeSortVar);
+  const [seasonFilterValue, setseasonFilterValue] = useState(
+    { ...episodeFilter }.season ?? ""
+  );
   const [dates, setDates] = useState([null, null]);
 
   const sortOptions = [
@@ -43,6 +54,7 @@ export function EpisodeSearchSection(props: IEpisodeSearchSectionProps) {
         <TextFieldWithDebounce
           label="Episode name"
           callback={activeEpisodeFilterNameVar}
+          initalValue={episodeFilterName}
         />
       </Grid>
 
@@ -109,6 +121,7 @@ export function EpisodeSearchSection(props: IEpisodeSearchSectionProps) {
 
       <Grid item xs={6} sm={3}>
         <SortSelect
+          initalValue={initsort(currSort)}
           options={sortOptions}
           defaultOption={defaultSort}
           callback={activeEpisodeSortVar}

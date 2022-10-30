@@ -29,18 +29,20 @@ function getStyles(name: string, values: readonly string[], theme: Theme) {
 }
 
 interface IMultipleSelectChipProps {
+  initialValues: string[];
   label: string;
   options: string[];
   callback: (values: string[] | undefined) => void;
 }
 
 export function MultipleSelectChip({
+  initialValues,
   label,
   options,
   callback,
 }: IMultipleSelectChipProps) {
   const theme = useTheme();
-  const [values, setValues] = React.useState<string[]>([]);
+  const [values, setValues] = React.useState<string[]>(initialValues);
 
   const handleChange = (event: SelectChangeEvent<typeof values>) => {
     const {

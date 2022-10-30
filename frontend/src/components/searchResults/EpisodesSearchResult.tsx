@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { Grid } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { IEpisode } from "types";
 import { useGetEpisodes } from "../../gql/queries";
-import { EpisodeCard } from "../cards/";
+import { EpisodeCard, IEpisodeCardProps } from "../cards/";
 
 export function EpisodesSearchResult() {
   const { pageNr, setPageNr, isLastPage, setIsLastPage, data, loading } =
     useGetEpisodes();
 
-  const [scrollData, setScrollData] = useState<IEpisode[]>([]);
+  const [scrollData, setScrollData] = useState<IEpisodeCardProps[]>([]);
 
   // Handle new data from gql query
   useEffect(() => {
@@ -47,7 +46,7 @@ export function EpisodesSearchResult() {
 
   return (
     <>
-      {scrollData.length > 0 || !loading ? (
+      {(pageNr > 1 && scrollData) || (!loading && scrollData) ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}
@@ -79,11 +78,18 @@ export function EpisodesSearchResult() {
           </InfiniteScroll>
         </>
       ) : (
-        <CircularProgress
-          data-testid="ESearchLoader"
-          color={"success"}
-          size={200}
-        />
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress
+            data-testid="ESearchLoader"
+            color={"primary"}
+            size={75}
+          />
+        </Box>
       )}
     </>
   );

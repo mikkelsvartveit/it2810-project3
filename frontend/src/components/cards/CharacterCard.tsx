@@ -13,7 +13,7 @@ import AdjustOutlined from "@mui/icons-material/AdjustOutlined";
 import { PreviewCharacter } from "./";
 import { Star } from "@mui/icons-material";
 
-interface ICharacterCardProps {
+export interface ICharacterCardProps {
   id: number;
   name: string;
   image: string;

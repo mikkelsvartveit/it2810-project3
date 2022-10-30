@@ -15,6 +15,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+#title {
+  font-size: 56px;
+  margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    font-size: 48px;
+  }
+}
+
 .search-result {
   .container {
     display: flex;

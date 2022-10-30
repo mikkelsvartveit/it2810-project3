@@ -47,7 +47,7 @@ export function EpisodesSearchResult() {
 
   return (
     <>
-      {scrollData ? (
+      {scrollData.length > 0 || !loading ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}
@@ -79,7 +79,11 @@ export function EpisodesSearchResult() {
           </InfiniteScroll>
         </>
       ) : (
-        <CircularProgress color={"success"} size={200} />
+        <CircularProgress
+          data-testid="ESearchLoader"
+          color={"success"}
+          size={200}
+        />
       )}
     </>
   );

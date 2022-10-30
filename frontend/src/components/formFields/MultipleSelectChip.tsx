@@ -62,6 +62,7 @@ export function MultipleSelectChip({
       <FormControl fullWidth>
         <InputLabel id="multiple-chip-label">{label}</InputLabel>
         <Select
+          data-testid={"multiple-chip-" + label}
           labelId="multiple-chip-label"
           id="multiple-chip"
           multiple
@@ -79,6 +80,7 @@ export function MultipleSelectChip({
         >
           {options.map((option) => (
             <MenuItem
+              data-testid={"select-option-" + option}
               key={option}
               value={option}
               style={getStyles(option, values, theme)}

@@ -30,6 +30,7 @@ export function TextFieldWithDebounce({
     <FormControl fullWidth>
       <TextField
         id="outlined-basic"
+        data-testid="SearchField"
         label={label}
         placeholder="Search"
         variant="outlined"

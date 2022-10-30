@@ -31,8 +31,8 @@ export function EpisodeSearchSection(props: IEpisodeSearchSectionProps) {
     { value: "name_desc", label: "Name (Z to A)" },
     { value: "rating_desc", label: "Rating (High to Low)" },
     { value: "rating_asc", label: "Rating (Low to High)" },
-    { value: "characterCount_desc", label: "Featured characters (Many to Few)" },
-    { value: "characterCount_asc", label: "Featured characters (Few to Many)" },
+    { value: "characterCount_desc", label: "No. characters (Ascending)" },
+    { value: "characterCount_asc", label: "No. characters (Few to Many)" },
   ];
 
   const defaultSort = "default";

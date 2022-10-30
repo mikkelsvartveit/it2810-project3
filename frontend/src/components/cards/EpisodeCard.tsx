@@ -10,6 +10,7 @@ interface IEpisodeCardProps {
   air_date: string;
   episode: string;
   rating: number;
+  characterCount: number;
 }
 
 export function EpisodeCard({
@@ -18,6 +19,7 @@ export function EpisodeCard({
   air_date,
   episode,
   rating,
+  characterCount,
 }: IEpisodeCardProps) {
   const [inFocus, setInFocus] = useState(false);
   return (
@@ -37,7 +39,16 @@ export function EpisodeCard({
             }}
           >
             <Box>
-              <Typography variant="h5">{name}</Typography>
+              <Typography
+                variant="h5"
+                sx={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {name}
+              </Typography>
 
               <Typography
                 variant="subtitle2"
@@ -51,6 +62,9 @@ export function EpisodeCard({
                     .replaceAll(" 0", " ")}
                 </strong>
               </Typography>
+              <Typography variant="subtitle2" color="text.secondary">
+                {air_date}
+              </Typography>
             </Box>
 
             <Box
@@ -62,7 +76,9 @@ export function EpisodeCard({
               }}
             >
               <Typography variant="subtitle2" color="text.secondary">
-                {air_date}
+                <strong>{characterCount}</strong>
+                {characterCount === 1 ? " character" : " characters"} in the
+                episode
               </Typography>
               {rating && (
                 <Typography

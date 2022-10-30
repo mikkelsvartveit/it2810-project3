@@ -95,6 +95,7 @@ export const GET_EPISODES = gql`
       id
       name
       rating
+      characterCount
     }
   }
 `;

@@ -16,6 +16,7 @@ const CharacterSchema = new Schema<ICharacter>({
   },
   image: String,
   episode: Array,
+  episodeCount: Number,
   rating: Number,
 });
 

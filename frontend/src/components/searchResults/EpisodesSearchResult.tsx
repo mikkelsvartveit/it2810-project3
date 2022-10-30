@@ -71,6 +71,7 @@ export function EpisodesSearchResult() {
                     air_date={episode.air_date}
                     episode={episode.episode}
                     rating={episode.rating}
+                    characterCount={episode.characterCount}
                   />
                 </Grid>
               ))}

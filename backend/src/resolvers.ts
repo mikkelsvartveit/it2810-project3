@@ -92,19 +92,11 @@ export const resolvers = {
     episode: async (character: ICharacter) => {
       return await Episode.find({ characters: character.id });
     },
-
-    episodeCount: async (character: ICharacter) => {
-      return await Episode.countDocuments({ characters: character.id });
-    },
   },
 
   Episode: {
     characters: async (episode: IEpisode) => {
       return await Character.find({ episode: episode.id });
-    },
-
-    characterCount: async (episode: IEpisode) => {
-      return await Character.countDocuments({ episode: episode.id });
     },
   },
 };

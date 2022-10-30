@@ -8,6 +8,7 @@ const EpisodeSchema = new Schema<IEpisode>({
   episode: String,
   created: String,
   characters: Array,
+  characterCount: Number,
   rating: Number,
 });
 

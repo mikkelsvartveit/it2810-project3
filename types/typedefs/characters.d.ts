@@ -12,6 +12,7 @@ export declare interface ICharacter {
   location: ILocation;
   image: string;
   episode: IEpisode[];
+  episodeCount: number;
   created: string;
   rating: number;
 }

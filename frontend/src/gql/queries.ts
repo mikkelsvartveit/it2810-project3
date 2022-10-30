@@ -27,6 +27,7 @@ export const GET_CHARACTERS = gql`
       image
       id
       rating
+      episodeCount
     }
   }
 `;

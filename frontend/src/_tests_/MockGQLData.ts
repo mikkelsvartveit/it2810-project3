@@ -29,6 +29,7 @@ export const mockedFilteredCharacterQuery = {
           image: "https://rickandmortyapi.com/api/character/avatar/109.jpeg",
           id: "109",
           rating: null,
+          episodeCount: 5,
         },
         {
           name: "Chartest2",
@@ -41,6 +42,7 @@ export const mockedFilteredCharacterQuery = {
           image: "https://rickandmortyapi.com/api/character/avatar/110.jpeg",
           id: "110",
           rating: null,
+          episodeCount: 2,
         },
       ],
     },
@@ -65,6 +67,7 @@ export const mockedFilteredEpisodeQuery = {
           id: "20",
           name: "Test1",
           rating: null,
+          characterCount: 2,
         },
         {
           air_date: "October 4, 2015",
@@ -72,6 +75,7 @@ export const mockedFilteredEpisodeQuery = {
           id: "21",
           name: "The Wedding Squanchers",
           rating: null,
+          characterCount: 2,
         },
         {
           air_date: "April 1, 2017",
@@ -79,6 +83,7 @@ export const mockedFilteredEpisodeQuery = {
           id: "22",
           name: "Test2",
           rating: null,
+          characterCount: 2,
         },
       ],
     },
@@ -108,6 +113,7 @@ export const mockCharactersQuery = {
           image: "https://rickandmortyapi.com/api/character/avatar/109.jpeg",
           id: "109",
           rating: null,
+          episodeCount: 5,
         },
         {
           name: "Eli",
@@ -120,6 +126,7 @@ export const mockCharactersQuery = {
           image: "https://rickandmortyapi.com/api/character/avatar/110.jpeg",
           id: "110",
           rating: null,
+          episodeCount: 2,
         },
         {
           name: "Eli's Girlfriend",
@@ -132,6 +139,7 @@ export const mockCharactersQuery = {
           image: "https://rickandmortyapi.com/api/character/avatar/111.jpeg",
           id: "111",
           rating: null,
+          episodeCount: 2,
         },
         {
           name: "Eric McMan",
@@ -144,8 +152,10 @@ export const mockCharactersQuery = {
           image: "https://rickandmortyapi.com/api/character/avatar/112.jpeg",
           id: "112",
           rating: null,
+          episodeCount: 5,
         },
         {
+          episodeCount: 6,
           name: "Eric Stoltz Mask Morty",
           status: "unknown",
           species: "Human",
@@ -158,6 +168,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Ethan",
           status: "unknown",
           species: "Human",
@@ -170,6 +181,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Ethan",
           status: "Alive",
           species: "Human",
@@ -182,6 +194,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Evil Beth Clone",
           status: "Dead",
           species: "Human",
@@ -194,6 +207,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Evil Jerry Clone",
           status: "Dead",
           species: "Human",
@@ -206,6 +220,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Evil Morty",
           status: "Alive",
           species: "Human",
@@ -218,6 +233,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Evil Rick",
           status: "Dead",
           species: "Humanoid",
@@ -230,6 +246,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Evil Summer Clone",
           status: "Dead",
           species: "Human",
@@ -242,6 +259,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Eyehole Man",
           status: "Alive",
           species: "Alien",
@@ -254,6 +272,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Fart",
           status: "Dead",
           species: "Alien",
@@ -266,6 +285,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Fat Morty",
           status: "Alive",
           species: "Human",
@@ -278,6 +298,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Father Bob",
           status: "Alive",
           species: "Human",
@@ -290,6 +311,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Flansian",
           status: "Alive",
           species: "Alien",
@@ -302,6 +324,7 @@ export const mockCharactersQuery = {
           rating: null,
         },
         {
+          episodeCount: 6,
           name: "Fleeb",
           status: "unknown",
           species: "Alien",
@@ -331,6 +354,7 @@ export const mockEpisodesQuery = {
     data: {
       episodes: [
         {
+          characterCount: 5,
           air_date: "September 20, 2015",
           episode: "S02E08",
           id: "19",
@@ -338,6 +362,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "September 27, 2015",
           episode: "S02E09",
           id: "20",
@@ -345,6 +370,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "October 4, 2015",
           episode: "S02E10",
           id: "21",
@@ -352,6 +378,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "April 1, 2017",
           episode: "S03E01",
           id: "22",
@@ -359,6 +386,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "July 30, 2017",
           episode: "S03E02",
           id: "23",
@@ -366,6 +394,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "August 6, 2017",
           episode: "S03E03",
           id: "24",
@@ -373,6 +402,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "August 13, 2017",
           episode: "S03E04",
           id: "25",
@@ -380,6 +410,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "August 20, 2017",
           episode: "S03E05",
           id: "26",
@@ -387,6 +418,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "August 27, 2017",
           episode: "S03E06",
           id: "27",
@@ -394,6 +426,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "September 10, 2017",
           episode: "S03E07",
           id: "28",
@@ -401,6 +434,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "September 17, 2017",
           episode: "S03E08",
           id: "29",
@@ -408,6 +442,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "September 24, 2017",
           episode: "S03E09",
           id: "30",
@@ -415,6 +450,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "October 1, 2017",
           episode: "S03E10",
           id: "31",
@@ -422,6 +458,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "November 10, 2019",
           episode: "S04E01",
           id: "32",
@@ -429,6 +466,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "November 17, 2019",
           episode: "S04E02",
           id: "33",
@@ -436,6 +474,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "November 24, 2019",
           episode: "S04E03",
           id: "34",
@@ -443,6 +482,7 @@ export const mockEpisodesQuery = {
           rating: null,
         },
         {
+          characterCount: 4,
           air_date: "December 8, 2019",
           episode: "S04E04",
           id: "35",

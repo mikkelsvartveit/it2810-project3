@@ -1,9 +1,9 @@
 image: node:16
 
 stages:
+  - Testing
   - Formatting
   - Linting
-  - Testing
   - Building
   - Deployment
 
@@ -12,10 +12,10 @@ prettier:
   retry: 1
   script:
     - cd frontend
-    - npm ci
+    - npm ci --silent
     - npm run prettier
     - cd ../backend
-    - npm ci
+    - npm ci --silent
     - npm run prettier
 
 eslint:
@@ -23,22 +23,37 @@ eslint:
   retry: 1
   script:
     - cd frontend
-    - npm ci
+    - npm ci --silent
     - npm run lint
     - cd ../backend
-    - npm ci
+    - npm ci --silent
     - npm run lint
 
-tests:
-  # image: cypress/base:16
+test:unit:
   stage: Testing
   retry: 1
   script:
     - cd frontend
-    - npm ci
-    # - npm run start &
-    # - npx cypress run -q
+    - npm ci --silent
     - npm run test
+
+test:e2e:
+  image: cypress/base:16
+  stage: Testing
+  retry: 1
+  services:
+    - mongo
+  variables:
+    MONGO_URI: "mongodb://mongo/rickandmorty"
+    NODE_ENV: "test"
+  script:
+    - cd frontend
+    - npm ci --silent
+    - cd ../backend
+    - npm run setup:production
+    - npm run start &
+    - cd ../frontend
+    - npm run test:e2e:ci
 
 react-build:
   stage: Building
@@ -69,7 +84,7 @@ deploy:
     - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "cd /lhome/mikkesva/backend && npm ci && pm2 stop all; npm run setup:production && pm2 start src/index.ts || pm2 restart all"
     ## Build React app
     - cd frontend
-    - npm ci
+    - npm ci --silent
     - npm run build
     ## SSH into VM to remove previous React build
     - ssh $SSH_USER@$VM_IPADDRESS -oStrictHostKeyChecking=no "rm -rf /var/www/html/project3/*"

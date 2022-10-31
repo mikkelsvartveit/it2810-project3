@@ -10,7 +10,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint . --max-warnings=0",
     "prettier": "prettier --check .",
-    "format": "prettier --write . && eslint --fix ."
+    "format": "prettier --write . && eslint --fix .",
+    "test:e2e:ci": "npx cypress run --headless"
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",

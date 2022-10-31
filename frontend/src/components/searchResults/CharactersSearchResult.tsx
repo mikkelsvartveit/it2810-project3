@@ -6,8 +6,15 @@ import { CharacterCard, ICharacterCardProps } from "../cards/";
 import { useGetCharacters } from "../../gql/queries";
 
 export function CharactersSearchResult() {
-  const { pageNr, setPageNr, isLastPage, setIsLastPage, data, loading } =
-    useGetCharacters();
+  const {
+    pageNr,
+    setPageNr,
+    isLastPage,
+    setIsLastPage,
+    data,
+    loading,
+    fetchMore,
+  } = useGetCharacters();
 
   const [scrollData, setScrollData] = useState<ICharacterCardProps[]>([]);
 
@@ -15,33 +22,39 @@ export function CharactersSearchResult() {
     if (!data) return;
     if (data.characters.length === 0) {
       setIsLastPage(true);
-
-      // Edge case: if no results, empty scrollData
-      // TODO: Should not be possible with correct impl of filter and task description
-      if (pageNr === 1) {
-        setScrollData([]);
-      }
+      setScrollData([]);
       return;
     }
-
-    // if not a full page, set isLastPage to true
     if (data.characters.length < 18) {
       setIsLastPage(true);
-    } else {
-      setIsLastPage(false);
     }
 
-    if (pageNr > 1) {
-      setScrollData((s) => s.concat(data.characters));
-    } else {
-      setScrollData(data.characters);
-    }
+    setScrollData(data.characters);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
     if (!data || loading) return;
+    fetchMore({
+      variables: {
+        page: pageNr + 1,
+      },
+      // Update the query with new data
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          setIsLastPage(true);
+          return prev;
+        }
+        if (fetchMoreResult.characters.length < 18) {
+          setIsLastPage(true);
+        }
+        // Extends prev data with new data
+        return Object.assign({}, prev, {
+          characters: [...prev.characters, ...fetchMoreResult.characters],
+        });
+      },
+    });
     setPageNr((pageNr) => pageNr + 1);
   };
 

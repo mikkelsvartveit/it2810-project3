@@ -41,7 +41,7 @@ export const useGetCharacters = () => {
 
   const filters = name ? { ...filter, name } : filter;
   const queryResult = useQuery<{ characters: ICharacter[] }>(GET_CHARACTERS, {
-    variables: { page: pageNr, filters, sort },
+    variables: { page: 1, filters, sort },
   });
 
   useEffect(() => {
@@ -123,7 +123,7 @@ export const useGetEpisodes = () => {
     isLastPage,
     setIsLastPage,
     ...useQuery<{ episodes: IEpisode[] }>(GET_EPISODES, {
-      variables: { page: pageNr, filters, sort },
+      variables: { page: 1, filters, sort },
     }),
   };
 };

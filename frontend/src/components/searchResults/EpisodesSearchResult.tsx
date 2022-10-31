@@ -6,8 +6,15 @@ import { useGetEpisodes } from "../../gql/queries";
 import { EpisodeCard, IEpisodeCardProps } from "../cards/";
 
 export function EpisodesSearchResult() {
-  const { pageNr, setPageNr, isLastPage, setIsLastPage, data, loading } =
-    useGetEpisodes();
+  const {
+    pageNr,
+    setPageNr,
+    isLastPage,
+    setIsLastPage,
+    data,
+    loading,
+    fetchMore,
+  } = useGetEpisodes();
 
   const [scrollData, setScrollData] = useState<IEpisodeCardProps[]>([]);
 
@@ -16,31 +23,39 @@ export function EpisodesSearchResult() {
     if (!data) return;
     if (data.episodes.length === 0) {
       setIsLastPage(true);
-
-      // Edge case: if no results, empty scrollData
-      // TODO: Should not be possible with correct impl of filter and task description
-      if (pageNr === 1) {
-        setScrollData([]);
-      }
+      setScrollData([]);
       return;
     }
-
-    // if not a full page, set isLastPage to false
     if (data.episodes.length < 18) {
       setIsLastPage(true);
     }
 
-    if (pageNr > 1) {
-      setScrollData((s) => s.concat([...data.episodes]));
-    } else {
-      setScrollData([...data.episodes]);
-    }
+    setScrollData(data.episodes);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
     if (!data || loading) return;
+    fetchMore({
+      variables: {
+        page: pageNr + 1,
+      },
+      // Update the query with new data
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          setIsLastPage(true);
+          return prev;
+        }
+        if (fetchMoreResult.episodes.length < 18) {
+          setIsLastPage(true);
+        }
+        // Extends prev data with new data
+        return Object.assign({}, prev, {
+          episodes: [...prev.episodes, ...fetchMoreResult.episodes],
+        });
+      },
+    });
     setPageNr((pageNr) => pageNr + 1);
   };
 

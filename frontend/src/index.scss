@@ -77,15 +77,30 @@ body {
       overflow-y: visible;
     }
 
-  .card-image {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-  }
+    .card-image {
+      width: 100%;
+      max-width: 400px;
+      height: auto;
+    }
 
     .card-character-icons {
       overflow-y: visible;
       order: 1;
     }
+  }
+}
+
+// Switch between mobile and desktop date picker depending on if the device has a touch screen
+.mobile-date-picker {
+  display: none !important;
+}
+
+@media (hover: none) {
+  .mobile-date-picker {
+    display: block !important;
+  }
+
+  .desktop-date-picker {
+    display: none !important;
   }
 }

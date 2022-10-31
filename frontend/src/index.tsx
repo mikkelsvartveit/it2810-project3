@@ -3,11 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { ApolloClient, ApolloProvider } from "@apollo/client";
+import { apolloCache } from "./gql/cache";
 
 const client = new ApolloClient({
   uri: `http://${window.location.hostname}:4000/graphql`,
-  cache: new InMemoryCache(),
+  cache: apolloCache,
 });
 
 const root = ReactDOM.createRoot(

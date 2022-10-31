@@ -354,30 +354,6 @@ export const mockEpisodesQuery = {
     data: {
       episodes: [
         {
-          characterCount: 5,
-          air_date: "September 20, 2015",
-          episode: "S02E08",
-          id: "19",
-          name: "Interdimensional Cable 2: Tempting Fate",
-          rating: null,
-        },
-        {
-          characterCount: 4,
-          air_date: "September 27, 2015",
-          episode: "S02E09",
-          id: "20",
-          name: "Look Who's Purging Now",
-          rating: null,
-        },
-        {
-          characterCount: 4,
-          air_date: "October 4, 2015",
-          episode: "S02E10",
-          id: "21",
-          name: "The Wedding Squanchers",
-          rating: null,
-        },
-        {
           characterCount: 4,
           air_date: "April 1, 2017",
           episode: "S03E01",

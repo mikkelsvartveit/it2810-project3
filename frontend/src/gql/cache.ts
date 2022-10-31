@@ -1,10 +1,47 @@
-import { makeVar } from "@apollo/client";
+import { InMemoryCache, makeVar } from "@apollo/client";
 import {
   ICharacterFilters,
   ICharacterSort,
   IEpisodeFilters,
   IEpisodeSort,
 } from "types";
+
+export const apolloCache = new InMemoryCache({
+  typePolicies: {
+    Query: {
+      fields: {
+        characters: {
+          keyArgs: ["filters", "sort"],
+          merge(prev, newData, { args }) {
+            // Merge prev cached data with new recieved from pagination
+            if (args == null) {
+              args = { page: 1 };
+            }
+            const merged = prev ? prev.slice(0) : [];
+            for (let i = 0; i < newData.length; ++i) {
+              merged[args.page + i - 1] = newData[i];
+            }
+            return merged;
+          },
+        },
+        episodes: {
+          keyArgs: ["filters", "sort"],
+          merge(prev, newData, { args }) {
+            // Merge prev cached data with new recieved from pagination
+            if (args == null) {
+              args = { page: 1 };
+            }
+            const merged = prev ? prev.slice(0) : [];
+            for (let i = 0; i < newData.length; ++i) {
+              merged[args.page + i] = newData[i];
+            }
+            return merged;
+          },
+        },
+      },
+    },
+  },
+});
 
 export const activeCharacterFilterVar = makeVar<ICharacterFilters>({});
 export const activeCharacterFilterNameVar = makeVar<string | null>(null); //debounce issue lead to this being its own var

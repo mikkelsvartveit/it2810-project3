@@ -474,32 +474,30 @@ export const mockSingleCharacterQuery = {
   request: {
     query: GET_CHARACTER,
     variables: {
-      id: "7",
+      id: "109",
     },
   },
   result: {
     data: {
       character: {
-        name: "Abradolf Lincler",
-        status: "unknown",
-        species: "Human",
+        name: "Duck With Muscles",
+        status: "Dead",
+        species: "Alien",
+        type: "Parasite",
         gender: "Male",
-        image: "https://rickandmortyapi.com/api/character/avatar/7.jpeg",
+        image: "https://rickandmortyapi.com/api/character/avatar/109.jpeg",
         episode: [
           {
-            name: "Close Rick-counters of the Rick Kind",
-            episode: "S01E10",
-          },
-          {
-            name: "Ricksy Business",
-            episode: "S01E11",
+            id: "15",
+            name: "Total Rickall",
+            episode: "S02E04",
           },
         ],
         origin: {
-          name: "Earth (Replacement Dimension)",
+          name: "unknown",
         },
         location: {
-          name: "Testicle Monster Dimension",
+          name: "Earth (Replacement Dimension)",
         },
         rating: null,
       },

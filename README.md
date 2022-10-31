@@ -129,6 +129,8 @@ We have also implemented pagination. In our dataset there are 826 characters and
 
 Custom fonts are also generally quite heavy on data. We have chosen to use the Google Fonts API to load the fonts used on our website. This lets us utilize that many other websites are using the same fonts, and it is therefore likely that the fonts are already cached in the browser.
 
+We have also debounced the search bars to reduce the number of API calls. This means that the search is only performed when the user has stopped typing for a short period of time. This is a good compromise between user experience and data transfer.
+
 #### GitLab CI/CD
 
 To improve the workflow regarding Git and merge requests, we have disabled pushing to the main branch and implemented a CI/CD pipeline in GitLab that does the following:

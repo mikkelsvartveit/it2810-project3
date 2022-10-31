@@ -6,10 +6,13 @@ import {
   Modal,
   Typography,
   CircularProgress,
+  Tooltip,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { useState } from "react";
 import { useSetEpisodeRating } from "../../gql/mutations";
 import { useGetEpisode } from "../../gql/queries";
+import { PreviewCharacter } from "./PreviewCharacter";
 
 export interface IPreviewEpisodeProps {
   id: number;
@@ -24,6 +27,7 @@ export function PreviewEpisode({
 }: IPreviewEpisodeProps) {
   const { data } = useGetEpisode(id);
   const [setEpisodeRating] = useSetEpisodeRating(id);
+  const [characterPreviewId, setCharacterPreviewId] = useState(-1);
 
   function formatEpisodeAndSeason(episode: string) {
     const episodeNum = episode.split("E")[1];
@@ -73,18 +77,25 @@ export function PreviewEpisode({
                       padding: "2%",
                     }}
                   >
-                    <CardMedia
-                      key={character.id}
-                      component="img"
-                      image={character.image}
-                      alt={character.name}
-                      sx={{
-                        borderRadius: "50%",
-                        border: "3px solid white",
-                        boxSizing: "border-box",
-                        boxShadow: "0 0 5px 0px rgba(0,0,0,0.5)",
-                      }}
-                    />
+                    <Tooltip title={character.name} placement="top" arrow>
+                      <CardMedia
+                        component="img"
+                        image={character.image}
+                        alt={character.name}
+                        onClick={() => setCharacterPreviewId(character.id)}
+                        sx={{
+                          borderRadius: "50%",
+                          border: "3px solid white",
+                          boxSizing: "border-box",
+                          boxShadow: "0 0 5px 0px rgba(0,0,0,0.5)",
+                          transitionDuration: "0.1s",
+                          cursor: "pointer",
+                          "&:hover": {
+                            transform: "scale(1.07)",
+                          },
+                        }}
+                      />
+                    </Tooltip>
                   </Box>
                 ))}
               </Box>
@@ -125,6 +136,14 @@ export function PreviewEpisode({
                 }}
               />
             </CardContent>
+
+            {characterPreviewId !== -1 && (
+              <PreviewCharacter
+                open={characterPreviewId !== -1}
+                handleClose={() => setCharacterPreviewId(-1)}
+                id={characterPreviewId}
+              />
+            )}
           </>
         ) : (
           <CardContent

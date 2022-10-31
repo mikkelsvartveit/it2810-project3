@@ -162,6 +162,7 @@ export function PreviewCharacter({
           <CardContent
             sx={{
               width: "100%",
+              boxSizing: "border-box",
               margin: "50px auto",
               display: "flex",
               alignItems: "center",

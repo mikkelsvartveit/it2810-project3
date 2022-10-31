@@ -7,9 +7,13 @@ import {
   Typography,
   CircularProgress,
   Box,
+  Button,
 } from "@mui/material";
 import { useGetCharacter } from "../../gql/queries";
 import { useSetCharacterRating } from "../../gql/mutations";
+import { useState } from "react";
+import { PreviewEpisode } from ".";
+import TvIcon from "@mui/icons-material/Tv";
 
 export interface IPreviewCharacterProps {
   id: number;
@@ -22,6 +26,7 @@ export function PreviewCharacter({
   handleClose,
   id,
 }: IPreviewCharacterProps) {
+  const [openEpisodePreview, setOpenEpisodePreview] = useState(false);
   const { data } = useGetCharacter(id);
   const [setCharacterRating] = useSetCharacterRating(id);
 
@@ -70,7 +75,8 @@ export function PreviewCharacter({
               </Typography>
 
               <Typography variant="body1" color="text.secondary">
-                Species: <strong>{data.character.species}</strong>
+                Species: <strong>{data.character.species}</strong>{" "}
+                {data.character.type ? `(${data.character.type})` : ""}
               </Typography>
 
               <Typography variant="body1" color="text.secondary">
@@ -91,9 +97,17 @@ export function PreviewCharacter({
 
               <Typography variant="body1" color="text.secondary">
                 First appeared in:{" "}
-                <strong>
-                  {formatEpisodeAndSeason(data.character.episode[0].episode)}
-                </strong>
+                <Button
+                  sx={{
+                    textTransform: "none",
+                  }}
+                  onClick={() => setOpenEpisodePreview(true)}
+                >
+                  <strong>
+                    {formatEpisodeAndSeason(data.character.episode[0].episode)}
+                  </strong>
+                  <TvIcon sx={{ marginLeft: "6px" }} />
+                </Button>
               </Typography>
 
               <Typography
@@ -138,6 +152,11 @@ export function PreviewCharacter({
                 </Box>
               </Box>
             </CardContent>
+            <PreviewEpisode
+              open={openEpisodePreview}
+              handleClose={() => setOpenEpisodePreview(false)}
+              id={data.character.episode[0].id}
+            />
           </>
         ) : (
           <CardContent

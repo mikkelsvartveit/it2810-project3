@@ -58,12 +58,14 @@ export function CharacterCard({
           }}
           onClick={() => setInFocus(true)}
         >
-          <CardMedia
-            component="img"
-            image={image}
-            alt={name}
-            sx={{ width: 135, height: 150 }}
-          />
+          <Box sx={{ width: 135, height: 150 }}>
+            <CardMedia
+              component="img"
+              image={image}
+              alt={name}
+              sx={{ width: 135, height: 150 }}
+            />
+          </Box>
           <CardContent
             sx={{
               height: 150,
@@ -163,13 +165,12 @@ export function CharacterCard({
           </CardContent>
         </CardActionArea>
       </Card>
-      {inFocus ? (
-        <PreviewCharacter
-          open={inFocus}
-          handleClose={() => setInFocus(false)}
-          id={id}
-        />
-      ) : null}
+
+      <PreviewCharacter
+        open={inFocus}
+        handleClose={() => setInFocus(false)}
+        id={id}
+      />
     </>
   );
 }

@@ -64,9 +64,11 @@ export const GET_CHARACTER = gql`
       name
       status
       species
+      type
       gender
       image
       episode {
+        id
         name
         episode
       }

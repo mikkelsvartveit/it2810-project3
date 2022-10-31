@@ -39,7 +39,6 @@ body {
 .preview-card {
   width: 90%;
   max-width: 1000px;
-  height: 90%;
   max-height: 500px;
   display: flex;
   flex-direction: row;
@@ -55,8 +54,9 @@ body {
   }
 
   .card-image {
-    width: 100%;
-    max-width: 500px;
+    width: 500px;
+    height: 500px;
+    aspect-ratio: 1 / 1;
   }
 
   .card-character-icons {
@@ -70,12 +70,18 @@ body {
   @media (max-width: 1000px) {
     flex-direction: column;
     max-width: 400px;
-    max-height: inherit;
+    max-height: 90%;
     overflow-y: scroll !important;
 
     .card-content {
       overflow-y: visible;
     }
+
+  .card-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+  }
 
     .card-character-icons {
       overflow-y: visible;

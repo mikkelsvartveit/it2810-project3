@@ -77,7 +77,13 @@ export function PreviewEpisode({
                       padding: "2%",
                     }}
                   >
-                    <Tooltip title={character.name} placement="top" arrow>
+                    <Tooltip
+                      title={
+                        <Typography fontSize={16}>{character.name}</Typography>
+                      }
+                      placement="top"
+                      arrow
+                    >
                       <CardMedia
                         component="img"
                         image={character.image}

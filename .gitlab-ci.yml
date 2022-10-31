@@ -29,15 +29,7 @@ eslint:
     - npm ci --silent
     - npm run lint
 
-test:unit:
-  stage: Testing
-  retry: 1
-  script:
-    - cd frontend
-    - npm ci --silent
-    - npm run test
-
-test:e2e:
+test:unit:e2e:
   image: cypress/base:16
   stage: Testing
   retry: 1
@@ -53,6 +45,9 @@ test:e2e:
     - npm run setup:production
     - npm run start &
     - cd ../frontend
+    - echo "Unit tests"
+    - npm run test
+    - echo "End to end tests"
     - npm run test:e2e:ci
 
 react-build:

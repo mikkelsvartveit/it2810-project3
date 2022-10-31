@@ -49,7 +49,7 @@ export function CharacterCard({
 
   return (
     <>
-      <Card sx={{ margin: 0 }} data-testid={"character-card-" + id }>
+      <Card sx={{ margin: 0 }} data-testid={"character-card-" + id}>
         <CardActionArea
           sx={{
             display: "flex",

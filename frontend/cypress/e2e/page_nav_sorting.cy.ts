@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("find Pickle Rick and set rating to 1 star", () => {
+describe("Tests navigation and state management between pages", () => {
   it("Sets filter and checks sort", () => {
     cy.visit("/");
     cy.get("h1").should("contain", "Rick and Morty Explorer");

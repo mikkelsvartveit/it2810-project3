@@ -29,6 +29,7 @@ export function SortSelect({
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Sort results by</InputLabel>
         <Select
+          data-testid={"sort-select"}
           labelId="demo-simple-select-label"
           value={sort}
           label="Sort results by"
@@ -53,7 +54,11 @@ export function SortSelect({
           }}
         >
           {options.map((option) => (
-            <MenuItem value={option.value} key={option.value}>
+            <MenuItem
+              value={option.value}
+              key={option.value}
+              data-testid={"sort-option-" + option.label}
+            >
               {option.label}
             </MenuItem>
           ))}

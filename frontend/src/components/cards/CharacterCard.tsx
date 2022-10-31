@@ -49,7 +49,7 @@ export function CharacterCard({
 
   return (
     <>
-      <Card sx={{ margin: 0 }}>
+      <Card sx={{ margin: 0 }} data-testid={"character-card-" + id}>
         <CardActionArea
           sx={{
             display: "flex",
@@ -156,6 +156,7 @@ export function CharacterCard({
                       marginLeft: 4,
                       marginTop: 4,
                     }}
+                    data-testid={"ratin-on-character-card-" + id}
                   >
                     {rating} / 5
                   </span>

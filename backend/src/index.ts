@@ -4,7 +4,11 @@ import mongoose from "mongoose";
 import { resolvers } from "./resolvers";
 import { typeDefs } from "./typeDefs";
 
-const MONGODB_URL = "mongodb://localhost:27017/rickandmorty";
+let MONGODB_URL = "mongodb://localhost:27017/rickandmorty";
+
+if (process.env.NODE_ENV == "test")
+  MONGODB_URL = "mongodb://mongo/rickandmorty";
+
 const PORT = 4000;
 
 const startServer = async () => {

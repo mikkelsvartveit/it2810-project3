@@ -1,9 +1,9 @@
 image: node:16
 
 stages:
-  - Testing
   - Formatting
   - Linting
+  - Testing
   - Building
   - Deployment
 

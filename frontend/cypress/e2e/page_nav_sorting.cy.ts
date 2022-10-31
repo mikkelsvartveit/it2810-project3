@@ -17,7 +17,6 @@ describe("find Pickle Rick and set rating to 1 star", () => {
     cy.get('[data-testid="select-option-Female"]').type("{esc}");
     cy.get('[data-testid="sort-select"] > .MuiSelect-select').click();
     cy.get('[data-value="name_desc"]').click();
-    //cy.get('[data-testid="sort-select"] > .MuiSelect-select').click();
     cy.get('[data-testid="character-card-386"]').contains("Zarbadar Gloonch");
 
     cy.get('[data-testid="EpisodesTab"]').click();

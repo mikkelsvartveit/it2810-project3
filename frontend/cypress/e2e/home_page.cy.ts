@@ -15,7 +15,7 @@ describe("find Pickle Rick and set rating to 1 star", () => {
     cy.get('[data-testid="select-option-Male"]').click();
     cy.get('[data-testid="select-option-Male"]').type("{esc}");
     cy.get(".MuiGrid-container > :nth-child(18)").scrollIntoView();
-    cy.get(".MuiGrid-container > :nth-child(20)").click();
+    cy.get('[data-testid="character-card-265"]').click();
     cy.get('[for=":r5:"]').click();
   });
 
@@ -25,12 +25,12 @@ describe("find Pickle Rick and set rating to 1 star", () => {
       "Pickle Rick"
     );
     cy.contains("Pickle Rick");
-    cy.get(".css-1pp3930-MuiTypography-root > span").contains("1");
-    cy.get(".css-1pp3930-MuiTypography-root > span").contains(" / 5");
-    cy.get(".MuiCardContent-root").click();
+    cy.get('[data-testid="ratin-on-character-card-265"]').contains("1");
+    cy.get('[data-testid="ratin-on-character-card-265"]').contains(" / 5");
+    cy.get('[data-testid="character-card-265"]').click();
     cy.get('[for=":rd:"]').click();
     cy.get('[for=":rd:"]').type("{esc}");
-    cy.get(".css-1pp3930-MuiTypography-root > span").contains("5");
-    cy.get(".css-1pp3930-MuiTypography-root > span").contains(" / 5");
+    cy.get('[data-testid="ratin-on-character-card-265"]').contains("5");
+    cy.get('[data-testid="ratin-on-character-card-265"]').contains(" / 5");
   });
 });

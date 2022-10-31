@@ -88,6 +88,7 @@ export function PreviewEpisode({
                           border: "3px solid white",
                           boxSizing: "border-box",
                           boxShadow: "0 0 5px 0px rgba(0,0,0,0.5)",
+                          aspectRatio: "1 / 1",
                           transitionDuration: "0.1s",
                           cursor: "pointer",
                           "&:hover": {

@@ -10,7 +10,7 @@ import {
 } from "types";
 import { GraphQLError } from "graphql";
 
-const DEFAULT_PAGE_SIZE = 18;
+const DEFAULT_PAGE_SIZE = 20;
 
 const mongooseStringContains = (str?: string) => ({
   $regex: str ?? "",

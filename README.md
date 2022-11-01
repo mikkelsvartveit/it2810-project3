@@ -77,6 +77,10 @@ The episode tab is very similar to the character tab. The user can search for ep
 
 Just like with characters, the user can give their rating to an episode through the modal.
 
+#### About the dataset
+
+The original episode and character data comes from the [Rick and Morty API](https://rickandmortyapi.com/about). We have fetched the entire episode and character dataset and placed it in a JSON file. When running the setup script, the database is reset and initialized with the contents of this file.
+
 ## Technology
 
 The application consists of three NPM modules: a frontend client, a backend server and a types module that allows sharing types and interfaces between the frontend and the backend.
@@ -110,12 +114,14 @@ In addition to the unit tests, we have created some simple end-to-end tests usin
 
 #### Web accessibility
 
-We have attempted to achieve a high level of accessibility in our web application. First of all, we have made sure that the layout is responsive and looks nice on any screen size. MUI has layout components that simplifies this job, abstacting away the actual CSS media queries. Secondly, we have tried to take web accessibility fundementals into account when developing the application. The essence of this is that the website should be designed for all users, no matter their age, education, skill level or impairments. Here are some concrete steps we have taken to improve accessibility:
+We have attempted to achieve an acceptable level of accessibility in our web application. First of all, we have made sure that the layout is responsive and looks nice on any screen size. MUI has layout components that simplifies this job, abstacting away the actual CSS media queries. Secondly, we have tried to take web accessibility fundementals into account when developing the application. The essence of this is that the website should be designed for all users, no matter their age, education, skill level or potential impairments. Here are some concrete steps we have taken to improve accessibility:
 
 - Attention to contrast between the text and the background.
 - Minimalistic design without overly saturated colors, enough spacing between elements and text with sufficient font size.
+- Usage of semantic elements like `<header>`, `<main>`, `<section>` and `<nav>` for a clear distinction of different elements in the UI.
 - Images have `alt` attributes to improve the experience for people using screen readers.
 - Usage of `aria-label` and `aria-labelledby` attributes for elements that do not have obvious visible text accociated with them.
+- Handling of network and GraphQL errors to provide meaningful feedback to the user when the application does not provide services or respond as expected.
 
 #### Sustainable development
 

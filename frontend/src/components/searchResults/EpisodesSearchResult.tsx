@@ -4,6 +4,10 @@ import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetEpisodes } from "../../gql/queries";
 import { EpisodeCard, IEpisodeCardProps } from "../cards/";
+import { ErrorAlert } from "../cards/ErrorAlert";
+import { ApolloError } from "@apollo/client";
+
+const PAGE_SIZE = 18;
 
 export function EpisodesSearchResult() {
   const {
@@ -14,9 +18,13 @@ export function EpisodesSearchResult() {
     data,
     loading,
     fetchMore,
-  } = useGetEpisodes();
+    error,
+  } = useGetEpisodes(PAGE_SIZE);
 
   const [scrollData, setScrollData] = useState<IEpisodeCardProps[]>([]);
+  const [fetchmoreError, setFetchmoreError] = useState<ApolloError | null>(
+    null
+  );
 
   // Handle new data from GraphQL query
   useEffect(() => {
@@ -26,7 +34,7 @@ export function EpisodesSearchResult() {
       setScrollData([]);
       return;
     }
-    if (data.episodes.length < 18) {
+    if (data.episodes.length < PAGE_SIZE) {
       setIsLastPage(true);
     }
 
@@ -34,10 +42,11 @@ export function EpisodesSearchResult() {
   }, [data, setIsLastPage]);
 
   // Function that is triggered when user scrolls towards the end of the list
-  const loadScrollData = () => {
+  const loadScrollData = async () => {
     if (!data || loading) return;
+    let foundError = false;
 
-    fetchMore({
+    await fetchMore({
       variables: {
         page: pageNr + 1,
       },
@@ -49,7 +58,7 @@ export function EpisodesSearchResult() {
           return prev;
         }
 
-        if (fetchMoreResult.episodes.length < 18) {
+        if (fetchMoreResult.episodes.length < PAGE_SIZE) {
           setIsLastPage(true);
         }
 
@@ -58,14 +67,21 @@ export function EpisodesSearchResult() {
           episodes: [...prev.episodes, ...fetchMoreResult.episodes],
         });
       },
+    }).catch((err) => {
+      setIsLastPage(true);
+      setFetchmoreError(err);
+      foundError = true;
+      return;
     });
 
-    setPageNr((pageNr) => pageNr + 1);
+    if (!foundError) setPageNr((pageNr) => pageNr + 1);
   };
 
   return (
     <>
-      {(pageNr > 1 && scrollData) || (!loading && scrollData) ? (
+      {error && !loading ? (
+        <ErrorAlert error={error} buttonLabel={"Refresh"} />
+      ) : (pageNr > 1 && scrollData) || (!loading && scrollData) ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}
@@ -95,6 +111,17 @@ export function EpisodesSearchResult() {
               ))}
             </Grid>
           </InfiniteScroll>
+          {fetchmoreError && (
+            <ErrorAlert
+              error={fetchmoreError}
+              buttonLabel={"Retry"}
+              handleRetry={() => {
+                setFetchmoreError(null);
+                setIsLastPage(false);
+                loadScrollData();
+              }}
+            />
+          )}
         </>
       ) : (
         <Box

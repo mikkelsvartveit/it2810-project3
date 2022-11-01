@@ -4,6 +4,10 @@ import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { CharacterCard, ICharacterCardProps } from "../cards/";
 import { useGetCharacters } from "../../gql/queries";
+import { ErrorAlert } from "../cards/ErrorAlert";
+import { ApolloError } from "@apollo/client";
+
+const PAGE_SIZE = 18;
 
 export function CharactersSearchResult() {
   const {
@@ -14,9 +18,13 @@ export function CharactersSearchResult() {
     data,
     loading,
     fetchMore,
-  } = useGetCharacters();
+    error,
+  } = useGetCharacters(PAGE_SIZE);
 
   const [scrollData, setScrollData] = useState<ICharacterCardProps[]>([]);
+  const [fetchmoreError, setFetchmoreError] = useState<ApolloError | null>(
+    null
+  );
 
   // Handle new data from GraphQL query
   useEffect(() => {
@@ -28,7 +36,7 @@ export function CharactersSearchResult() {
       return;
     }
 
-    if (data.characters.length < 18) {
+    if (data.characters.length < PAGE_SIZE) {
       setIsLastPage(true);
     }
 
@@ -36,10 +44,11 @@ export function CharactersSearchResult() {
   }, [data, setIsLastPage]);
 
   // Function that is triggered when user scrolls towards the end of the list
-  const loadScrollData = () => {
+  const loadScrollData = async () => {
     if (!data || loading) return;
+    let foundError = false;
 
-    fetchMore({
+    await fetchMore({
       variables: {
         page: pageNr + 1,
       },
@@ -51,7 +60,7 @@ export function CharactersSearchResult() {
           return prev;
         }
 
-        if (fetchMoreResult.characters.length < 18) {
+        if (fetchMoreResult.characters.length < PAGE_SIZE) {
           setIsLastPage(true);
         }
 
@@ -60,14 +69,22 @@ export function CharactersSearchResult() {
           characters: [...prev.characters, ...fetchMoreResult.characters],
         });
       },
+    }).catch((err) => {
+      setIsLastPage(true);
+      setFetchmoreError(err);
+      foundError = true;
+      return;
     });
-
-    setPageNr((pageNr) => pageNr + 1);
+    if (!foundError) {
+      setPageNr((pageNr) => pageNr + 1);
+    }
   };
 
   return (
     <>
-      {(pageNr > 1 && scrollData) || (!loading && scrollData) ? (
+      {error && !loading ? (
+        <ErrorAlert error={error} buttonLabel={"Refresh"} />
+      ) : (pageNr > 1 && scrollData) || (!loading && scrollData) ? (
         <>
           <InfiniteScroll
             dataLength={scrollData.length}
@@ -100,6 +117,17 @@ export function CharactersSearchResult() {
               ))}
             </Grid>
           </InfiniteScroll>
+          {fetchmoreError && (
+            <ErrorAlert
+              error={fetchmoreError}
+              buttonLabel={"Retry"}
+              handleRetry={() => {
+                setFetchmoreError(null);
+                setIsLastPage(false);
+                loadScrollData();
+              }}
+            />
+          )}
         </>
       ) : (
         <Box

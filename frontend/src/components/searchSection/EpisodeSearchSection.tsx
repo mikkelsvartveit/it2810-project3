@@ -14,8 +14,7 @@ import {
   activeEpisodeSortVar,
 } from "../../gql/cache";
 import { SortSelect, TextFieldWithDebounce } from "../formFields";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { LocalizationProvider, MobileDatePicker } from "@mui/x-date-pickers";
+import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { IEpisodeSort } from "types";
 
@@ -32,7 +31,7 @@ export function EpisodeSearchSection() {
   const [seasonFilterValue, setseasonFilterValue] = useState(
     { ...episodeFilter }.season ?? ""
   );
-  const [dates, setDates] = useState([null, null]);
+  const [dates, setDates] = useState<Array<null | string>>([null, null]);
 
   const sortOptions = [
     { value: "default", label: "Default order" },
@@ -47,7 +46,12 @@ export function EpisodeSearchSection() {
   const defaultSort = "default";
 
   return (
-    <Grid container spacing={3} sx={{ marginTop: 1, marginBottom: 4 }}>
+    <Grid
+      component="form"
+      container
+      spacing={3}
+      sx={{ marginTop: 1, marginBottom: 4 }}
+    >
       <Grid item xs={12}>
         <TextFieldWithDebounce
           label="Episode name"
@@ -58,25 +62,11 @@ export function EpisodeSearchSection() {
 
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Grid item xs={12} sm={6} lg={3}>
-          <DesktopDatePicker
-            className="desktop-date-picker"
-            label="Start date"
+          <DatePicker
+            label="From date"
             inputFormat="DD/MM/YYYY"
             value={dates[0]}
-            onChange={(newValue) => {
-              setDates([newValue, dates[1]]);
-              const newFilter = { ...episodeFilter };
-              newFilter.start_date = newValue ? newValue : undefined;
-              activeEpisodeFilterVar(newFilter);
-            }}
-            renderInput={(params) => <TextField {...params} fullWidth />}
-          />
-
-          <MobileDatePicker
-            className="mobile-date-picker"
-            label="Start date"
-            inputFormat="DD/MM/YYYY"
-            value={dates[0]}
+            maxDate={dates[1]}
             onChange={(newValue) => {
               setDates([newValue, dates[1]]);
               const newFilter = { ...episodeFilter };
@@ -88,25 +78,11 @@ export function EpisodeSearchSection() {
         </Grid>
 
         <Grid item xs={12} sm={6} lg={3}>
-          <DesktopDatePicker
-            className="desktop-date-picker"
-            label="End date"
+          <DatePicker
+            label="To date"
             inputFormat="DD/MM/YYYY"
             value={dates[1]}
-            onChange={(newValue) => {
-              setDates([dates[0], newValue]);
-              const newFilter = { ...episodeFilter };
-              newFilter.end_date = newValue ? newValue : undefined;
-              activeEpisodeFilterVar(newFilter);
-            }}
-            renderInput={(params) => <TextField {...params} fullWidth />}
-          />
-
-          <MobileDatePicker
-            className="mobile-date-picker"
-            label="End date"
-            inputFormat="DD/MM/YYYY"
-            value={dates[1]}
+            minDate={dates[0]}
             onChange={(newValue) => {
               setDates([dates[0], newValue]);
               const newFilter = { ...episodeFilter };

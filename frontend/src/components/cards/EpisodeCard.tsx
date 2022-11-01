@@ -25,7 +25,11 @@ export function EpisodeCard({
 
   return (
     <>
-      <Card sx={{ margin: 0 }} data-testid={"episode-card-" + id}>
+      <Card
+        component="figure"
+        sx={{ margin: 0 }}
+        data-testid={"episode-card-" + id}
+      >
         <CardActionArea onClick={() => setInFocus(true)}>
           <CardContent
             sx={{
@@ -111,11 +115,13 @@ export function EpisodeCard({
         </CardActionArea>
       </Card>
 
-      <PreviewEpisode
-        open={inFocus}
-        handleClose={() => setInFocus(false)}
-        id={id}
-      />
+      {inFocus && (
+        <PreviewEpisode
+          open={inFocus}
+          handleClose={() => setInFocus(false)}
+          id={id}
+        />
+      )}
     </>
   );
 }

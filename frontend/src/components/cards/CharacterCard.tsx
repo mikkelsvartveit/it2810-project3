@@ -48,8 +48,15 @@ export function CharacterCard({
 
   return (
     <>
-      <Card sx={{ margin: 0 }} data-testid={"character-card-" + id}>
+      <Card
+        component="figure"
+        sx={{ margin: 0 }}
+        data-testid={"character-card-" + id}
+      >
         <CardActionArea
+          className={
+            name.toLowerCase().includes("rick") ? "cursor-pickle-rick" : ""
+          }
           sx={{
             display: "flex",
             flexDirection: "row",
@@ -170,11 +177,13 @@ export function CharacterCard({
         </CardActionArea>
       </Card>
 
-      <PreviewCharacter
-        open={inFocus}
-        handleClose={() => setInFocus(false)}
-        id={id}
-      />
+      {inFocus && (
+        <PreviewCharacter
+          open={inFocus}
+          handleClose={() => setInFocus(false)}
+          id={id}
+        />
+      )}
     </>
   );
 }

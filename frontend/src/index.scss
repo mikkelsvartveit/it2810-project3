@@ -6,7 +6,7 @@
 }
 
 body {
-  margin: 0 auto;
+  margin: 5%;
   max-width: 1536px;
   padding: 0 0 40px 0;
   color: #333;
@@ -89,17 +89,6 @@ body {
   }
 }
 
-// Switch between mobile and desktop date picker depending on if the device has a touch screen
-.mobile-date-picker {
-  display: none !important;
-}
-
-@media (hover: none) {
-  .mobile-date-picker {
-    display: block !important;
-  }
-
-  .desktop-date-picker {
-    display: none !important;
-  }
+.cursor-pickle-rick {
+  cursor: url("./assets/pickle-rick32.png"), auto !important;
 }

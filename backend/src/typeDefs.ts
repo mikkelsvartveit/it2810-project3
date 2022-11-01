@@ -33,6 +33,7 @@ export const typeDefs = gql`
     """
     characters(
       page: Int
+      pageSize: Int
       filters: CharacterFilter
       sort: CharacterSort
     ): [Character!]!
@@ -45,7 +46,12 @@ export const typeDefs = gql`
     """
     Get multiple episodes
     """
-    episodes(page: Int, filters: EpisodeFilter, sort: EpisodeSort): [Episode!]!
+    episodes(
+      page: Int
+      pageSize: Int
+      filters: EpisodeFilter
+      sort: EpisodeSort
+    ): [Episode!]!
 
     """
     Get episode by ID

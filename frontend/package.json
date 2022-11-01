@@ -27,7 +27,6 @@
     "@types/node": "^16.11.59",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
-    "cypress": "^10.10.0",
     "graphql": "^16.6.0",
     "lodash.debounce": "^4.0.8",
     "react": "^18.2.0",
@@ -35,7 +34,6 @@
     "react-infinite-scroll-component": "^6.1.0",
     "react-router-dom": "^6.4.0",
     "react-scripts": "5.0.1",
-    "react-tabs": "^5.1.0",
     "sass": "^1.55.0",
     "typescript": "^4.8.3",
     "web-vitals": "^2.1.4"
@@ -45,6 +43,7 @@
     "@testing-library/dom": "^8.18.1",
     "@types/lodash.debounce": "^4.0.7",
     "@types/react-test-renderer": "^18.0.0",
+    "cypress": "^10.10.0",
     "eslint": "^8.23.1",
     "eslint-config-prettier": "^8.5.0",
     "jest": "^27.5.1",

@@ -18,32 +18,42 @@ const mongooseStringContains = (str?: string) => ({
 
 export const resolvers = {
   Mutation: {
+    // Mutation for setting the rating of a character
     setCharacterRating: async (
       _: unknown,
       { id, rating }: { id: number; rating: number }
     ) => {
       const character = await Character.findOne({ id });
+
       if (!character) {
         throw new Error("Character not found");
       }
+
       character.rating = rating;
       await character.save();
       return character;
     },
+
+    // Mutation for setting the rating of an episode
     setEpisodeRating: async (
       _: unknown,
       { id, rating }: { id: number; rating: number }
     ) => {
       const episode = await Episode.findOne({ id });
+
       if (!episode) {
         throw new Error("Episode not found");
       }
+
       episode.rating = rating;
       await episode.save();
       return episode;
     },
   },
+
   Query: {
+    // Query for getting a collection of characters
+    // Allows for filtering, sorting and pagination
     characters: async (
       _: unknown,
       {
@@ -60,9 +70,12 @@ export const resolvers = {
         .skip((page - 1) * PAGE_SIZE)
         .limit(PAGE_SIZE),
 
+    // Query for getting a single character by id
     character: async (_: unknown, { id }: { id: number }) =>
       await Character.findOne({ id }),
 
+    // Query for getting a collection of episodes
+    // Allows for filtering, sorting and pagination
     episodes: async (
       _: unknown,
       {
@@ -85,15 +98,19 @@ export const resolvers = {
         .limit(PAGE_SIZE);
     },
 
+    // Query for getting a single episode by id
     episode: async (_: unknown, { id }: { id: number }) =>
       await Episode.findOne({ id }),
   },
+
+  // Find all episodes that a character appears in
   Character: {
     episode: async (character: ICharacter) => {
       return await Episode.find({ characters: character.id });
     },
   },
 
+  // Find all characters that appears in an episode
   Episode: {
     characters: async (episode: IEpisode) => {
       return await Character.find({ episode: episode.id });

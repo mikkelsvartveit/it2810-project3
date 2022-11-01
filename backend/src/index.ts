@@ -6,6 +6,7 @@ import { typeDefs } from "./typeDefs";
 
 let MONGODB_URL = "mongodb://localhost:27017/rickandmorty";
 
+// Use different MongoDB URL when running in GitLab CI
 if (process.env.NODE_ENV == "test")
   MONGODB_URL = "mongodb://mongo/rickandmorty";
 

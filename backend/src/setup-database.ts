@@ -1,3 +1,5 @@
+// SCRIPT FOR CLEARING AND SETTING UP THE DATABASE
+
 import mongoose from "mongoose";
 import { characters, episodes } from "../dataset.json";
 

@@ -18,43 +18,50 @@ export function CharactersSearchResult() {
 
   const [scrollData, setScrollData] = useState<ICharacterCardProps[]>([]);
 
+  // Handle new data from GraphQL query
   useEffect(() => {
     if (!data) return;
+
     if (data.characters.length === 0) {
       setIsLastPage(true);
       setScrollData([]);
       return;
     }
+
     if (data.characters.length < 18) {
       setIsLastPage(true);
     }
 
     setScrollData(data.characters);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, setIsLastPage]);
 
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
     if (!data || loading) return;
+
     fetchMore({
       variables: {
         page: pageNr + 1,
       },
+
       // Update the query with new data
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
           setIsLastPage(true);
           return prev;
         }
+
         if (fetchMoreResult.characters.length < 18) {
           setIsLastPage(true);
         }
+
         // Extends prev data with new data
         return Object.assign({}, prev, {
           characters: [...prev.characters, ...fetchMoreResult.characters],
         });
       },
     });
+
     setPageNr((pageNr) => pageNr + 1);
   };
 
@@ -84,7 +91,6 @@ export function CharactersSearchResult() {
                     image={character.image}
                     status={character.status}
                     species={character.species}
-                    episode={character.episode}
                     gender={character.gender}
                     origin={character.origin}
                     rating={character.rating}

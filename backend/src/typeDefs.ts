@@ -29,7 +29,7 @@ export const typeDefs = gql`
 
   type Query {
     """
-    Get all characters
+    Get multiple characters
     """
     characters(
       page: Int
@@ -38,12 +38,12 @@ export const typeDefs = gql`
     ): [Character!]!
 
     """
-    Get a character from ID
+    Get character by ID
     """
     character(id: ID!): Character
 
     """
-    Get all episodes
+    Get multiple episodes
     """
     episodes(page: Int, filters: EpisodeFilter, sort: EpisodeSort): [Episode!]!
 
@@ -52,10 +52,12 @@ export const typeDefs = gql`
     """
     episode(id: ID!): Episode
   }
+
   type Mutation {
     setCharacterRating(id: ID!, rating: Int!): Character
     setEpisodeRating(id: ID!, rating: Int!): Episode
   }
+
   type Character {
     """
     Character ID
@@ -68,7 +70,7 @@ export const typeDefs = gql`
     name: String!
 
     """
-    Character status, dead / alive
+    Character status (dead/alive/unknown)
     """
     status: String!
 
@@ -78,8 +80,8 @@ export const typeDefs = gql`
     species: String!
 
     """
-    Type, subtype of species?
-    eks: Catperson, parasite, birdperson
+    Type (subtype of species)
+    ex: dog, parasite, birdperson
     """
     type: String!
 
@@ -89,7 +91,7 @@ export const typeDefs = gql`
     gender: String!
 
     """
-    Origin
+    Planet which the character is from
     """
     origin: Location!
 
@@ -99,32 +101,29 @@ export const typeDefs = gql`
     location: Location!
 
     """
-    Image of character
+    URL to image of character
     """
     image: String!
 
     """
-    Episodes the character is in
+    List of episodes the character is in
     """
     episode: [Episode]
 
     """
-    How many episodes the character is in
+    Number of episodes the character is in
     """
     episodeCount: Int!
 
     """
-    Rating of character
+    Rating (out of 5) for character
     """
     rating: Int
   }
 
-  type Location {
-    name: String!
-  }
   type Episode {
     """
-    Episode ID.
+    Episode ID
     """
     id: ID!
 
@@ -134,13 +133,13 @@ export const typeDefs = gql`
     name: String!
 
     """
-    Episode Ait date.
+    Date when the episode first aired
     """
     air_date: String!
 
     """
     Season and episode code
-    Eks: S01E01
+    Format: S01E01
     """
     episode: String!
 
@@ -155,12 +154,20 @@ export const typeDefs = gql`
     characterCount: Int!
 
     """
-    Creation time in RickandMortyAPI database.
+    Creation time in the RickandMortyAPI database.
     """
     created: String!
+
     """
-    Rating of episode
+    Rating (out of 5) for episode
     """
     rating: Int
+  }
+
+  type Location {
+    """
+    Name of the location
+    """
+    name: String!
   }
 `;

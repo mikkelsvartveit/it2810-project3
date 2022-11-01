@@ -1,35 +1,26 @@
 image: node:16
 
 stages:
-  - Formatting
-  - Linting
+  - Code quality
   - Testing
-  - Building
   - Deployment
 
-prettier:
-  stage: Formatting
+prettier/eslint/build:
+  stage: Code quality
   retry: 1
   script:
     - cd frontend
     - npm ci --silent
-    - npm run prettier
     - cd ../backend
     - npm ci --silent
     - npm run prettier
-
-eslint:
-  stage: Linting
-  retry: 1
-  script:
-    - cd frontend
-    - npm ci --silent
     - npm run lint
-    - cd ../backend
-    - npm ci --silent
+    - cd ../frontend
+    - npm run prettier
     - npm run lint
+    - npm run build
 
-test:unit:e2e:
+jest/cypress:
   image: cypress/base:16
   stage: Testing
   retry: 1
@@ -49,14 +40,6 @@ test:unit:e2e:
     - npm run test
     - echo "End to end tests"
     - npm run test:e2e:ci
-
-react-build:
-  stage: Building
-  retry: 1
-  script:
-    - cd frontend
-    - npm ci
-    - npm run build
 
 deploy:
   stage: Deployment

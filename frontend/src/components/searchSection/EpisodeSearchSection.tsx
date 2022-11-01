@@ -25,9 +25,7 @@ const initsort = (filters: IEpisodeSort) => {
   return null;
 };
 
-export interface IEpisodeSearchSectionProps {}
-
-export function EpisodeSearchSection(props: IEpisodeSearchSectionProps) {
+export function EpisodeSearchSection() {
   const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
   const episodeFilterName = useReactiveVar(activeEpisodeFilterNameVar);
   const currSort = useReactiveVar(activeEpisodeSortVar);
@@ -123,6 +121,7 @@ export function EpisodeSearchSection(props: IEpisodeSearchSectionProps) {
       <Grid item xs={12} sm={6} lg={3}>
         <FormControl fullWidth>
           <InputLabel id="season-label">Season</InputLabel>
+
           <Select
             labelId="season-label"
             id="season-select"

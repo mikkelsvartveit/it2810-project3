@@ -16,15 +16,15 @@ export function TextFieldWithDebounce({
 }: ITextFieldWithDebounceProps) {
   const [currValue, setCurrValue] = useState(initalValue ?? "");
 
-  const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    callback(event.target.value);
-  };
   const debouncedResults = useMemo(() => {
+    const handleChange = (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      callback(event.target.value);
+    };
+
     return debounce(handleChange, 500);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [callback]);
 
   useEffect(() => {
     return () => {

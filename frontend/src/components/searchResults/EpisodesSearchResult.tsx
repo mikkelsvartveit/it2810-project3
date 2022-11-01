@@ -18,7 +18,7 @@ export function EpisodesSearchResult() {
 
   const [scrollData, setScrollData] = useState<IEpisodeCardProps[]>([]);
 
-  // Handle new data from gql query
+  // Handle new data from GraphQL query
   useEffect(() => {
     if (!data) return;
     if (data.episodes.length === 0) {
@@ -31,31 +31,35 @@ export function EpisodesSearchResult() {
     }
 
     setScrollData(data.episodes);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, setIsLastPage]);
 
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = () => {
     if (!data || loading) return;
+
     fetchMore({
       variables: {
         page: pageNr + 1,
       },
+
       // Update the query with new data
       updateQuery: (prev, { fetchMoreResult }) => {
         if (!fetchMoreResult) {
           setIsLastPage(true);
           return prev;
         }
+
         if (fetchMoreResult.episodes.length < 18) {
           setIsLastPage(true);
         }
+
         // Extends prev data with new data
         return Object.assign({}, prev, {
           episodes: [...prev.episodes, ...fetchMoreResult.episodes],
         });
       },
     });
+
     setPageNr((pageNr) => pageNr + 1);
   };
 

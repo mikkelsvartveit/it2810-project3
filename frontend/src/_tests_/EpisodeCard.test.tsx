@@ -12,9 +12,11 @@ test("renders person card", async () => {
       <EpisodeCard {...(sampleEpisode as unknown as IEpisode)} />
     </CustomMockedProvider>
   );
+
   expect(
     await screen.findByText(sampleEpisode.name, { exact: false })
   ).toBeInTheDocument();
+
   expect(
     await screen.findByText(
       sampleEpisode.episode
@@ -24,6 +26,7 @@ test("renders person card", async () => {
       { exact: false }
     )
   ).toBeInTheDocument();
+
   expect(
     await screen.findByText(sampleEpisode.air_date, { exact: false })
   ).toBeInTheDocument();

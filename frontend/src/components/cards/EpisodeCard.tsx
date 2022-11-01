@@ -22,6 +22,7 @@ export function EpisodeCard({
   characterCount,
 }: IEpisodeCardProps) {
   const [inFocus, setInFocus] = useState(false);
+
   return (
     <>
       <Card sx={{ margin: 0 }} data-testid={"episode-card-" + id}>
@@ -62,6 +63,7 @@ export function EpisodeCard({
                     .replaceAll(" 0", " ")}
                 </strong>
               </Typography>
+
               <Typography variant="subtitle2" color="text.secondary">
                 {air_date}
               </Typography>
@@ -80,6 +82,7 @@ export function EpisodeCard({
                 {characterCount === 1 ? " character" : " characters"} in the
                 episode
               </Typography>
+
               {rating && (
                 <Typography
                   variant="subtitle2"
@@ -90,6 +93,7 @@ export function EpisodeCard({
                   }}
                 >
                   <Star style={{ color: "#faaf00" }} />
+
                   <span
                     style={{
                       fontSize: 16,

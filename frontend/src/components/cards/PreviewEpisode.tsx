@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
+import { formatEpisodeAndSeason } from "../../utils/helpers";
 import { useSetEpisodeRating } from "../../gql/mutations";
 import { useGetEpisode } from "../../gql/queries";
 import { PreviewCharacter } from "./PreviewCharacter";
@@ -27,15 +28,9 @@ export function PreviewEpisode({
 }: IPreviewEpisodeProps) {
   const { data } = useGetEpisode(id);
   const [setEpisodeRating] = useSetEpisodeRating(id);
-  const [characterPreviewId, setCharacterPreviewId] = useState(-1);
 
-  function formatEpisodeAndSeason(episode: string) {
-    const episodeNum = episode.split("E")[1];
-    const seasonNum = episode.split("E")[0].split("S")[1];
-    return `Season ${Number.parseInt(seasonNum)}, Episode ${Number.parseInt(
-      episodeNum
-    )}`;
-  }
+  // ID of the character to preview in modal. -1 hides the modal.
+  const [characterPreviewId, setCharacterPreviewId] = useState(-1);
 
   return (
     <Modal

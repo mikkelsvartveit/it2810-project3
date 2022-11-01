@@ -15,13 +15,14 @@ import {
 const mockEpisodes = mockEpisodesQuery.result.data.episodes;
 const mockCharacters = mockCharactersQuery.result.data.characters;
 
-describe("Full app functionality", () => {
+describe("Test full app functionality", () => {
   test("Renders application without errors", () => {
     render(
       <CustomMockedProvider>
         <App />
       </CustomMockedProvider>
     );
+
     expect(true).toBe(true);
   });
 
@@ -57,7 +58,7 @@ describe("Full app functionality", () => {
       </CustomMockedProvider>
     );
 
-    // eslint-disable-next-line
+    // eslint-disable-next-line testing-library/no-node-access
     const inputField = (await screen.findByTestId("SearchField")).querySelector(
       "input"
     ) as HTMLInputElement;
@@ -86,7 +87,7 @@ describe("Full app functionality", () => {
       screen.queryByTestId("ESearchLoader")
     );
 
-    // eslint-disable-next-line
+    // eslint-disable-next-line testing-library/no-node-access
     const inputField = (await screen.findByTestId("SearchField")).querySelector(
       "input"
     ) as HTMLInputElement;

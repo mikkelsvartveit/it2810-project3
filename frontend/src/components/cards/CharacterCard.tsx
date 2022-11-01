@@ -54,6 +54,9 @@ export function CharacterCard({
         data-testid={"character-card-" + id}
       >
         <CardActionArea
+          className={
+            name.toLowerCase().includes("rick") ? "cursor-pickle-rick" : ""
+          }
           sx={{
             display: "flex",
             flexDirection: "row",

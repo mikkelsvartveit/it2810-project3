@@ -117,6 +117,7 @@ We have attempted to achieve a high level of accessibility in our web applicatio
 - Usage of semantic elements like header, main, section and nav for a clear division of different elements in the UI
 - Images have `alt` attributes to improve the experience for people using screen readers.
 - Usage of `aria-label` and `aria-labelledby` attributes for elements that do not have obvious visible text accociated with them.
+- Handling of network and GraphQL errors to provide meaningful feedback to the user when the application does not provide services or respond as expected.
 
 #### Sustainable development
 

@@ -32,7 +32,7 @@ export function EpisodeSearchSection() {
   const [seasonFilterValue, setseasonFilterValue] = useState(
     { ...episodeFilter }.season ?? ""
   );
-  const [dates, setDates] = useState([null, null]);
+  const [dates, setDates] = useState<Array<null | string>>([null, null]);
 
   const sortOptions = [
     { value: "default", label: "Default order" },
@@ -63,7 +63,9 @@ export function EpisodeSearchSection() {
             label="Start date"
             inputFormat="DD/MM/YYYY"
             value={dates[0]}
+            maxDate={dates[1] ?? new Date().toISOString()}
             onChange={(newValue) => {
+              console.log(newValue);
               setDates([newValue, dates[1]]);
               const newFilter = { ...episodeFilter };
               newFilter.start_date = newValue ? newValue : undefined;
@@ -77,6 +79,7 @@ export function EpisodeSearchSection() {
             label="Start date"
             inputFormat="DD/MM/YYYY"
             value={dates[0]}
+            maxDate={dates[1] ?? new Date().toISOString()}
             onChange={(newValue) => {
               setDates([newValue, dates[1]]);
               const newFilter = { ...episodeFilter };
@@ -93,6 +96,8 @@ export function EpisodeSearchSection() {
             label="End date"
             inputFormat="DD/MM/YYYY"
             value={dates[1]}
+            minDate={dates[0]}
+            maxDate={new Date().toISOString()}
             onChange={(newValue) => {
               setDates([dates[0], newValue]);
               const newFilter = { ...episodeFilter };
@@ -107,6 +112,8 @@ export function EpisodeSearchSection() {
             label="End date"
             inputFormat="DD/MM/YYYY"
             value={dates[1]}
+            minDate={dates[0]}
+            maxDate={new Date().toISOString()}
             onChange={(newValue) => {
               setDates([dates[0], newValue]);
               const newFilter = { ...episodeFilter };

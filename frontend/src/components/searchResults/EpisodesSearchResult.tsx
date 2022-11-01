@@ -4,6 +4,8 @@ import { CircularProgress, LinearProgress } from "@mui/material";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetEpisodes } from "../../gql/queries";
 import { EpisodeCard, IEpisodeCardProps } from "../cards/";
+import { ErrorAlert } from "../cards/ErrorAlert";
+import { ApolloError } from "@apollo/client";
 
 const PAGE_SIZE = 18;
 
@@ -16,9 +18,13 @@ export function EpisodesSearchResult() {
     data,
     loading,
     fetchMore,
+    error,
   } = useGetEpisodes(PAGE_SIZE);
 
   const [scrollData, setScrollData] = useState<IEpisodeCardProps[]>([]);
+  const [fetchmoreError, setFetchmoreError] = useState<ApolloError | null>(
+    null
+  );
 
   // Handle new data from GraphQL query
   useEffect(() => {
@@ -36,10 +42,10 @@ export function EpisodesSearchResult() {
   }, [data, setIsLastPage]);
 
   // Function that is triggered when user scrolls towards the end of the list
-  const loadScrollData = () => {
+  const loadScrollData = async () => {
     if (!data || loading) return;
 
-    fetchMore({
+    await fetchMore({
       variables: {
         page: pageNr + 1,
       },
@@ -60,6 +66,10 @@ export function EpisodesSearchResult() {
           episodes: [...prev.episodes, ...fetchMoreResult.episodes],
         });
       },
+    }).catch((err) => {
+      setIsLastPage(true);
+      setFetchmoreError(err);
+      return;
     });
 
     setPageNr((pageNr) => pageNr + 1);
@@ -67,35 +77,50 @@ export function EpisodesSearchResult() {
 
   return (
     <>
-      {(pageNr > 1 && scrollData) || (!loading && scrollData) ? (
-        <InfiniteScroll
-          dataLength={scrollData.length}
-          next={loadScrollData}
-          hasMore={!isLastPage}
-          scrollThreshold={0.9}
-          loader={<LinearProgress />}
-          style={{ overflow: "unset" }}
-          endMessage={
-            <h3 style={{ textAlign: "center", marginTop: 40 }}>
-              {scrollData.length === 0 ? "No results" : "No more results"}
-            </h3>
-          }
-        >
-          <Grid container spacing={3}>
-            {scrollData.map((episode) => (
-              <Grid item xs={12} md={6} lg={4} key={episode.id}>
-                <EpisodeCard
-                  id={episode.id}
-                  name={episode.name}
-                  air_date={episode.air_date}
-                  episode={episode.episode}
-                  rating={episode.rating}
-                  characterCount={episode.characterCount}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </InfiniteScroll>
+      {error && !loading ? (
+        <ErrorAlert error={error} buttonLabel={"Refresh"} />
+      ) : (pageNr > 1 && scrollData) || (!loading && scrollData) ? (
+        <>
+          <InfiniteScroll
+            dataLength={scrollData.length}
+            next={loadScrollData}
+            hasMore={!isLastPage}
+            scrollThreshold={0.9}
+            loader={<LinearProgress />}
+            style={{ overflow: "unset" }}
+            endMessage={
+              <h3 style={{ textAlign: "center", marginTop: 40 }}>
+                {scrollData.length === 0 ? "No results" : "No more results"}
+              </h3>
+            }
+          >
+            <Grid container spacing={3}>
+              {scrollData.map((episode) => (
+                <Grid item xs={12} md={6} lg={4} key={episode.id}>
+                  <EpisodeCard
+                    id={episode.id}
+                    name={episode.name}
+                    air_date={episode.air_date}
+                    episode={episode.episode}
+                    rating={episode.rating}
+                    characterCount={episode.characterCount}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+          </InfiniteScroll>
+          {fetchmoreError && (
+            <ErrorAlert
+              error={fetchmoreError}
+              buttonLabel={"Retry"}
+              handleRetry={() => {
+                setFetchmoreError(null);
+                setIsLastPage(false);
+                loadScrollData();
+              }}
+            />
+          )}
+        </>
       ) : (
         <Box
           sx={{

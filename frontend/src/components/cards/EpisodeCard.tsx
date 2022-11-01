@@ -111,11 +111,13 @@ export function EpisodeCard({
         </CardActionArea>
       </Card>
 
-      <PreviewEpisode
-        open={inFocus}
-        handleClose={() => setInFocus(false)}
-        id={id}
-      />
+      {inFocus && (
+        <PreviewEpisode
+          open={inFocus}
+          handleClose={() => setInFocus(false)}
+          id={id}
+        />
+      )}
     </figure>
   );
 }

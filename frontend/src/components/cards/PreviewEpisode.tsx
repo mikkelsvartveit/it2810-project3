@@ -14,6 +14,8 @@ import { formatEpisodeAndSeason } from "../../utils/helpers";
 import { useSetEpisodeRating } from "../../gql/mutations";
 import { useGetEpisode } from "../../gql/queries";
 import { PreviewCharacter } from "./PreviewCharacter";
+import { ErrorAlert } from "./ErrorAlert";
+import { ApolloError } from "@apollo/client";
 
 export interface IPreviewEpisodeProps {
   id: number;
@@ -26,8 +28,10 @@ export function PreviewEpisode({
   handleClose,
   id,
 }: IPreviewEpisodeProps) {
-  const { data } = useGetEpisode(id);
-  const [setEpisodeRating] = useSetEpisodeRating(id);
+  const { data, error: getError, loading, refetch } = useGetEpisode(id);
+
+  const [setEpisodeRating, { error: mutationError, reset }] =
+    useSetEpisodeRating(id);
 
   // ID of the character to preview in modal. -1 hides the modal.
   const [characterPreviewId, setCharacterPreviewId] = useState(-1);
@@ -36,12 +40,10 @@ export function PreviewEpisode({
     <Modal
       open={open}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Card className="preview-card">
-        {data ? (
+        {data && data.episode ? (
           <>
             <CardContent className="card-character-icons">
               <Typography
@@ -126,17 +128,24 @@ export function PreviewEpisode({
               >
                 Rating:
               </Typography>
-
-              <Rating
-                name="episode-rating"
-                value={data.episode.rating}
-                size="large"
-                onChange={(event, rating) => {
-                  if (rating) {
-                    setEpisodeRating({ variables: { rating } });
-                  }
-                }}
-              />
+              {mutationError ? (
+                <ErrorAlert
+                  error={mutationError}
+                  handleRetry={reset}
+                  buttonLabel={"Reset"}
+                />
+              ) : (
+                <Rating
+                  name="episode-rating"
+                  value={data.episode.rating}
+                  size="large"
+                  onChange={(event, rating) => {
+                    if (rating) {
+                      setEpisodeRating({ variables: { rating } });
+                    }
+                  }}
+                />
+              )}
             </CardContent>
 
             {characterPreviewId !== -1 && (
@@ -147,6 +156,16 @@ export function PreviewEpisode({
               />
             )}
           </>
+        ) : (getError || data?.episode == null) && !loading ? (
+          <CardContent className="card-content">
+            <ErrorAlert
+              error={
+                getError ??
+                new ApolloError({ errorMessage: "Episode not found" })
+              }
+              handleRetry={refetch}
+            />
+          </CardContent>
         ) : (
           <CardContent
             sx={{

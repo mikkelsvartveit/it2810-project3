@@ -15,6 +15,8 @@ import { formatEpisodeAndSeason } from "../../utils/helpers";
 import { useState } from "react";
 import { PreviewEpisode } from ".";
 import TvIcon from "@mui/icons-material/Tv";
+import { ErrorAlert } from "./ErrorAlert";
+import { ApolloError } from "@apollo/client";
 
 export interface IPreviewCharacterProps {
   id: number;
@@ -28,8 +30,9 @@ export function PreviewCharacter({
   handleClose,
 }: IPreviewCharacterProps) {
   const [openEpisodePreview, setOpenEpisodePreview] = useState(false);
-  const { data } = useGetCharacter(id);
-  const [setCharacterRating] = useSetCharacterRating(id);
+  const { data, error: getError, refetch, loading } = useGetCharacter(id);
+  const [setCharacterRating, { error: mutationError, reset }] =
+    useSetCharacterRating(id);
 
   return (
     <Modal
@@ -38,7 +41,7 @@ export function PreviewCharacter({
       sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
     >
       <Card className="preview-card">
-        {data ? (
+        {data && data.character ? (
           <>
             <CardMedia
               component="img"
@@ -109,16 +112,24 @@ export function PreviewCharacter({
                 Rating:
               </Typography>
 
-              <Rating
-                name="character-rating"
-                value={data.character.rating}
-                size="large"
-                onChange={(event, rating) => {
-                  if (rating) {
-                    setCharacterRating({ variables: { rating } });
-                  }
-                }}
-              />
+              {mutationError ? (
+                <ErrorAlert
+                  error={mutationError}
+                  handleRetry={reset}
+                  buttonLabel={"Reset"}
+                />
+              ) : (
+                <Rating
+                  name="character-rating"
+                  value={data.character.rating}
+                  size="large"
+                  onChange={(event, rating) => {
+                    if (rating) {
+                      setCharacterRating({ variables: { rating } });
+                    }
+                  }}
+                />
+              )}
 
               <Box width={"100%"}>
                 <Typography
@@ -145,12 +156,24 @@ export function PreviewCharacter({
               </Box>
             </CardContent>
 
-            <PreviewEpisode
-              open={openEpisodePreview}
-              handleClose={() => setOpenEpisodePreview(false)}
-              id={data.character.episode[0].id}
-            />
+            {openEpisodePreview && (
+              <PreviewEpisode
+                open={openEpisodePreview}
+                handleClose={() => setOpenEpisodePreview(false)}
+                id={data.character.episode[0].id}
+              />
+            )}
           </>
+        ) : (getError || data?.character == null) && !loading ? (
+          <CardContent className="card-content">
+            <ErrorAlert
+              error={
+                getError ??
+                new ApolloError({ errorMessage: "Episode not found" })
+              }
+              handleRetry={refetch}
+            />
+          </CardContent>
         ) : (
           <CardContent
             sx={{

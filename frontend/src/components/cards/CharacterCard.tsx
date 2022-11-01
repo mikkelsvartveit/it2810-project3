@@ -170,11 +170,13 @@ export function CharacterCard({
         </CardActionArea>
       </Card>
 
-      <PreviewCharacter
-        open={inFocus}
-        handleClose={() => setInFocus(false)}
-        id={id}
-      />
+      {inFocus && (
+        <PreviewCharacter
+          open={inFocus}
+          handleClose={() => setInFocus(false)}
+          id={id}
+        />
+      )}
     </figure>
   );
 }

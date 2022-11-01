@@ -62,7 +62,7 @@ const fetchRickAndMortyApi = async () => {
   };
 
   const fs = require("fs");
-  fs.writeFileSync("backend/dataset.json", JSON.stringify(dataset, null, 2));
+  fs.writeFileSync("../dataset.json", JSON.stringify(dataset, null, 2));
 };
 
 fetchRickAndMortyApi();

@@ -28,7 +28,7 @@ export function PreviewEpisode({
   handleClose,
   id,
 }: IPreviewEpisodeProps) {
-  const { data, error: getError, loading, refetch } = useGetEpisode(id);
+  const { data, error: queryError, loading, refetch } = useGetEpisode(id);
 
   const [setEpisodeRating, { error: mutationError, reset }] =
     useSetEpisodeRating(id);
@@ -156,11 +156,11 @@ export function PreviewEpisode({
               />
             )}
           </>
-        ) : (getError || data?.episode == null) && !loading ? (
+        ) : (queryError || data?.episode == null) && !loading ? (
           <CardContent className="card-content">
             <ErrorAlert
               error={
-                getError ??
+                queryError ??
                 new ApolloError({ errorMessage: "Episode not found" })
               }
               handleRetry={refetch}

@@ -13,7 +13,7 @@ export const apolloCache = new InMemoryCache({
         characters: {
           keyArgs: ["filters", "sort"],
           merge(prev, newData, { args }) {
-            // Merge prev cached data with new recieved from pagination
+            // Merge previous cached data with new recieved from pagination
             if (args == null) {
               args = { page: 1 };
             }
@@ -24,10 +24,11 @@ export const apolloCache = new InMemoryCache({
             return merged;
           },
         },
+
         episodes: {
           keyArgs: ["filters", "sort"],
           merge(prev, newData, { args }) {
-            // Merge prev cached data with new recieved from pagination
+            // Merge previous cached data with new recieved from pagination
             if (args == null) {
               args = { page: 1 };
             }
@@ -44,9 +45,9 @@ export const apolloCache = new InMemoryCache({
 });
 
 export const activeCharacterFilterVar = makeVar<ICharacterFilters>({});
-export const activeCharacterFilterNameVar = makeVar<string | null>(null); //debounce issue lead to this being its own var
+export const activeCharacterFilterNameVar = makeVar<string | null>(null); // debounce issue lead to this being its own var
 export const activeCharacterSortVar = makeVar<ICharacterSort>({});
 
 export const activeEpisodeFilterVar = makeVar<IEpisodeFilters>({});
-export const activeEpisodeFilterNameVar = makeVar<string | null>(null); //debounce issue lead to this being its own var
+export const activeEpisodeFilterNameVar = makeVar<string | null>(null); // debounce issue lead to this being its own var
 export const activeEpisodeSortVar = makeVar<IEpisodeSort>({});

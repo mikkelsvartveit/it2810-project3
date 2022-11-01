@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-describe("Tests navigation and state management between pages", () => {
+describe("Test navigation and state management between pages", () => {
   it("Sets filter and checks sort", () => {
     cy.visit("/");
     cy.get("h1").should("contain", "Rick and Morty Explorer");

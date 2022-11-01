@@ -63,6 +63,7 @@ export function MultipleSelectChip({
     <div>
       <FormControl fullWidth>
         <InputLabel id="multiple-chip-label">{label}</InputLabel>
+
         <Select
           data-testid={"multiple-chip-" + label}
           labelId="multiple-chip-label"

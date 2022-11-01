@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { useGetCharacter } from "../../gql/queries";
 import { useSetCharacterRating } from "../../gql/mutations";
+import { formatEpisodeAndSeason } from "../../utils/helpers";
 import { useState } from "react";
 import { PreviewEpisode } from ".";
 import TvIcon from "@mui/icons-material/Tv";
@@ -22,21 +23,13 @@ export interface IPreviewCharacterProps {
 }
 
 export function PreviewCharacter({
+  id,
   open,
   handleClose,
-  id,
 }: IPreviewCharacterProps) {
   const [openEpisodePreview, setOpenEpisodePreview] = useState(false);
   const { data } = useGetCharacter(id);
   const [setCharacterRating] = useSetCharacterRating(id);
-
-  function formatEpisodeAndSeason(episode: string) {
-    const episodeNum = episode.split("E")[1];
-    const seasonNum = episode.split("E")[0].split("S")[1];
-    return `Season ${Number.parseInt(seasonNum)}, Episode ${Number.parseInt(
-      episodeNum
-    )}`;
-  }
 
   return (
     <Modal
@@ -139,6 +132,7 @@ export function PreviewCharacter({
                   {data.character.episode.length === 1 ? "episode" : "episodes"}
                   :
                 </Typography>
+
                 <Box width={"100%"}>
                   {data.character.episode.map((episode) => (
                     <Typography
@@ -152,6 +146,7 @@ export function PreviewCharacter({
                 </Box>
               </Box>
             </CardContent>
+
             <PreviewEpisode
               open={openEpisodePreview}
               handleClose={() => setOpenEpisodePreview(false)}

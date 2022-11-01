@@ -16,19 +16,17 @@ import { Star } from "@mui/icons-material";
 export interface ICharacterCardProps {
   id: number;
   name: string;
-  image: string;
   status: string;
   species: string;
   gender: string;
   origin: {
     name: string;
   };
-  episode: {
-    id: number;
-  }[];
+  image: string;
   rating: number;
   episodeCount: number;
 }
+
 export function CharacterCard({
   id,
   name,
@@ -41,6 +39,7 @@ export function CharacterCard({
   episodeCount,
 }: ICharacterCardProps) {
   const [inFocus, setInFocus] = useState(false);
+
   const GenderIcon =
     gender === "Male" ? Male : gender === "Female" ? Female : AdjustOutlined;
 
@@ -66,6 +65,7 @@ export function CharacterCard({
               sx={{ width: 135, height: 150 }}
             />
           </Box>
+
           <CardContent
             sx={{
               height: 150,
@@ -91,6 +91,7 @@ export function CharacterCard({
                 }}
               >
                 <GenderIcon style={{ color: genderColor }} />
+
                 <span
                   style={{
                     overflow: "hidden",
@@ -138,6 +139,7 @@ export function CharacterCard({
                 In <strong>{episodeCount}</strong>
                 {episodeCount === 1 ? " episode" : " episodes"}
               </Typography>
+
               {rating && (
                 <Typography
                   variant="subtitle2"
@@ -149,6 +151,7 @@ export function CharacterCard({
                   }}
                 >
                   <Star style={{ color: "#faaf00" }} />
+
                   <span
                     style={{
                       fontSize: 16,

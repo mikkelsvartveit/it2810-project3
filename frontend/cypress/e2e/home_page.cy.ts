@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-describe("find Pickle Rick and set rating to 1 star", () => {
-  it("successfully loads", () => {
+describe("Test finding character and setting rating", () => {
+  it("Finds Pickle Rick and set rating to 1 star", () => {
     cy.visit("/");
     cy.get("h1").should("contain", "Rick and Morty Explorer");
     cy.get('[data-testid="multiple-chip-Status"] > #multiple-chip').click();
@@ -19,7 +19,7 @@ describe("find Pickle Rick and set rating to 1 star", () => {
     cy.get('[for=":r5:"]').click();
   });
 
-  it("sets pickle rick rating back to 5 stars", () => {
+  it("Checks that rating persists after refresh and changes rating to 5 stars", () => {
     cy.visit("/");
     cy.get('[data-testid="SearchField"] > .MuiInputBase-root').type(
       "Pickle Rick"

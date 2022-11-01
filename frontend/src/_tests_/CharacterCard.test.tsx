@@ -12,15 +12,19 @@ test("renders person card", async () => {
       <CharacterCard {...(samplePerson as unknown as ICharacter)} />
     </CustomMockedProvider>
   );
+
   expect(
     await screen.findByText(samplePerson.name, { exact: false })
   ).toBeInTheDocument();
+
   expect(
     await screen.findByText(samplePerson.status, { exact: false })
   ).toBeInTheDocument();
+
   expect(
     await screen.findByText(samplePerson.species, { exact: false })
   ).toBeInTheDocument();
+
   expect(
     await screen.findByText(samplePerson.origin.name, { exact: false })
   ).toBeInTheDocument();

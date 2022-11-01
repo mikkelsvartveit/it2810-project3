@@ -28,6 +28,7 @@ export function SortSelect({
     <>
       <FormControl fullWidth>
         <InputLabel id="demo-simple-select-label">Sort results by</InputLabel>
+
         <Select
           data-testid={"sort-select"}
           labelId="demo-simple-select-label"

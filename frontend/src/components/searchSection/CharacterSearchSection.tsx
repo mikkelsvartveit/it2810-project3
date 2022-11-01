@@ -12,15 +12,13 @@ import {
 } from "../formFields";
 import { ICharacterSort } from "types";
 
-export interface ICharacterSearchSectionProps {}
-
 const initsort = (filters: ICharacterSort) => {
   let entries = Object.entries({ ...filters });
   if (entries.length > 0) return entries[0][0] + "_" + entries[0][1];
   return null;
 };
 
-export function CharacterSearchSection(props: ICharacterSearchSectionProps) {
+export function CharacterSearchSection() {
   const currentFilter = useReactiveVar(activeCharacterFilterVar);
   const currFilterName = useReactiveVar(activeCharacterFilterNameVar);
   const currentSort = useReactiveVar(activeCharacterSortVar);

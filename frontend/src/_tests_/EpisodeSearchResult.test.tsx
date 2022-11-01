@@ -23,9 +23,11 @@ test("Renders episodes from gql query", async () => {
     expect(
       await screen.findByText(episode.name, { exact: false })
     ).toBeInTheDocument();
+
     expect(
       await screen.findByText(episode.air_date, { exact: false })
     ).toBeInTheDocument();
   });
+
   expect(await screen.findByText("No more results")).toBeInTheDocument();
 }, 10000);

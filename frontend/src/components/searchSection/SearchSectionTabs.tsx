@@ -25,9 +25,7 @@ function TabPanel(props: TabPanelProps) {
   );
 }
 
-export interface ISearchSectionTabsProps {}
-
-export function SearchSectionTabs(props: ISearchSectionTabsProps) {
+export function SearchSectionTabs() {
   const [value, setValue] = useState(0);
 
   return (
@@ -50,10 +48,12 @@ export function SearchSectionTabs(props: ISearchSectionTabsProps) {
           />
         </Tabs>
       </Box>
+
       <TabPanel value={value} index={0}>
         <CharacterSearchSection />
         <CharactersSearchResult />
       </TabPanel>
+
       <TabPanel value={value} index={1}>
         <EpisodeSearchSection />
         <EpisodesSearchResult />

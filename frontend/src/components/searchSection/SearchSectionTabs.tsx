@@ -30,33 +30,43 @@ export function SearchSectionTabs() {
 
   return (
     <>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs
-          value={value}
-          onChange={(e, value) => setValue(value)}
-          aria-label="basic tabs example"
-        >
-          <Tab
-            label="Characters"
-            sx={{ fontWeight: 600 }}
-            data-testid="CharactersTab"
-          />
-          <Tab
-            label="Episodes"
-            sx={{ fontWeight: 600 }}
-            data-testid="EpisodesTab"
-          />
-        </Tabs>
-      </Box>
+      <nav>
+        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+          <Tabs
+            value={value}
+            onChange={(e, value) => setValue(value)}
+            aria-label="basic tabs example"
+          >
+            <Tab
+              label="Characters"
+              sx={{ fontWeight: 600 }}
+              data-testid="CharactersTab"
+            />
+            <Tab
+              label="Episodes"
+              sx={{ fontWeight: 600 }}
+              data-testid="EpisodesTab"
+            />
+          </Tabs>
+        </Box>
+      </nav>
 
       <TabPanel value={value} index={0}>
-        <CharacterSearchSection />
-        <CharactersSearchResult />
+        <form>
+          <CharacterSearchSection />
+        </form>
+        <section>
+          <CharactersSearchResult />
+        </section>
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <EpisodeSearchSection />
-        <EpisodesSearchResult />
+        <form>
+          <EpisodeSearchSection />
+        </form>
+        <section>
+          <EpisodesSearchResult />
+        </section>
       </TabPanel>
     </>
   );

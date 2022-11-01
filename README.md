@@ -114,6 +114,7 @@ We have attempted to achieve a high level of accessibility in our web applicatio
 
 - Attention to contrast between the text and the background.
 - Minimalistic design without overly saturated colors, enough spacing between elements and text with sufficient font size.
+- Usage of semantic elements like header, main, section and nav for a clear division of different elements in the UI
 - Images have `alt` attributes to improve the experience for people using screen readers.
 - Usage of `aria-label` and `aria-labelledby` attributes for elements that do not have obvious visible text accociated with them.
 

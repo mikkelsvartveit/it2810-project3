@@ -68,36 +68,34 @@ export function EpisodesSearchResult() {
   return (
     <>
       {(pageNr > 1 && scrollData) || (!loading && scrollData) ? (
-        <>
-          <InfiniteScroll
-            dataLength={scrollData.length}
-            next={loadScrollData}
-            hasMore={!isLastPage}
-            scrollThreshold={0.9}
-            loader={<LinearProgress />}
-            style={{ overflow: "unset" }}
-            endMessage={
-              <h3 style={{ textAlign: "center", marginTop: 40 }}>
-                {scrollData.length === 0 ? "No results" : "No more results"}
-              </h3>
-            }
-          >
-            <Grid container spacing={3}>
-              {scrollData.map((episode) => (
-                <Grid item xs={12} md={6} lg={4} key={episode.id}>
-                  <EpisodeCard
-                    id={episode.id}
-                    name={episode.name}
-                    air_date={episode.air_date}
-                    episode={episode.episode}
-                    rating={episode.rating}
-                    characterCount={episode.characterCount}
-                  />
-                </Grid>
-              ))}
-            </Grid>
-          </InfiniteScroll>
-        </>
+        <InfiniteScroll
+          dataLength={scrollData.length}
+          next={loadScrollData}
+          hasMore={!isLastPage}
+          scrollThreshold={0.9}
+          loader={<LinearProgress />}
+          style={{ overflow: "unset" }}
+          endMessage={
+            <h3 style={{ textAlign: "center", marginTop: 40 }}>
+              {scrollData.length === 0 ? "No results" : "No more results"}
+            </h3>
+          }
+        >
+          <Grid container spacing={3}>
+            {scrollData.map((episode) => (
+              <Grid item xs={12} md={6} lg={4} key={episode.id}>
+                <EpisodeCard
+                  id={episode.id}
+                  name={episode.name}
+                  air_date={episode.air_date}
+                  episode={episode.episode}
+                  rating={episode.rating}
+                  characterCount={episode.characterCount}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </InfiniteScroll>
       ) : (
         <Box
           sx={{

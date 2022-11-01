@@ -46,6 +46,7 @@ export function CharactersSearchResult() {
   // Function that is triggered when user scrolls towards the end of the list
   const loadScrollData = async () => {
     if (!data || loading) return;
+    let foundError = false;
 
     await fetchMore({
       variables: {
@@ -71,10 +72,12 @@ export function CharactersSearchResult() {
     }).catch((err) => {
       setIsLastPage(true);
       setFetchmoreError(err);
+      foundError = true;
       return;
     });
-
-    setPageNr((pageNr) => pageNr + 1);
+    if (!foundError) {
+      setPageNr((pageNr) => pageNr + 1);
+    }
   };
 
   return (

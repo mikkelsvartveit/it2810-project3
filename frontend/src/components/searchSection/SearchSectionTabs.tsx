@@ -1,4 +1,4 @@
-import { Tabs, Tab, Box } from "@mui/material";
+import { Tabs, Tab } from "@mui/material";
 import { useState } from "react";
 import { CharacterSearchSection, EpisodeSearchSection } from "./";
 import { CharactersSearchResult, EpisodesSearchResult } from "../searchResults";

@@ -13,10 +13,16 @@ import {
 export const GET_CHARACTERS = gql`
   query GetCharacters(
     $page: Int!
+    $pageSize: Int
     $filters: CharacterFilter
     $sort: CharacterSort
   ) {
-    characters(page: $page, filters: $filters, sort: $sort) {
+    characters(
+      page: $page
+      pageSize: $pageSize
+      filters: $filters
+      sort: $sort
+    ) {
       name
       status
       species
@@ -32,7 +38,7 @@ export const GET_CHARACTERS = gql`
   }
 `;
 
-export const useGetCharacters = () => {
+export const useGetCharacters = (pageSize: number) => {
   const [pageNr, setPageNr] = useState(1);
   const [isLastPage, setIsLastPage] = useState(true);
   const filter = useReactiveVar(activeCharacterFilterVar);
@@ -41,13 +47,13 @@ export const useGetCharacters = () => {
 
   const filters = name ? { ...filter, name } : filter;
   const queryResult = useQuery<{ characters: ICharacter[] }>(GET_CHARACTERS, {
-    variables: { page: 1, filters, sort },
+    variables: { page: 1, pageSize, filters, sort },
   });
 
   useEffect(() => {
     setPageNr(1);
     setIsLastPage(false);
-  }, [filter, name, sort]);
+  }, [filter, pageSize, name, sort]);
 
   return {
     pageNr,
@@ -90,8 +96,13 @@ export const useGetCharacter = (characterId: number) => {
 };
 
 export const GET_EPISODES = gql`
-  query GetEpisodes($page: Int!, $filters: EpisodeFilter, $sort: EpisodeSort) {
-    episodes(page: $page, filters: $filters, sort: $sort) {
+  query GetEpisodes(
+    $page: Int!
+    $pageSize: Int
+    $filters: EpisodeFilter
+    $sort: EpisodeSort
+  ) {
+    episodes(page: $page, pageSize: $pageSize, filters: $filters, sort: $sort) {
       air_date
       episode
       id
@@ -102,7 +113,7 @@ export const GET_EPISODES = gql`
   }
 `;
 
-export const useGetEpisodes = () => {
+export const useGetEpisodes = (pageSize: number) => {
   const [pageNr, setPageNr] = useState(1);
   const [isLastPage, setIsLastPage] = useState(false);
   const episodeFilter = useReactiveVar(activeEpisodeFilterVar);
@@ -117,7 +128,7 @@ export const useGetEpisodes = () => {
   useEffect(() => {
     setPageNr(1);
     setIsLastPage(false);
-  }, [filterName, episodeFilter, sort]);
+  }, [filterName, pageSize, episodeFilter, sort]);
 
   return {
     pageNr,
@@ -125,7 +136,7 @@ export const useGetEpisodes = () => {
     isLastPage,
     setIsLastPage,
     ...useQuery<{ episodes: IEpisode[] }>(GET_EPISODES, {
-      variables: { page: 1, filters, sort },
+      variables: { page: 1, pageSize, filters, sort },
     }),
   };
 };

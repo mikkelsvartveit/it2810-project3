@@ -5,6 +5,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { CharacterCard, ICharacterCardProps } from "../cards/";
 import { useGetCharacters } from "../../gql/queries";
 
+const PAGE_SIZE = 18;
+
 export function CharactersSearchResult() {
   const {
     pageNr,
@@ -14,7 +16,7 @@ export function CharactersSearchResult() {
     data,
     loading,
     fetchMore,
-  } = useGetCharacters();
+  } = useGetCharacters(PAGE_SIZE);
 
   const [scrollData, setScrollData] = useState<ICharacterCardProps[]>([]);
 
@@ -28,7 +30,7 @@ export function CharactersSearchResult() {
       return;
     }
 
-    if (data.characters.length < 18) {
+    if (data.characters.length < PAGE_SIZE) {
       setIsLastPage(true);
     }
 
@@ -51,7 +53,7 @@ export function CharactersSearchResult() {
           return prev;
         }
 
-        if (fetchMoreResult.characters.length < 18) {
+        if (fetchMoreResult.characters.length < PAGE_SIZE) {
           setIsLastPage(true);
         }
 

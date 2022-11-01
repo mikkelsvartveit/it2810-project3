@@ -5,6 +5,8 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { useGetEpisodes } from "../../gql/queries";
 import { EpisodeCard, IEpisodeCardProps } from "../cards/";
 
+const PAGE_SIZE = 18;
+
 export function EpisodesSearchResult() {
   const {
     pageNr,
@@ -14,7 +16,7 @@ export function EpisodesSearchResult() {
     data,
     loading,
     fetchMore,
-  } = useGetEpisodes();
+  } = useGetEpisodes(PAGE_SIZE);
 
   const [scrollData, setScrollData] = useState<IEpisodeCardProps[]>([]);
 
@@ -26,7 +28,7 @@ export function EpisodesSearchResult() {
       setScrollData([]);
       return;
     }
-    if (data.episodes.length < 18) {
+    if (data.episodes.length < PAGE_SIZE) {
       setIsLastPage(true);
     }
 
@@ -49,7 +51,7 @@ export function EpisodesSearchResult() {
           return prev;
         }
 
-        if (fetchMoreResult.episodes.length < 18) {
+        if (fetchMoreResult.episodes.length < PAGE_SIZE) {
           setIsLastPage(true);
         }
 

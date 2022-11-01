@@ -11,6 +11,7 @@ export const mockedFilteredCharacterQuery = {
     query: GET_CHARACTERS,
     variables: {
       page: 1,
+      pageSize: 18,
       filters: { name: "campaign" },
       sort: {},
     },
@@ -54,6 +55,7 @@ export const mockedFilteredEpisodeQuery = {
     query: GET_EPISODES,
     variables: {
       page: 1,
+      pageSize: 18,
       filters: { name: "testepisode" },
       sort: {},
     },
@@ -95,6 +97,7 @@ export const mockCharactersQuery = {
     query: GET_CHARACTERS,
     variables: {
       page: 1,
+      pageSize: 18,
       filters: {},
       sort: {},
     },
@@ -346,6 +349,7 @@ export const mockEpisodesQuery = {
     query: GET_EPISODES,
     variables: {
       page: 1,
+      pageSize: 18,
       filters: {},
       sort: {},
     },

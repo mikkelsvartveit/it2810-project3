@@ -11,7 +11,7 @@ export const apolloCache = new InMemoryCache({
     Query: {
       fields: {
         characters: {
-          keyArgs: ["filters", "sort"],
+          keyArgs: ["pageSize", "filters", "sort"],
           merge(prev, newData, { args }) {
             // Merge previous cached data with new recieved from pagination
             if (args == null) {
@@ -26,7 +26,7 @@ export const apolloCache = new InMemoryCache({
         },
 
         episodes: {
-          keyArgs: ["filters", "sort"],
+          keyArgs: ["pageSize", "filters", "sort"],
           merge(prev, newData, { args }) {
             // Merge previous cached data with new recieved from pagination
             if (args == null) {

@@ -8,8 +8,9 @@ import {
   IEpisodeFilters,
   IEpisodeSort,
 } from "types";
+import { GraphQLError } from "graphql";
 
-const PAGE_SIZE = 18;
+const DEFAULT_PAGE_SIZE = 18;
 
 const mongooseStringContains = (str?: string) => ({
   $regex: str ?? "",
@@ -26,7 +27,9 @@ export const resolvers = {
       const character = await Character.findOne({ id });
 
       if (!character) {
-        throw new Error("Character not found");
+        throw new GraphQLError("Character not found", {
+          extensions: { code: "BAD_USER_INPUT" },
+        });
       }
 
       character.rating = rating;
@@ -42,7 +45,9 @@ export const resolvers = {
       const episode = await Episode.findOne({ id });
 
       if (!episode) {
-        throw new Error("Episode not found");
+        throw new GraphQLError("Episode not found", {
+          extensions: { code: "BAD_USER_INPUT" },
+        });
       }
 
       episode.rating = rating;
@@ -58,18 +63,31 @@ export const resolvers = {
       _: unknown,
       {
         page,
+        pageSize,
         filters,
         sort,
-      }: { page: number; filters: ICharacterFilters; sort: ICharacterSort }
-    ) =>
-      await Character.find({
+      }: {
+        page: number;
+        pageSize?: number;
+        filters: ICharacterFilters;
+        sort: ICharacterSort;
+      }
+    ) => {
+      if (!pageSize) {
+        pageSize = DEFAULT_PAGE_SIZE;
+      } else if (pageSize < 1) {
+        throw new GraphQLError("Page size must be at least 1", {
+          extensions: { code: "BAD_USER_INPUT" },
+        });
+      }
+      return await Character.find({
         ...filters,
         name: mongooseStringContains(filters?.name),
       })
         .sort({ ...sort, _id: 1 } ?? { _id: 1 })
-        .skip((page - 1) * PAGE_SIZE)
-        .limit(PAGE_SIZE),
-
+        .skip((page - 1) * pageSize)
+        .limit(pageSize);
+    },
     // Query for getting a single character by id
     character: async (_: unknown, { id }: { id: number }) =>
       await Character.findOne({ id }),
@@ -80,10 +98,23 @@ export const resolvers = {
       _: unknown,
       {
         page,
+        pageSize,
         filters,
         sort,
-      }: { page: number; filters: IEpisodeFilters; sort: IEpisodeSort }
+      }: {
+        page: number;
+        pageSize?: number;
+        filters: IEpisodeFilters;
+        sort: IEpisodeSort;
+      }
     ) => {
+      if (!pageSize) {
+        pageSize = DEFAULT_PAGE_SIZE;
+      } else if (pageSize < 1) {
+        throw new GraphQLError("Page size must be at least 1", {
+          extensions: { code: "BAD_USER_INPUT" },
+        });
+      }
       return await Episode.find({
         name: mongooseStringContains(filters?.name),
         episode: mongooseStringContains(filters?.season),
@@ -94,8 +125,8 @@ export const resolvers = {
         }").getTime()))`,
       })
         .sort({ ...sort, _id: 1 } ?? { _id: 1 })
-        .skip((page - 1) * PAGE_SIZE)
-        .limit(PAGE_SIZE);
+        .skip((page - 1) * pageSize)
+        .limit(pageSize);
     },
 
     // Query for getting a single episode by id

@@ -12,17 +12,17 @@ interface TabPanelProps {
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
-  return (
-    <div
+  return value === index ? (
+    <main
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && children}
-    </div>
-  );
+      {children}
+    </main>
+  ) : null;
 }
 
 export function SearchSectionTabs() {
@@ -30,40 +30,39 @@ export function SearchSectionTabs() {
 
   return (
     <>
-      <nav>
-        <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-          <Tabs
-            value={value}
-            onChange={(e, value) => setValue(value)}
-            aria-label="basic tabs example"
-          >
-            <Tab
-              label="Characters"
-              sx={{ fontWeight: 600 }}
-              data-testid="CharactersTab"
-            />
-            <Tab
-              label="Episodes"
-              sx={{ fontWeight: 600 }}
-              data-testid="EpisodesTab"
-            />
-          </Tabs>
-        </Box>
-      </nav>
+      <Tabs
+        component="nav"
+        value={value}
+        onChange={(e, value) => setValue(value)}
+        aria-label="basic tabs example"
+        sx={{ borderBottom: 1, borderColor: "divider" }}
+      >
+        <Tab
+          component="a"
+          label="Characters"
+          sx={{ fontWeight: 600 }}
+          data-testid="CharactersTab"
+        />
+
+        <Tab
+          component="a"
+          label="Episodes"
+          sx={{ fontWeight: 600 }}
+          data-testid="EpisodesTab"
+        />
+      </Tabs>
 
       <TabPanel value={value} index={0}>
-        <form>
-          <CharacterSearchSection />
-        </form>
+        <CharacterSearchSection />
+
         <section>
           <CharactersSearchResult />
         </section>
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <form>
-          <EpisodeSearchSection />
-        </form>
+        <EpisodeSearchSection />
+
         <section>
           <EpisodesSearchResult />
         </section>

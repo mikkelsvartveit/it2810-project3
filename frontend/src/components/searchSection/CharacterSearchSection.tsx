@@ -36,7 +36,12 @@ export function CharacterSearchSection() {
   const defaultSort = "default";
 
   return (
-    <Grid container spacing={3} sx={{ marginTop: 1, marginBottom: 4 }}>
+    <Grid
+      component="form"
+      container
+      spacing={3}
+      sx={{ marginTop: 1, marginBottom: 4 }}
+    >
       <Grid item xs={12}>
         <TextFieldWithDebounce
           label="Character name"

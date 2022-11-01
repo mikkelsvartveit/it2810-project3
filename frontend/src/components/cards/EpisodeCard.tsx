@@ -24,8 +24,12 @@ export function EpisodeCard({
   const [inFocus, setInFocus] = useState(false);
 
   return (
-    <figure>
-      <Card sx={{ margin: 0 }} data-testid={"episode-card-" + id}>
+    <>
+      <Card
+        component="figure"
+        sx={{ margin: 0 }}
+        data-testid={"episode-card-" + id}
+      >
         <CardActionArea onClick={() => setInFocus(true)}>
           <CardContent
             sx={{
@@ -118,6 +122,6 @@ export function EpisodeCard({
           id={id}
         />
       )}
-    </figure>
+    </>
   );
 }

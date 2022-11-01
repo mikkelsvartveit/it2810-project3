@@ -47,8 +47,12 @@ export function CharacterCard({
     gender === "Male" ? "#71B8D9" : gender === "Female" ? "#FB6467" : "#E7DB25";
 
   return (
-    <figure>
-      <Card sx={{ margin: 0 }} data-testid={"character-card-" + id}>
+    <>
+      <Card
+        component="figure"
+        sx={{ margin: 0 }}
+        data-testid={"character-card-" + id}
+      >
         <CardActionArea
           sx={{
             display: "flex",
@@ -177,6 +181,6 @@ export function CharacterCard({
           id={id}
         />
       )}
-    </figure>
+    </>
   );
 }

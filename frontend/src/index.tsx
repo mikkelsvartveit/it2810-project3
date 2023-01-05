@@ -6,7 +6,7 @@ import { ApolloClient, ApolloProvider } from "@apollo/client";
 import { apolloCache } from "./gql/cache";
 
 const client = new ApolloClient({
-  uri: `http://${window.location.hostname}:4000/graphql`,
+  uri: `${window.location.origin}/graphql`,
   cache: apolloCache,
 });
 

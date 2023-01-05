@@ -3,7 +3,8 @@
 import mongoose from "mongoose";
 import { characters, episodes } from "../dataset.json";
 
-let MONGODB_URL = "mongodb://localhost:27017/rickandmorty";
+let MONGODB_URL =
+  process.env.MONGODB_URL || "mongodb://localhost:27017/rickandmorty";
 
 if (process.env.NODE_ENV == "test")
   MONGODB_URL = "mongodb://mongo/rickandmorty";

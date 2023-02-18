@@ -1,0 +1,7 @@
+backend/node_modules
+backend/lib
+backend/public
+\*.sqlite
+
+frontend/node_modules
+frontend/build
